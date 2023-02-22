@@ -26,6 +26,7 @@ public class frm_Login extends javax.swing.JFrame {
     }
    public boolean RevisarUsuario(String usuario){
         //Funcion para Revisar si el usuario existe dentro de la BD
+        String a;
         PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
