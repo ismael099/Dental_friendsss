@@ -83,7 +83,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
         lbl_descripcion.setForeground(new java.awt.Color(94, 141, 147));
         lbl_descripcion.setText("Descripción:");
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,10 +91,10 @@ public class frm_listado_productos extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-búsqueda-32.png"))); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
 
-        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-imprimir-32.png"))); // NOI18N
+        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
         btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
         lbl_marca.setForeground(new java.awt.Color(81, 124, 164));
         lbl_marca.setText("Marca:");
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-eliminar-32.png"))); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +128,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
             }
         });
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
 
         javax.swing.GroupLayout panel_listado_productoLayout = new javax.swing.GroupLayout(panel_listado_producto);
         panel_listado_producto.setLayout(panel_listado_productoLayout);

@@ -208,7 +208,7 @@
         <Component class="javax.swing.JButton" name="btn_vaciar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\jim3j\Downloads\Proyecto santiago\icons8-eliminar-32.png"/>
+              <Image iconType="3" name="/Imagenes/icons8-eliminar-32.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Vaciar"/>
           </Properties>
@@ -242,7 +242,7 @@
         <Component class="javax.swing.JButton" name="btn_salir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/icons8-salida-32.png"/>
+              <Image iconType="3" name="/Imagenes/icons8-salida-32.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Salir"/>
           </Properties>
@@ -253,7 +253,7 @@
         <Component class="javax.swing.JButton" name="btn_buscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/icons8-b&#xfa;squeda-32.png"/>
+              <Image iconType="3" name="/Imagenes/icons8-b&#xfa;squeda-32.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Buscar"/>
           </Properties>
@@ -261,7 +261,7 @@
         <Component class="javax.swing.JButton" name="btn_imprimir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/icons8-imprimir-32.png"/>
+              <Image iconType="3" name="/Imagenes/icons8-imprimir-32.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
           </Properties>
@@ -272,7 +272,7 @@
         <Component class="javax.swing.JLabel" name="lbl_logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/lo.png"/>
+              <Image iconType="3" name="/Imagenes/lo.png"/>
             </Property>
           </Properties>
         </Component>

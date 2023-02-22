@@ -96,7 +96,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
         lbl_detalle.setText("Detalle:");
         panel_listado_factura.add(lbl_detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-eliminar-32.png"))); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +105,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
         });
         panel_listado_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 131, 30, 30));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir ");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +114,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
         });
         panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-búsqueda-32.png"))); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +123,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
         });
         panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, -1, -1));
 
-        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-imprimir-32.png"))); // NOI18N
+        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
         btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +147,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
 
         panel_listado_factura.add(tabla_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 690, 240));
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_listado_factura.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

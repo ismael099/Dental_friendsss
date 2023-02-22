@@ -286,7 +286,7 @@
         <Component class="javax.swing.JLabel" name="lbl_logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/lo.png"/>
+              <Image iconType="3" name="/Imagenes/lo.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -298,7 +298,7 @@
         <Component class="javax.swing.JButton" name="btn_salir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/DF_presentacion/icons8-salida-32.png"/>
+              <Image iconType="3" name="/Imagenes/icons8-salida-32.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Salir al menu principal"/>
           </Properties>

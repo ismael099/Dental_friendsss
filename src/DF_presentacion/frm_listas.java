@@ -96,7 +96,7 @@ public class frm_listas extends javax.swing.JFrame {
         lbl_prod.setText("Listado de productos:");
         panel_listas.add(lbl_prod, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, -1));
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_listas.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         lbl_fact.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -116,7 +116,7 @@ public class frm_listas extends javax.swing.JFrame {
         });
         panel_listas.add(btn_fact, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 120, 50));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

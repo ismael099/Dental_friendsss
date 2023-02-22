@@ -124,13 +124,13 @@ public class frm_producto extends javax.swing.JFrame {
         });
         panel_producto.add(btn_produ, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 130, 60));
 
-        lbl_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_producto.add(lbl_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         txt_marca.setForeground(new java.awt.Color(240, 240, 240));
         panel_producto.add(txt_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 150, -1));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

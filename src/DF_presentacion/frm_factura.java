@@ -132,7 +132,7 @@ public class frm_factura extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(94, 141, 147));
         lbl_titulo.setText("Dental Friends ");
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
 
         lbl_subtitulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_subtitulo.setForeground(new java.awt.Color(94, 141, 147));
@@ -142,7 +142,7 @@ public class frm_factura extends javax.swing.JFrame {
         cmb_servicios.setForeground(new java.awt.Color(81, 124, 164));
         cmb_servicios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brakets", "Caries", "Blanquiamiento", "Limpieza", " " }));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

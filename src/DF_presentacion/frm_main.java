@@ -115,7 +115,7 @@ public class frm_main extends javax.swing.JFrame {
         lbl_emp.setText("Registrar empleado:");
         panel_main.add(lbl_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, -1));
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_main.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         lbl_fac1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N

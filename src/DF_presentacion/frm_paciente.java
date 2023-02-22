@@ -154,10 +154,10 @@ public class frm_paciente extends javax.swing.JFrame {
         lbl_title.setText("Registro de paciente");
         panel_paciente.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_paciente.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

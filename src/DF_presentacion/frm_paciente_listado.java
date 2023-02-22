@@ -86,7 +86,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
         lbl_cedula.setText("Cedula");
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon("C:\\Users\\jim3j\\Downloads\\Proyecto santiago\\icons8-eliminar-32.png")); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +109,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         ));
         tabla_pacientes.setViewportView(jTable1);
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,10 +117,10 @@ public class frm_paciente_listado extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-búsqueda-32.png"))); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
 
-        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/icons8-imprimir-32.png"))); // NOI18N
+        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
         btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +128,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
             }
         });
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
 
         javax.swing.GroupLayout panel_listado_pacienteLayout = new javax.swing.GroupLayout(panel_listado_paciente);
         panel_listado_paciente.setLayout(panel_listado_pacienteLayout);

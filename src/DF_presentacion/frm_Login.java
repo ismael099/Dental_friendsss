@@ -132,7 +132,7 @@ public class frm_Login extends javax.swing.JFrame {
         lbl_panei.add(lbl_df, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 62, -1, -1));
         lbl_panei.add(txt_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 237, 120, -1));
 
-        lb_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DF_presentacion/sellos.png"))); // NOI18N
+        lb_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sellos.png"))); // NOI18N
         lb_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_imgMouseClicked(evt);
