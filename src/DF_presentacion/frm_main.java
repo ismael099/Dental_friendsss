@@ -31,14 +31,16 @@ public class frm_main extends javax.swing.JFrame {
         btn_Listas = new javax.swing.JButton();
         btn_paci = new javax.swing.JButton();
         btn_productos = new javax.swing.JButton();
-        btn_emp = new javax.swing.JButton();
+        btn_admin = new javax.swing.JButton();
         lbl_paciente = new javax.swing.JLabel();
         lbl_fac = new javax.swing.JLabel();
         lbl_prod = new javax.swing.JLabel();
-        lbl_emp = new javax.swing.JLabel();
+        lbl_admin = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         lbl_fac1 = new javax.swing.JLabel();
         btn_fact = new javax.swing.JButton();
+        btn_emp = new javax.swing.JButton();
+        lbl_emp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu principal");
@@ -83,17 +85,17 @@ public class frm_main extends javax.swing.JFrame {
         });
         panel_main.add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 130, 50));
 
-        btn_emp.setBackground(new java.awt.Color(255, 255, 255));
-        btn_emp.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        btn_emp.setForeground(new java.awt.Color(94, 141, 147));
-        btn_emp.setText("Registrar");
-        btn_emp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_emp.addActionListener(new java.awt.event.ActionListener() {
+        btn_admin.setBackground(new java.awt.Color(255, 255, 255));
+        btn_admin.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btn_admin.setForeground(new java.awt.Color(94, 141, 147));
+        btn_admin.setText("Registrar");
+        btn_admin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_admin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_empActionPerformed(evt);
+                btn_adminActionPerformed(evt);
             }
         });
-        panel_main.add(btn_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 120, 50));
+        panel_main.add(btn_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 120, 50));
 
         lbl_paciente.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_paciente.setForeground(new java.awt.Color(81, 124, 164));
@@ -110,10 +112,10 @@ public class frm_main extends javax.swing.JFrame {
         lbl_prod.setText("Registrar Producto:");
         panel_main.add(lbl_prod, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
-        lbl_emp.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        lbl_emp.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_emp.setText("Registrar empleado:");
-        panel_main.add(lbl_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, -1));
+        lbl_admin.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbl_admin.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_admin.setText("Registro Admin:");
+        panel_main.add(lbl_admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
         panel_main.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
@@ -135,7 +137,24 @@ public class frm_main extends javax.swing.JFrame {
         });
         panel_main.add(btn_fact, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 120, 50));
 
-        getContentPane().add(panel_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 430));
+        btn_emp.setBackground(new java.awt.Color(255, 255, 255));
+        btn_emp.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        btn_emp.setForeground(new java.awt.Color(94, 141, 147));
+        btn_emp.setText("Registrar");
+        btn_emp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_emp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_empActionPerformed(evt);
+            }
+        });
+        panel_main.add(btn_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 120, 50));
+
+        lbl_emp.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbl_emp.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_emp.setText("Registrar Empleado:");
+        panel_main.add(lbl_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, -1, -1));
+
+        getContentPane().add(panel_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -156,13 +175,13 @@ public class frm_main extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_paciActionPerformed
 
-    private void btn_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_empActionPerformed
-         // Este es el boton que permite ir a la pantalla de registro de empleados
-        frm_empleado mf = new frm_empleado();// aqui estamos creando un mf nuevo
+    private void btn_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adminActionPerformed
+         // Este es el boton que permite ir a la pantalla de registro de administrador
+        frm_admin mf = new frm_admin();// aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
         this.dispose();
-    }//GEN-LAST:event_btn_empActionPerformed
+    }//GEN-LAST:event_btn_adminActionPerformed
 
     private void btn_factActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factActionPerformed
           // Este es el boton que permite ir a la pantalla de facturacion
@@ -179,6 +198,15 @@ public class frm_main extends javax.swing.JFrame {
         mf.pack();
         this.dispose();
     }//GEN-LAST:event_btn_productosActionPerformed
+
+    private void btn_empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_empActionPerformed
+         // Este es el boton que permite ir a la pantalla de registro de empleados
+        frm_empleado mf = new frm_empleado();// aqui estamos creando un mf nuevo
+        mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
+        mf.pack();
+        this.dispose();
+
+    }//GEN-LAST:event_btn_empActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,10 +245,12 @@ public class frm_main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Listas;
+    private javax.swing.JButton btn_admin;
     private javax.swing.JButton btn_emp;
     private javax.swing.JButton btn_fact;
     private javax.swing.JButton btn_paci;
     private javax.swing.JButton btn_productos;
+    private javax.swing.JLabel lbl_admin;
     private javax.swing.JLabel lbl_emp;
     private javax.swing.JLabel lbl_fac;
     private javax.swing.JLabel lbl_fac1;
