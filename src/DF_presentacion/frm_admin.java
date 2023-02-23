@@ -11,28 +11,26 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 /**
  *
- * @author Alian Peralta
+ * @author jim3j
  */
-public class frm_paciente extends javax.swing.JFrame {
+public class frm_admin extends javax.swing.JFrame {
 
     /**
-     * Creates new form frm_cliente
+     * Creates new form frm_admin
      */
-    public frm_paciente() {
+    public frm_admin() {
         initComponents();
     }
-    public boolean RevisarPaciente(String usuario){
+public boolean RevisarAdmin(String admin){
           PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
-        String query = "SELECT * FROM `paciente` WHERE `nombre` =?";
+        String query = "SELECT * FROM `admin` WHERE `nombre` =?";
         try {
             ps = MyConnetion.getConnection().prepareStatement(query);
-            ps.setString(1, usuario);
+            ps.setString(1, admin);
             
             rs = ps.executeQuery();
             
@@ -44,12 +42,12 @@ public class frm_paciente extends javax.swing.JFrame {
         }
         return checkUser;
     }
-    public void Limpiar(){
+public void Limpiar(){
     try{
     txt_nombre.setText("");
     txt_direccion.setText("");
-    txt_apellido.setText("");
-    txt_core.setText("");
+    txt_contra.setText("");
+    txt_prepa.setText("");
     txt_telefono.setText("");
     txt_cedula.setText("");
     }
@@ -57,7 +55,6 @@ public class frm_paciente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"error"+ ex);
     }
 }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +64,7 @@ public class frm_paciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel_paciente = new javax.swing.JPanel();
+        panel_admin = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         lbl_cedu = new javax.swing.JLabel();
@@ -77,54 +74,52 @@ public class frm_paciente extends javax.swing.JFrame {
         lbl_correo = new javax.swing.JLabel();
         btn_editar = new javax.swing.JButton();
         lbl_tel = new javax.swing.JLabel();
-        lbl_ape = new javax.swing.JLabel();
-        txt_apellido = new javax.swing.JTextField();
+        lbl_prepa = new javax.swing.JLabel();
+        txt_prepa = new javax.swing.JTextField();
         txt_telefono = new javax.swing.JTextField();
-        txt_core = new javax.swing.JTextField();
         lbl_title = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         btn_salir = new javax.swing.JButton();
         btn_regipaciente1 = new javax.swing.JButton();
         scrpanel_tabla = new javax.swing.JScrollPane();
         tabla_paciente = new javax.swing.JTable();
-        sp_separador = new javax.swing.JSeparator();
+        txt_contra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registro de pacientes");
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("Registrar Administrador");
 
-        panel_paciente.setBackground(new java.awt.Color(255, 255, 255));
-        panel_paciente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panel_admin.setBackground(new java.awt.Color(255, 255, 255));
+        panel_admin.setToolTipText("");
+        panel_admin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_nombre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_nombre.setForeground(new java.awt.Color(81, 124, 164));
         lbl_nombre.setText("Nombre:");
-        panel_paciente.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        panel_admin.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_paciente.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 137, 20));
+        panel_admin.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 120, 20));
 
         lbl_cedu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_cedu.setForeground(new java.awt.Color(81, 124, 164));
         lbl_cedu.setText("Cedula:");
-        panel_paciente.add(lbl_cedu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        panel_admin.add(lbl_cedu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
         txt_cedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_paciente.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 150, 20));
+        panel_admin.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 150, 20));
 
         lbl_dire.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_dire.setForeground(new java.awt.Color(81, 124, 164));
         lbl_dire.setText("Direccion:");
-        panel_paciente.add(lbl_dire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        panel_admin.add(lbl_dire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         txt_direccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_paciente.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 130, 20));
+        panel_admin.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 130, 20));
 
         lbl_correo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_correo.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_correo.setText("Correo:");
-        panel_paciente.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
+        lbl_correo.setText("Contraseña:");
+        panel_admin.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
 
         btn_editar.setBackground(new java.awt.Color(255, 255, 255));
         btn_editar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -136,39 +131,31 @@ public class frm_paciente extends javax.swing.JFrame {
                 btn_editarActionPerformed(evt);
             }
         });
-        panel_paciente.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 100, 40));
+        panel_admin.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 100, 40));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
         lbl_tel.setText("Telefono:");
-        panel_paciente.add(lbl_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
+        panel_admin.add(lbl_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
-        lbl_ape.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_ape.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_ape.setText("Apellido:");
-        panel_paciente.add(lbl_ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        lbl_prepa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_prepa.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_prepa.setText("Preparacion Aca:");
+        panel_admin.add(lbl_prepa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
 
-        txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        txt_apellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_apellidoActionPerformed(evt);
-            }
-        });
-        panel_paciente.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 147, 20));
+        txt_prepa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
+        panel_admin.add(txt_prepa, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 147, 20));
 
         txt_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_paciente.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 147, 20));
-
-        txt_core.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_paciente.add(txt_core, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 147, 20));
+        panel_admin.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 147, 20));
 
         lbl_title.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_title.setForeground(new java.awt.Color(94, 141, 147));
-        lbl_title.setText("Registro de paciente");
-        panel_paciente.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
+        lbl_title.setText("Registro de Admin");
+        panel_admin.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
-        panel_paciente.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        panel_admin.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
@@ -177,7 +164,7 @@ public class frm_paciente extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_paciente.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 50));
+        panel_admin.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 50));
 
         btn_regipaciente1.setBackground(new java.awt.Color(255, 255, 255));
         btn_regipaciente1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -189,9 +176,7 @@ public class frm_paciente extends javax.swing.JFrame {
                 btn_regipaciente1ActionPerformed(evt);
             }
         });
-        panel_paciente.add(btn_regipaciente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 100, 40));
-
-        getContentPane().add(panel_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 430));
+        panel_admin.add(btn_regipaciente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
 
         tabla_paciente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,24 +191,52 @@ public class frm_paciente extends javax.swing.JFrame {
         ));
         scrpanel_tabla.setViewportView(tabla_paciente);
 
-        getContentPane().add(scrpanel_tabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, 400));
-        getContentPane().add(sp_separador, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 2, -1, 410));
+        txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(347, 347, 347)
+                .addComponent(txt_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(485, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(280, Short.MAX_VALUE)
+                .addComponent(txt_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-      // Este es el boton que permite registrar un paciente:
-    
+        // Este es el boton que permite registrar un paciente:
+
     }//GEN-LAST:event_btn_editarActionPerformed
 
-    private void txt_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidoActionPerformed
-       // Este es el texfield del apellido del paciente desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_apellidoActionPerformed
-
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-         // Este es el boton que permite salir al menu principal o el main
+        // Este es el boton que permite salir al menu principal o el main
         frm_main mf = new frm_main(); // aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
@@ -233,48 +246,49 @@ public class frm_paciente extends javax.swing.JFrame {
     private void btn_regipaciente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regipaciente1ActionPerformed
 
         // Este boton para permite registrar pacientes nuevos a la BD
-  
-        String nom = txt_nombre.getText();
-        String ape = txt_apellido.getText();
-              String ced = txt_cedula.getText();
-        String dir = txt_direccion.getText();
-         String tel = txt_telefono.getText();
 
-                
+        String nom = txt_nombre.getText();
+        String prepa = txt_prepa.getText();
+        String ced = txt_cedula.getText();
+        String dir = txt_direccion.getText();
+        String tel = txt_telefono.getText();
+       String contra = String.valueOf(txt_contra.getPassword());
         if(ced.equals(""))
         {
             JOptionPane.showMessageDialog(null, "Agrega un cedula");
         }
-        
-        else if(nom.equals(""))
+
+        else if(contra.equals(""))
         {
-            JOptionPane.showMessageDialog(null, "Agrega el nombre");
-        }      
+            JOptionPane.showMessageDialog(null, "Agrega la contraseña");
+        }
         else{
-        PreparedStatement ps;
-        String query = "INSERT INTO `paciente`(`id_paciente`,`nombre`, `apellido`, `direccion`, `telefono`, `cedula`) VALUES (0,?,?,?,?,?)";
-        try {
-            ps = MyConnetion.getConnection().prepareStatement(query);
-            
-            ps.setString(1, nom);
-            ps.setString(2, ape);
-             ps.setString(3, dir);
-             ps.setString(4, tel);          
-             ps.setString(5, ced);
-        
-            if(ps.executeUpdate() > 0)
-            {
-                JOptionPane.showMessageDialog(null, "Nuevo paciente Agregado");
-//                Limpiar();
+            PreparedStatement ps;
+            String query = "INSERT INTO `admin`(`id_admin`,`nombre`, `cedula`, `direccion`, `telefono`, `preparacion_academica`, `contraseña`) VALUES (0,?,?,?,?,?,?)";
+            try {
+                ps = MyConnetion.getConnection().prepareStatement(query);
+
+                ps.setString(1, nom);
+                ps.setString(2, ced);
+                ps.setString(3, dir);
+                ps.setString(4, tel);
+                ps.setString(5, prepa);
+                ps.setString(6,contra);
+             
+
+                if(ps.executeUpdate() > 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Nuevo Administrador Agregado");
+                                    Limpiar();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "error "+ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "error "+ex);
-       }
-        
+        }
     }//GEN-LAST:event_btn_regipaciente1ActionPerformed
-    }
+
     /**
      * @param args the command line arguments
      */
@@ -292,21 +306,20 @@ public class frm_paciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frm_paciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frm_paciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frm_paciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frm_paciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frm_admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frm_paciente().setVisible(true);
+                new frm_admin().setVisible(true);
             }
         });
     }
@@ -315,23 +328,22 @@ public class frm_paciente extends javax.swing.JFrame {
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_regipaciente1;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JLabel lbl_ape;
     private javax.swing.JLabel lbl_cedu;
     private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_dire;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_nombre;
+    private javax.swing.JLabel lbl_prepa;
     private javax.swing.JLabel lbl_tel;
     private javax.swing.JLabel lbl_title;
-    private javax.swing.JPanel panel_paciente;
+    private javax.swing.JPanel panel_admin;
     private javax.swing.JScrollPane scrpanel_tabla;
-    private javax.swing.JSeparator sp_separador;
     private javax.swing.JTable tabla_paciente;
-    private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_cedula;
-    private javax.swing.JTextField txt_core;
+    private javax.swing.JPasswordField txt_contra;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nombre;
+    private javax.swing.JTextField txt_prepa;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
 }
