@@ -164,7 +164,7 @@ public class frm_paciente extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_paciente.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 50));
+        panel_paciente.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 50));
 
         btn_regipaciente1.setBackground(new java.awt.Color(255, 255, 255));
         btn_regipaciente1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
