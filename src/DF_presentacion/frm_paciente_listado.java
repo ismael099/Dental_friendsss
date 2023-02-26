@@ -219,6 +219,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pacienteActionPerformed

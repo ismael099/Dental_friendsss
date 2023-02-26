@@ -90,11 +90,6 @@ public class frm_Login extends javax.swing.JFrame {
         lbl_panei.add(lbl_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 238, -1, -1));
 
         txt_usuario.setToolTipText("");
-        txt_usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usuarioActionPerformed(evt);
-            }
-        });
         lbl_panei.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 186, 105, -1));
 
         btn_boton.setBackground(new java.awt.Color(255, 255, 255));
@@ -164,10 +159,6 @@ public class frm_Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
-        //Este es el texfield del usuario al momento del usuario ingresar algun dato que no queremos en el text field desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_usuarioActionPerformed
 
     private void btn_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_botonActionPerformed
         // Este es el boton que permite que el usuario ingrese
