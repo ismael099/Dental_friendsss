@@ -5,7 +5,14 @@
  */
 package DF_presentacion;
 
+import static DF_presentacion.frm_main.main;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -19,7 +26,41 @@ public class frm_empleado extends javax.swing.JFrame {
     public frm_empleado() {
         initComponents();
     }
+    public boolean RevisarPaciente(String usuario){
+          PreparedStatement ps;
+        ResultSet rs;
+        boolean checkUser = false;
+        String query = "SELECT * FROM `empleado` WHERE `nombre` =?";
+        try {
+            ps = MyConnetion.getConnection().prepareStatement(query);
+            ps.setString(1, usuario);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                checkUser = true;
+            }
+        }   catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+        return checkUser;
+    }
+public void Limpiar(){
+    try{
+       String nom = txt_nombre.getText();
+        String ape = txt_apellido.getText();
+        String sex =  String.valueOf(cmb_sex.getSelectedIndex());
+        String dir = txt_direccion.getText();
+        String tel = txt_telefono.getText();
+        String sal = txt_salario.getText();
+        
 
+    
+    }
+    catch(Exception ex){
+        JOptionPane.showMessageDialog(null,"error"+ ex);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,21 +71,17 @@ public class frm_empleado extends javax.swing.JFrame {
     private void initComponents() {
 
         panel_empleado = new javax.swing.JPanel();
-        txt_nombre = new javax.swing.JTextField();
+        txt_salario = new javax.swing.JTextField();
         lbl_nombre = new javax.swing.JLabel();
         lbl_ape = new javax.swing.JLabel();
         txt_apellido = new javax.swing.JTextField();
-        txt_telefono = new javax.swing.JTextField();
+        txt_nombre = new javax.swing.JTextField();
         lbl_tel = new javax.swing.JLabel();
-        txt_cedula = new javax.swing.JTextField();
-        lbl_cedu = new javax.swing.JLabel();
+        txt_telefono = new javax.swing.JTextField();
         lbl_dire1 = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JTextField();
-        lbl_correo = new javax.swing.JLabel();
-        txt_core = new javax.swing.JTextField();
         cmb_sex = new javax.swing.JComboBox<>();
         Sexo = new javax.swing.JLabel();
-        txt_salario = new javax.swing.JTextField();
         lbl_salario = new javax.swing.JLabel();
         btn_regiemp = new javax.swing.JButton();
         lbl_titu = new javax.swing.JLabel();
@@ -57,42 +94,31 @@ public class frm_empleado extends javax.swing.JFrame {
 
         panel_empleado.setBackground(new java.awt.Color(255, 255, 255));
         panel_empleado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panel_empleado.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 123, -1));
+        panel_empleado.add(txt_salario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 123, -1));
 
         lbl_nombre.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_nombre.setForeground(new java.awt.Color(81, 124, 164));
         lbl_nombre.setText("Nombre:");
-        panel_empleado.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        panel_empleado.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         lbl_ape.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_ape.setForeground(new java.awt.Color(81, 124, 164));
         lbl_ape.setText("Apellido:");
-        panel_empleado.add(lbl_ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
-        panel_empleado.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 130, -1));
-        panel_empleado.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 114, -1));
+        panel_empleado.add(lbl_ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
+        panel_empleado.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 130, -1));
+        panel_empleado.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 114, -1));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
         lbl_tel.setText("Telefono:");
-        panel_empleado.add(lbl_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
-        panel_empleado.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 130, -1));
-
-        lbl_cedu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_cedu.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_cedu.setText("Cedula:");
-        panel_empleado.add(lbl_cedu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        panel_empleado.add(lbl_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+        panel_empleado.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 130, -1));
 
         lbl_dire1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_dire1.setForeground(new java.awt.Color(81, 124, 164));
         lbl_dire1.setText("Direccion:");
         panel_empleado.add(lbl_dire1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
         panel_empleado.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 123, -1));
-
-        lbl_correo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_correo.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_correo.setText("Correo:");
-        panel_empleado.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
-        panel_empleado.add(txt_core, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 140, -1));
 
         cmb_sex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
         panel_empleado.add(cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 160, -1));
@@ -101,7 +127,6 @@ public class frm_empleado extends javax.swing.JFrame {
         Sexo.setForeground(new java.awt.Color(81, 124, 164));
         Sexo.setText("Sexo:");
         panel_empleado.add(Sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, -1));
-        panel_empleado.add(txt_salario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 123, -1));
 
         lbl_salario.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_salario.setForeground(new java.awt.Color(81, 124, 164));
@@ -145,12 +170,75 @@ public class frm_empleado extends javax.swing.JFrame {
 
     private void btn_regiempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regiempActionPerformed
         // Este es el boton que permite registrar un empleado 
+    
+        
+        //Boton para registrar datos nuevos a la BD
+      
+        String nom = txt_nombre.getText();
+        String ape = txt_apellido.getText();
+        String sex =  String.valueOf(cmb_sex.getSelectedItem());
+        String dir = txt_direccion.getText();
+        String tel = txt_telefono.getText();
+        String sal = txt_salario.getText();
+        
 
-        JOptionPane.showMessageDialog(null,"Registraste un empleado correctamente"); // por el momento aparece este mensaje al momento de hacer click en el boton
+        
+        
+           
+        if(nom.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Agrega un nombre");
+        }
+        
+        else if(ape.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Agrega un apellido");
+        }      
+        else if(sex.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Agrege su tipo de sexo");
+        }
+        else if(dir.equals(""))
+        {
+            
+           JOptionPane.showMessageDialog(null, "Agrege su  direccion");
+        }
+        else if(tel.equals(""))
+        {
+         JOptionPane.showMessageDialog(null, "Agrege su  telefono");  
+        }
+        else if(sal.equals(""))
+        {
+        JOptionPane.showMessageDialog(null, "Agrege su salario");    
+        }
+    
+        else{
+        PreparedStatement ps;
+        String query = "INSERT INTO `empleado`(`id_empleado`, `nombre`, `apellido`, `sexo`, `direccion`, `telefono`,`salario`) VALUES (0,?,?,?,?,?,?)";
+        try {
+            ps = MyConnetion.getConnection().prepareStatement(query);
+            
+            ps.setString(1, nom);
+            ps.setString(2, ape);
+            ps.setString(3, sex);
+            ps.setString(4, dir);
+            ps.setString(5, tel);
+            ps.setString(6, sal);
+            if(ps.executeUpdate() > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Nuevo Empleado Agregado");
+                Limpiar();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error "+ex);
+            }
     }//GEN-LAST:event_btn_regiempActionPerformed
-
+    }
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-        // Este es el boton que permite salir al menu principal o el main
+        // TODO add your handling code here:
+            // Este es el boton que permite salir al menu principal o el main
         frm_main mf = new frm_main(); // aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
@@ -198,8 +286,6 @@ public class frm_empleado extends javax.swing.JFrame {
     private javax.swing.JButton btn_salir;
     private javax.swing.JComboBox<String> cmb_sex;
     private javax.swing.JLabel lbl_ape;
-    private javax.swing.JLabel lbl_cedu;
-    private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_dire1;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_nombre;
@@ -208,8 +294,6 @@ public class frm_empleado extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_titu;
     private javax.swing.JPanel panel_empleado;
     private javax.swing.JTextField txt_apellido;
-    private javax.swing.JTextField txt_cedula;
-    private javax.swing.JTextField txt_core;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_salario;
