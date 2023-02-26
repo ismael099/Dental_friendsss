@@ -61,7 +61,7 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="lbl_paciente" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txt_id_paciente" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <Component id="txt_id_empleado" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -121,7 +121,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txt_id_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_id_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -172,7 +172,7 @@
             <Property name="text" type="java.lang.String" value="id del empleado:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_id_paciente">
+        <Component class="javax.swing.JTextField" name="txt_id_empleado">
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_nombre_paciente">
           <Properties>
@@ -186,9 +186,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_paciente">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_pacienteActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_telefono">
           <Properties>
@@ -223,9 +220,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Vaciar"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_vaciarActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="tabla_pacientes">
           <AuxValues>
@@ -268,9 +262,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Buscar"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_imprimir">
           <Properties>

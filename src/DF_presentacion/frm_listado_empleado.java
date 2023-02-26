@@ -41,7 +41,7 @@ public class frm_listado_empleado extends javax.swing.JFrame {
         panel_listado_paciente = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
         lbl_paciente = new javax.swing.JLabel();
-        txt_id_paciente = new javax.swing.JTextField();
+        txt_id_empleado = new javax.swing.JTextField();
         lbl_nombre_paciente = new javax.swing.JLabel();
         txt_paciente = new javax.swing.JTextField();
         lbl_telefono = new javax.swing.JLabel();
@@ -73,12 +73,6 @@ public class frm_listado_empleado extends javax.swing.JFrame {
         lbl_nombre_paciente.setForeground(new java.awt.Color(81, 124, 164));
         lbl_nombre_paciente.setText("Nombre paciente:");
 
-        txt_paciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_pacienteActionPerformed(evt);
-            }
-        });
-
         lbl_telefono.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_telefono.setForeground(new java.awt.Color(81, 124, 164));
         lbl_telefono.setText("Telefono:");
@@ -89,11 +83,6 @@ public class frm_listado_empleado extends javax.swing.JFrame {
 
         btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
-        btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_vaciarActionPerformed(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,11 +109,6 @@ public class frm_listado_empleado extends javax.swing.JFrame {
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -156,7 +140,7 @@ public class frm_listado_empleado extends javax.swing.JFrame {
                             .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbl_paciente)
-                                    .addComponent(txt_id_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
@@ -200,7 +184,7 @@ public class frm_listado_empleado extends javax.swing.JFrame {
                             .addComponent(lbl_cedula))
                         .addGap(7, 7, 7)
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_id_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -234,14 +218,6 @@ public class frm_listado_empleado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pacienteActionPerformed
-        // Este es el texfield del nombre del paciente  desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_pacienteActionPerformed
-
-    private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
-        // Este es el boton que permite vaciar todos los text field que esten llenos 
-    }//GEN-LAST:event_btn_vaciarActionPerformed
-
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         // Este es el boton que permite salir a menu de los listados
         frm_listas mf = new frm_listas(); // aqui estamos creando un mf nuevo
@@ -272,10 +248,6 @@ public class frm_listado_empleado extends javax.swing.JFrame {
 }
 
     }//GEN-LAST:event_btn_imprimirActionPerformed
-
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-   //        Este es el boton que permite buscar cualquier empleado que este registrado en la base de datos
-    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,7 +299,7 @@ public class frm_listado_empleado extends javax.swing.JFrame {
     private javax.swing.JPanel panel_listado_paciente;
     private javax.swing.JScrollPane tabla_pacientes;
     private javax.swing.JTextField txt_cedula;
-    private javax.swing.JTextField txt_id_paciente;
+    private javax.swing.JTextField txt_id_empleado;
     private javax.swing.JTextField txt_paciente;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables

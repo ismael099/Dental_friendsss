@@ -199,10 +199,10 @@ public class frm_listado_productos extends javax.swing.JFrame {
                     .addComponent(btn_buscar)
                     .addComponent(btn_salir)
                     .addComponent(btn_imprimir))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 370));
+        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 390));
 
         pack();
         setLocationRelativeTo(null);

@@ -71,20 +71,20 @@ public class frm_Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de Sesion");
 
-        lbl_panei.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_panei.setBackground(new java.awt.Color(50, 113, 155));
         lbl_panei.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_inicio.setFont(new java.awt.Font("Magneto", 1, 18)); // NOI18N
+        lbl_inicio.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_inicio.setForeground(new java.awt.Color(255, 255, 255));
         lbl_inicio.setText("Inicio de Sesion:");
-        lbl_panei.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 157, -1, -1));
+        lbl_panei.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
-        lbl_usuario.setFont(new java.awt.Font("Magneto", 0, 14)); // NOI18N
+        lbl_usuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_usuario.setForeground(new java.awt.Color(255, 255, 255));
         lbl_usuario.setText("Usuario:");
         lbl_panei.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 187, -1, -1));
 
-        lbl_clave.setFont(new java.awt.Font("Magneto", 0, 14)); // NOI18N
+        lbl_clave.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_clave.setForeground(new java.awt.Color(255, 255, 255));
         lbl_clave.setText("Clave:");
         lbl_panei.add(lbl_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 238, -1, -1));
@@ -95,19 +95,19 @@ public class frm_Login extends javax.swing.JFrame {
                 txt_usuarioActionPerformed(evt);
             }
         });
-        lbl_panei.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 186, 105, -1));
+        lbl_panei.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 105, -1));
 
         btn_boton.setBackground(new java.awt.Color(255, 255, 255));
-        btn_boton.setFont(new java.awt.Font("Magneto", 1, 16)); // NOI18N
+        btn_boton.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btn_boton.setText("inicia");
         btn_boton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_botonActionPerformed(evt);
             }
         });
-        lbl_panei.add(btn_boton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
+        lbl_panei.add(btn_boton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
-        lbl_dfdental.setFont(new java.awt.Font("Magneto", 0, 36)); // NOI18N
+        lbl_dfdental.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_dfdental.setForeground(new java.awt.Color(255, 255, 255));
         lbl_dfdental.setText("DF");
         lbl_dfdental.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,14 +115,14 @@ public class frm_Login extends javax.swing.JFrame {
                 titulo(evt);
             }
         });
-        lbl_panei.add(lbl_dfdental, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 11, -1, -1));
+        lbl_panei.add(lbl_dfdental, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        lbl_ano.setFont(new java.awt.Font("Freestyle Script", 0, 36)); // NOI18N
+        lbl_ano.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_ano.setForeground(new java.awt.Color(255, 255, 255));
         lbl_ano.setText("2022-2023");
-        lbl_panei.add(lbl_ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 108, -1, -1));
+        lbl_panei.add(lbl_ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
-        lbl_df.setFont(new java.awt.Font("Brush Script MT", 0, 36)); // NOI18N
+        lbl_df.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_df.setForeground(new java.awt.Color(255, 255, 255));
         lbl_df.setText("Dental Friends");
         lbl_df.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,10 +130,10 @@ public class frm_Login extends javax.swing.JFrame {
                 dental(evt);
             }
         });
-        lbl_panei.add(lbl_df, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 62, -1, -1));
-        lbl_panei.add(txt_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 237, 120, -1));
+        lbl_panei.add(lbl_df, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        lbl_panei.add(txt_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 120, -1));
 
-        lb_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sellos.png"))); // NOI18N
+        lb_img.setIcon(new javax.swing.ImageIcon("C:\\Users\\Alian Peralta\\Desktop\\Proyecto santiago\\sellos.png")); // NOI18N
         lb_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_imgMouseClicked(evt);
