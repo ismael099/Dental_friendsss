@@ -126,11 +126,6 @@ public void Limpiar(){
         btn_editar.setForeground(new java.awt.Color(94, 141, 147));
         btn_editar.setText("Editar");
         btn_editar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editarActionPerformed(evt);
-            }
-        });
         panel_admin.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 100, 40));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -229,11 +224,6 @@ public void Limpiar(){
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        // Este es el boton que permite registrar un paciente:
-
-    }//GEN-LAST:event_btn_editarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         // Este es el boton que permite salir al menu principal o el main

@@ -99,7 +99,7 @@ public class frm_main extends javax.swing.JFrame {
 
         lbl_paciente.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_paciente.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_paciente.setText("Registrar Los clientes:");
+        lbl_paciente.setText("Registrar los pacientes:");
         panel_main.add(lbl_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         lbl_fac.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
