@@ -26,6 +26,7 @@ public class frm_Login extends javax.swing.JFrame {
     }
    public boolean RevisarUsuario(String usuario){
         //Funcion para Revisar si el usuario existe dentro de la BD
+        String a,b;
         PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
@@ -172,7 +173,7 @@ public class frm_Login extends javax.swing.JFrame {
         // Este es el boton que permite que el usuario ingrese
        PreparedStatement ps;
         ResultSet rs;
-        String Usuario, Clave,S;
+        String Usuario, Clave,S,q;
         Usuario = txt_usuario.getText();
         Clave = String.valueOf(txt_clave.getPassword());
         String query = "SELECT * FROM `admin` WHERE `nombre` =? AND `contraseña` =?";
