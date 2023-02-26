@@ -149,11 +149,6 @@ public class frm_paciente extends javax.swing.JFrame {
         panel_paciente.add(lbl_ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        txt_apellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_apellidoActionPerformed(evt);
-            }
-        });
         panel_paciente.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 147, 20));
 
         txt_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
@@ -195,13 +190,13 @@ public class frm_paciente extends javax.swing.JFrame {
 
         tabla_paciente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "", "", "", ""
+                "id", "nombre", "apellido", "direccion", "telefono", "cedula"
             }
         ));
         scrpanel_tabla.setViewportView(tabla_paciente);
@@ -217,10 +212,6 @@ public class frm_paciente extends javax.swing.JFrame {
       // Este es el boton que permite registrar un paciente:
     
     }//GEN-LAST:event_btn_editarActionPerformed
-
-    private void txt_apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidoActionPerformed
-       // Este es el texfield del apellido del paciente desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_apellidoActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
          // Este es el boton que permite salir al menu principal o el main
@@ -265,7 +256,7 @@ public class frm_paciente extends javax.swing.JFrame {
             if(ps.executeUpdate() > 0)
             {
                 JOptionPane.showMessageDialog(null, "Nuevo paciente Agregado");
-//                Limpiar();
+                Limpiar();
             }
             
         } catch (SQLException ex) {
@@ -275,6 +266,7 @@ public class frm_paciente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_regipaciente1ActionPerformed
     }
+ 
     /**
      * @param args the command line arguments
      */

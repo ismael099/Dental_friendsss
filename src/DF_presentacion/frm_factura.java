@@ -6,7 +6,11 @@
 package DF_presentacion;
 
 import javax.swing.JOptionPane;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Alian Peralta
@@ -19,7 +23,42 @@ public class frm_factura extends javax.swing.JFrame {
     public frm_factura() {
         initComponents();
     }
-
+ public boolean RevisarFactura(String id){
+          PreparedStatement ps;
+        ResultSet rs;
+        boolean checkUser = false;
+        String query = "SELECT * FROM `factura` WHERE `id_factura` =?";
+        try {
+            ps = MyConnetion.getConnection().prepareStatement(query);
+            ps.setString(1, id);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                checkUser = true;
+            }
+        }   catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+        return checkUser;
+    }
+ 
+   public void Limpiar(){
+    try{
+       txt_num_correlativa.setText("");
+       txt_fecha_correletiva.setText("");
+       txt_subtotal.setText("");
+      txt_itbis.setText("");
+        txt_total.setText("");
+       cmb_tipo_pago.setSelectedIndex(-1);
+     txt_id_serv.setText("");
+     txt_id_empleado.setText("");
+       txt_id_doctor.setText("");
+    }
+    catch(Exception ex){
+        JOptionPane.showMessageDialog(null,"error"+ ex);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,92 +69,105 @@ public class frm_factura extends javax.swing.JFrame {
     private void initComponents() {
 
         panel_factura = new javax.swing.JPanel();
-        lbl_nombre_empresa = new javax.swing.JLabel();
-        txt_nombre_empresa = new javax.swing.JTextField();
-        lbl_fecha = new javax.swing.JLabel();
-        txt_fecha = new javax.swing.JTextField();
+        lbl_num_correlativa = new javax.swing.JLabel();
+        txt_num_correlativa = new javax.swing.JTextField();
+        lbl_fecha_correlativa = new javax.swing.JLabel();
+        txt_fecha_correletiva = new javax.swing.JTextField();
         lbl_subtotal = new javax.swing.JLabel();
-        lbl_descuento = new javax.swing.JLabel();
+        lbl_itbis = new javax.swing.JLabel();
         cmb_tipo_pago = new javax.swing.JComboBox<>();
         txt_subtotal = new javax.swing.JTextField();
-        lbl_impuesto = new javax.swing.JLabel();
-        txt_impuesto = new javax.swing.JTextField();
+        lbl_total = new javax.swing.JLabel();
+        txt_total = new javax.swing.JTextField();
         lbl_tipo_pago = new javax.swing.JLabel();
-        txt_descuento = new javax.swing.JTextField();
+        txt_itbis = new javax.swing.JTextField();
         lbl_servicio = new javax.swing.JLabel();
-        txt_nombre_empleado = new javax.swing.JTextField();
-        lbl_nombre_empleado = new javax.swing.JLabel();
-        lbl_nombre_paciente = new javax.swing.JLabel();
-        txt_nombre_paciente = new javax.swing.JTextField();
+        txt_id_empleado = new javax.swing.JTextField();
+        lbl_id_empleado = new javax.swing.JLabel();
+        lbl_id_doctor = new javax.swing.JLabel();
+        txt_id_doctor = new javax.swing.JTextField();
         btn_fact = new javax.swing.JButton();
         lbl_titulo = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         lbl_subtitulo = new javax.swing.JLabel();
-        cmb_servicios = new javax.swing.JComboBox<>();
         btn_salir = new javax.swing.JButton();
+        txt_id_serv = new javax.swing.JTextField();
+        tabla_facturas = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Facturación");
-        setPreferredSize(new java.awt.Dimension(770, 520));
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(1235, 498));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_factura.setBackground(new java.awt.Color(255, 255, 255));
+        panel_factura.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_nombre_empresa.setBackground(java.awt.Color.white);
-        lbl_nombre_empresa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_nombre_empresa.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre_empresa.setText("Nombre empresa:");
+        lbl_num_correlativa.setBackground(java.awt.Color.white);
+        lbl_num_correlativa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_num_correlativa.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_num_correlativa.setText("Num Correlativa:");
+        panel_factura.add(lbl_num_correlativa, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 90, -1, -1));
+        panel_factura.add(txt_num_correlativa, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 118, 150, -1));
 
-        txt_nombre_empresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nombre_empresaActionPerformed(evt);
-            }
-        });
-
-        lbl_fecha.setBackground(java.awt.Color.white);
-        lbl_fecha.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_fecha.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_fecha.setText("Fecha:");
+        lbl_fecha_correlativa.setBackground(java.awt.Color.white);
+        lbl_fecha_correlativa.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_fecha_correlativa.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_fecha_correlativa.setText("Fecha correlativa:");
+        panel_factura.add(lbl_fecha_correlativa, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 90, -1, -1));
+        panel_factura.add(txt_fecha_correletiva, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 118, 150, -1));
 
         lbl_subtotal.setBackground(java.awt.Color.white);
         lbl_subtotal.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_subtotal.setForeground(new java.awt.Color(81, 124, 164));
         lbl_subtotal.setText("Subtotal:");
+        panel_factura.add(lbl_subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 156, -1, -1));
 
-        lbl_descuento.setBackground(java.awt.Color.white);
-        lbl_descuento.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_descuento.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_descuento.setText("Descuento:");
+        lbl_itbis.setBackground(java.awt.Color.white);
+        lbl_itbis.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_itbis.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_itbis.setText("Itbis:");
+        panel_factura.add(lbl_itbis, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 156, -1, -1));
 
         cmb_tipo_pago.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         cmb_tipo_pago.setForeground(new java.awt.Color(81, 124, 164));
         cmb_tipo_pago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Credito" }));
+        panel_factura.add(cmb_tipo_pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 261, 150, -1));
+        panel_factura.add(txt_subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 184, 150, -1));
 
-        lbl_impuesto.setBackground(java.awt.Color.white);
-        lbl_impuesto.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_impuesto.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_impuesto.setText("Impuesto:");
+        lbl_total.setBackground(java.awt.Color.white);
+        lbl_total.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_total.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_total.setText("Total:");
+        panel_factura.add(lbl_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 229, -1, -1));
+        panel_factura.add(txt_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 263, 150, -1));
 
         lbl_tipo_pago.setBackground(java.awt.Color.white);
         lbl_tipo_pago.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tipo_pago.setForeground(new java.awt.Color(81, 124, 164));
         lbl_tipo_pago.setText("Tipo de pago:");
+        panel_factura.add(lbl_tipo_pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, -1, 20));
+        panel_factura.add(txt_itbis, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 184, 150, -1));
 
         lbl_servicio.setBackground(java.awt.Color.white);
         lbl_servicio.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_servicio.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_servicio.setText("Servicio ofrecidos:");
+        lbl_servicio.setText("Id Servicio:");
+        panel_factura.add(lbl_servicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 301, -1, -1));
+        panel_factura.add(txt_id_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 338, 160, -1));
 
-        lbl_nombre_empleado.setBackground(java.awt.Color.white);
-        lbl_nombre_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_nombre_empleado.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre_empleado.setText("Nombre del empleado:");
+        lbl_id_empleado.setBackground(java.awt.Color.white);
+        lbl_id_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_id_empleado.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_id_empleado.setText("Id del empleado:");
+        panel_factura.add(lbl_id_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 301, -1, -1));
 
-        lbl_nombre_paciente.setBackground(java.awt.Color.white);
-        lbl_nombre_paciente.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_nombre_paciente.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre_paciente.setText("Nombre del paciente:");
+        lbl_id_doctor.setBackground(java.awt.Color.white);
+        lbl_id_doctor.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_id_doctor.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_id_doctor.setText("Id del doctor:");
+        panel_factura.add(lbl_id_doctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 375, -1, -1));
+        panel_factura.add(txt_id_doctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 410, 160, -1));
 
         btn_fact.setBackground(new java.awt.Color(255, 255, 255));
         btn_fact.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -127,20 +179,20 @@ public class frm_factura extends javax.swing.JFrame {
                 btn_factActionPerformed(evt);
             }
         });
+        panel_factura.add(btn_fact, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 376, 130, 60));
 
         lbl_titulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(94, 141, 147));
         lbl_titulo.setText("Dental Friends ");
+        panel_factura.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 23, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
+        panel_factura.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 68, -1, -1));
 
         lbl_subtitulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_subtitulo.setForeground(new java.awt.Color(94, 141, 147));
         lbl_subtitulo.setText("Facturación ");
-
-        cmb_servicios.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        cmb_servicios.setForeground(new java.awt.Color(81, 124, 164));
-        cmb_servicios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brakets", "Caries", "Blanquiamiento", "Limpieza", " " }));
+        panel_factura.add(lbl_subtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 228, -1, -1));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
@@ -149,147 +201,83 @@ public class frm_factura extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
+        panel_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 389, 70, 60));
+        panel_factura.add(txt_id_serv, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 338, 160, -1));
 
-        javax.swing.GroupLayout panel_facturaLayout = new javax.swing.GroupLayout(panel_factura);
-        panel_factura.setLayout(panel_facturaLayout);
-        panel_facturaLayout.setHorizontalGroup(
-            panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_facturaLayout.createSequentialGroup()
-                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(lbl_subtitulo)
-                                .addGap(122, 122, 122)
-                                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_impuesto)
-                                    .addComponent(txt_impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(400, 400, 400)
-                                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmb_servicios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_servicio))))
-                        .addGap(37, 37, 37)
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmb_tipo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_nombre_empleado)
-                            .addComponent(lbl_tipo_pago)))
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(lbl_logo))
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(130, 130, 130)
-                                .addComponent(lbl_titulo))
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_nombre_empresa)
-                                    .addComponent(txt_nombre_empresa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_subtotal)
-                                    .addComponent(txt_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(40, 40, 40)
-                                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_descuento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_descuento)
-                                    .addComponent(lbl_fecha)))
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_nombre_paciente)
-                                    .addComponent(txt_nombre_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50)
-                                .addComponent(btn_fact, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_facturaLayout.setVerticalGroup(
-            panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_facturaLayout.createSequentialGroup()
-                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(lbl_titulo)
-                        .addGap(25, 25, 25)
-                        .addComponent(lbl_fecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_descuento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_descuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(lbl_nombre_empresa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_nombre_empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_subtotal))
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(lbl_logo)))
-                .addGap(25, 25, 25)
-                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_impuesto)
-                            .addComponent(lbl_tipo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_impuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_tipo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lbl_subtitulo))
-                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(lbl_servicio))
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(lbl_nombre_empleado)
-                        .addGap(18, 18, 18)
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_nombre_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_servicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_facturaLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(panel_facturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_facturaLayout.createSequentialGroup()
-                                .addComponent(lbl_nombre_paciente)
-                                .addGap(13, 13, 13)
-                                .addComponent(txt_nombre_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btn_fact, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(67, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_facturaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
-        );
+        getContentPane().add(panel_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 460));
 
-        getContentPane().add(panel_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 510));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ));
+        tabla_facturas.setViewportView(jTable1);
+
+        getContentPane().add(tabla_facturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 520, 430));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_factActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factActionPerformed
-        // Este es el boton que permite facturar una factura
-        JOptionPane.showMessageDialog(null,"Facturaste una factura correctamente");
+      //Boton para registrar facturas a la base de datos
+        String num_corre = txt_num_correlativa.getText();
+        String fecha_corre = txt_fecha_correletiva.getText();
+        String subtotal = txt_subtotal.getText();
+        String itbis = txt_itbis.getText();
+        String total = txt_total.getText();
+        String tipo_pago = String.valueOf(cmb_tipo_pago.getSelectedItem());
+        String id_serv = txt_id_serv.getText();
+        String id_emp = txt_id_empleado.getText();
+        String id_doc = txt_id_doctor.getText();
+                
+        if(id_serv.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Agrega un servicio ofrecido");
+        }
+        
+        else if(id_emp.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Agrega un id del empleado");
+        }      
+        else if(RevisarFactura(num_corre))
+        {
+            JOptionPane.showMessageDialog(null, "Este factura ya existe");
+        }
+        else{
+        PreparedStatement ps;
+        String query = "INSERT INTO `factura`(`id_factura`, `numero_correlativa`,`fecha_correlativa`, `tipo_pago`, `subtotal`, `itbs`, `total`,`id_servicios`,`id_empleado`,`id_doctor`) VALUES (0,?,?,?,?,?,?,?,?,?)";
+        try {
+            ps = MyConnetion.getConnection().prepareStatement(query);
+            
+            ps.setString(1, num_corre);
+            ps.setString(2, fecha_corre);
+            ps.setString(3, tipo_pago);
+            ps.setString(4, subtotal);
+            ps.setString(5, itbis);
+            ps.setString(6, total);
+            ps.setString(7, id_serv);
+            ps.setString(8, id_emp);
+            ps.setString(9, id_doc);
+                
+            if(ps.executeUpdate() > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Nueva Factura Agregada");
+                Limpiar();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "error "+ex);
+       }
     }//GEN-LAST:event_btn_factActionPerformed
-
-    private void txt_nombre_empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombre_empresaActionPerformed
-        // Este es el texfield del nombre de la empresa  desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_nombre_empresaActionPerformed
-
+    }
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         // Este es el boton que permite salir al menu principal o el main
         frm_main mf = new frm_main(); // aqui estamos creando un mf nuevo
@@ -336,27 +324,29 @@ public class frm_factura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_fact;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JComboBox<String> cmb_servicios;
     private javax.swing.JComboBox<String> cmb_tipo_pago;
-    private javax.swing.JLabel lbl_descuento;
-    private javax.swing.JLabel lbl_fecha;
-    private javax.swing.JLabel lbl_impuesto;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_fecha_correlativa;
+    private javax.swing.JLabel lbl_id_doctor;
+    private javax.swing.JLabel lbl_id_empleado;
+    private javax.swing.JLabel lbl_itbis;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JLabel lbl_nombre_empleado;
-    private javax.swing.JLabel lbl_nombre_empresa;
-    private javax.swing.JLabel lbl_nombre_paciente;
+    private javax.swing.JLabel lbl_num_correlativa;
     private javax.swing.JLabel lbl_servicio;
     private javax.swing.JLabel lbl_subtitulo;
     private javax.swing.JLabel lbl_subtotal;
     private javax.swing.JLabel lbl_tipo_pago;
     private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JLabel lbl_total;
     private javax.swing.JPanel panel_factura;
-    private javax.swing.JTextField txt_descuento;
-    private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_impuesto;
-    private javax.swing.JTextField txt_nombre_empleado;
-    private javax.swing.JTextField txt_nombre_empresa;
-    private javax.swing.JTextField txt_nombre_paciente;
+    private javax.swing.JScrollPane tabla_facturas;
+    private javax.swing.JTextField txt_fecha_correletiva;
+    private javax.swing.JTextField txt_id_doctor;
+    private javax.swing.JTextField txt_id_empleado;
+    private javax.swing.JTextField txt_id_serv;
+    private javax.swing.JTextField txt_itbis;
+    private javax.swing.JTextField txt_num_correlativa;
     private javax.swing.JTextField txt_subtotal;
+    private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }
