@@ -97,7 +97,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_vaciarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 131, 30, 30));
+        panel_listado_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(697, 121, 40, 40));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir ");
@@ -106,7 +106,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
+        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 50, 40));
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
@@ -115,7 +115,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, -1, -1));
+        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 40, 40));
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -124,7 +124,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_imprimirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
+        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,7 +152,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_listado_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel_listado_factura, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
         );
 
         pack();
