@@ -5,23 +5,65 @@
  */
 package DF_presentacion;
 
+import static DF_presentacion.MyConnetion.getConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author jim3j
  */
 public class frm_admin extends javax.swing.JFrame {
+DefaultTableModel model = new DefaultTableModel();
+ // procedemos a crear una tabla mediante el defaulttablemodel
 
     /**
      * Creates new form frm_admin
      */
     public frm_admin() {
         initComponents();
+    }
+   // creamos un metodo llamado tabla para crear rellenar la tabla
+    public void tabla (String tabla){
+       String sql = "Select * from `admin` " + tabla;
+        Statement st;
+        MyConnetion con = new MyConnetion();
+        Connection conexion = getConnection();
+        DefaultTableModel model = new DefaultTableModel();
+     model.addColumn("ID"); 
+        model.addColumn("Nombre");
+        model.addColumn("Cedula");
+        model.addColumn("Direccion");
+        model.addColumn("Telefono");
+        model.addColumn("Preparacion Academica");
+        model.addColumn("Contraseña");
+        
+        tabla_admin.setModel(model);
+        String [] dato = new String[7];
+        try{
+            st = conexion.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+            {      
+                dato[0] =rs.getString(1);
+                dato[1] =rs.getString(2);
+                dato[2] =rs.getString(3);
+                dato[3] =rs.getString(4);
+                dato[4] =rs.getString(5);
+                dato[5] =rs.getString(6);
+                dato[6] =rs.getString(7);
+                model.addRow(dato);
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 public boolean RevisarAdmin(String admin){
           PreparedStatement ps;
@@ -55,6 +97,37 @@ public void Limpiar(){
         JOptionPane.showMessageDialog(null,"error"+ ex);
     }
 }
+
+public void ActualizarAdmin(String id){
+    String sql = "update `admin` set nombre = '" + txt_nombre.getText() +  "',cedula = '" + txt_cedula.getText() +"', direccion = '" + txt_direccion.getText() + "' ,preparacion_academica = '" + txt_prepa.getText() + "',contraseña = '" + txt_contra.getPassword()+"', where id_admin = "+ id ; 
+         Statement st;
+     Connection conexion = getConnection();
+    try {
+     
+         st = MyConnetion.createStatement();
+        int rs = st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Se actualizo correctamente");
+        }   catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+}
+
+
+     public void EliminaRegistro(String id)
+    {
+        String sql = "delete from admin where id_admin = " + id;
+        Statement st;
+        Connection conexion = getConnection();
+        try
+        {
+            st = conexion.createStatement();
+            int rs = st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+        }catch(SQLException e)
+        {
+            System.out.println(e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,10 +153,12 @@ public void Limpiar(){
         lbl_title = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         btn_salir = new javax.swing.JButton();
-        btn_regipaciente1 = new javax.swing.JButton();
-        scrpanel_tabla = new javax.swing.JScrollPane();
-        tabla_paciente = new javax.swing.JTable();
+        btn_registrapaci = new javax.swing.JButton();
+        btn_actualizar = new javax.swing.JButton();
         txt_contra = new javax.swing.JPasswordField();
+        btn_eliminar = new javax.swing.JButton();
+        scrpanel_tabla = new javax.swing.JScrollPane();
+        tabla_admin = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Administrador");
@@ -126,6 +201,11 @@ public void Limpiar(){
         btn_editar.setForeground(new java.awt.Color(94, 141, 147));
         btn_editar.setText("Editar");
         btn_editar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
         panel_admin.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 100, 40));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -161,19 +241,46 @@ public void Limpiar(){
         });
         panel_admin.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 50));
 
-        btn_regipaciente1.setBackground(new java.awt.Color(255, 255, 255));
-        btn_regipaciente1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btn_regipaciente1.setForeground(new java.awt.Color(94, 141, 147));
-        btn_regipaciente1.setText("Registrar");
-        btn_regipaciente1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_regipaciente1.addActionListener(new java.awt.event.ActionListener() {
+        btn_registrapaci.setBackground(new java.awt.Color(255, 255, 255));
+        btn_registrapaci.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_registrapaci.setForeground(new java.awt.Color(94, 141, 147));
+        btn_registrapaci.setText("Registrar");
+        btn_registrapaci.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_registrapaci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regipaciente1ActionPerformed(evt);
+                btn_registrapaciActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_regipaciente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
+        panel_admin.add(btn_registrapaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 100, 40));
 
-        tabla_paciente.setModel(new javax.swing.table.DefaultTableModel(
+        btn_actualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_actualizar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_actualizar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_actualizar.setText("Actualizar");
+        btn_actualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
+        panel_admin.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 100, 40));
+
+        txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
+        panel_admin.add(txt_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 159, 20));
+
+        btn_eliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 100, 40));
+
+        tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -184,41 +291,29 @@ public void Limpiar(){
                 "", "", "", ""
             }
         ));
-        scrpanel_tabla.setViewportView(tabla_paciente);
-
-        txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
+        scrpanel_tabla.setViewportView(tabla_admin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(347, 347, 347)
-                .addComponent(txt_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(485, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
-                .addComponent(txt_contra, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -233,7 +328,7 @@ public void Limpiar(){
         this.dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
 
-    private void btn_regipaciente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regipaciente1ActionPerformed
+    private void btn_registrapaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrapaciActionPerformed
 
         // Este boton para permite registrar pacientes nuevos a la BD
 
@@ -254,7 +349,7 @@ public void Limpiar(){
         }
         else{
             PreparedStatement ps;
-            String query = "INSERT INTO `admin`(`id_admin`,`nombre`, `cedula`, `direccion`, `telefono`, `preparacion_academica`, `contraseña`) VALUES (0,?,?,?,?,?,?)";
+            String query = "INSERT INTO `admin`(`nombre`, `cedula`, `direccion`, `telefono`, `preparacion_academica`, `contraseña`) VALUES (?,?,?,?,?,?)";
             try {
                 ps = MyConnetion.getConnection().prepareStatement(query);
 
@@ -277,7 +372,29 @@ public void Limpiar(){
                 JOptionPane.showMessageDialog(null, "error "+ex);
             }
         }
-    }//GEN-LAST:event_btn_regipaciente1ActionPerformed
+    }//GEN-LAST:event_btn_registrapaciActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        // TODO add your handling code here:
+        tabla("");
+    }//GEN-LAST:event_btn_editarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+         MyConnetion con = new MyConnetion();
+     Connection conexion = getConnection();
+        String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
+        ActualizarAdmin(id);
+        tabla("admin");
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+           String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
+        Connection conexion = getConnection();
+        EliminaRegistro(id);
+        tabla("admin");
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,8 +432,10 @@ public void Limpiar(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_regipaciente1;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
     private javax.swing.JLabel lbl_cedu;
     private javax.swing.JLabel lbl_correo;
@@ -328,7 +447,7 @@ public void Limpiar(){
     private javax.swing.JLabel lbl_title;
     private javax.swing.JPanel panel_admin;
     private javax.swing.JScrollPane scrpanel_tabla;
-    private javax.swing.JTable tabla_paciente;
+    private javax.swing.JTable tabla_admin;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JPasswordField txt_contra;
     private javax.swing.JTextField txt_direccion;

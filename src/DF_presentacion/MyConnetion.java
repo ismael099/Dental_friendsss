@@ -7,6 +7,7 @@ package DF_presentacion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author jim3j
@@ -19,7 +20,7 @@ public class MyConnetion {
     try{
        Class.forName("com.mysql.cj.jdbc.Driver");
        // llamamos a la libreria que nos permite conectar la base de datos
-       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dental_friend", "root", "123456789");
+       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dental_friend", "root", "greciamora");
        // definimos a que va hacer igual la conexion
     } catch(ClassNotFoundException | SQLException ex){
         System.out.println(ex.getMessage());
@@ -27,4 +28,8 @@ public class MyConnetion {
     }
     return con;
 }
+
+    static Statement createStatement() {
+        throw new UnsupportedOperationException("Error"); // Esto es por si las tablas tienen algun error
+    }
 }
