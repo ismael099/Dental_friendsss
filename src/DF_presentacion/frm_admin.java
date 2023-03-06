@@ -6,6 +6,7 @@
 package DF_presentacion;
 
 import static DF_presentacion.MyConnetion.getConnection;
+import java.awt.Point;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,122 +15,136 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jim3j
  */
 public class frm_admin extends javax.swing.JFrame {
-DefaultTableModel model = new DefaultTableModel();
 
- // procedemos a crear una tabla mediante el defaulttablemodel
+    DefaultTableModel model = new DefaultTableModel();
 
+    // procedemos a crear una tabla mediante el defaulttablemodel
     /**
      * Creates new form frm_admin
      */
     public frm_admin() {
         initComponents();
-        tabla("");
+        tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
+
     }
-   // creamos un metodo llamado tabla para crear rellenar la tabla
-    public void tabla (String tabla){
-       String sql = "Select * from `admin` " + tabla;
+    // creamos estemedo metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
+
+    public void tabla(String tabla) {
+        String sql = "Select * from `admin` " + tabla;  
         Statement st;
-        MyConnetion con = new MyConnetion();
+        MyConnetion con = new MyConnetion();  
         Connection conexion = getConnection();
-        DefaultTableModel model = new DefaultTableModel();
-       model.addColumn("ID"); 
+        model.addColumn("ID");
         model.addColumn("Nombre");
         model.addColumn("Cedula");
         model.addColumn("Direccion");
         model.addColumn("Telefono");
         model.addColumn("Preparacion Academica");
         model.addColumn("Contraseña");
-        
+
         tabla_admin.setModel(model);
-        String [] dato = new String[7];
-        try{
+        String[] dato = new String[7];
+        try {
             st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
-            {      
-                dato[0] =rs.getString(1);
-                dato[1] =rs.getString(2);
-                dato[2] =rs.getString(3);
-                dato[3] =rs.getString(4);
-                dato[4] =rs.getString(5);
-                dato[5] =rs.getString(6);
-                dato[6] =rs.getString(7);
+            while (rs.next()) {
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
+                dato[3] = rs.getString(4);
+                dato[4] = rs.getString(5);
+                dato[5] = rs.getString(6);
+                dato[6] = rs.getString(7);
                 model.addRow(dato);
             }
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-public boolean RevisarAdmin(String admin){
-          PreparedStatement ps;
+
+    public boolean RevisarAdmin(String admin) { // este metodo es para asegurar que el admin este en la base de datos
+        PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
         String query = "SELECT * FROM `admin` WHERE `nombre` =?";
         try {
             ps = MyConnetion.getConnection().prepareStatement(query);
             ps.setString(1, admin);
-            
+
             rs = ps.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 checkUser = true;
             }
-        }   catch (SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex);
         }
         return checkUser;
     }
-public void Limpiar(){
-    try{
-    txt_nombre.setText("");
-    txt_direccion.setText("");
-    txt_contra.setText("");
-    txt_prepa.setText("");
-    txt_telefono.setText("");
-    txt_cedula.setText("");
-    }
-    catch(Exception ex){
-        JOptionPane.showMessageDialog(null,"error"+ ex);
-    }
-}
 
-public void ActualizarAdmin(String id){
-    String sql = "update `admin` set nombre = '" + txt_nombre.getText() +  "',cedula = '" + txt_cedula.getText() +"', direccion = '" + txt_direccion.getText() + "' ,preparacion_academica = '" + txt_prepa.getText() + "',contraseña = '" + txt_contra.getPassword()+"', where id_admin = "+ id ; 
-         Statement st;
-     Connection conexion = getConnection();
-    try {
-     
-         st = MyConnetion.createStatement();
-        int rs = st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Se actualizo correctamente");
-        }   catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error" + ex);
+    public void Limpiar() { // este metodo es para limpiar todos los textfield
+        try {
+            txt_nombre.setText("");
+            txt_direccion.setText("");
+            txt_contra.setText("");
+            txt_prepa.setText("");
+            txt_telefono.setText("");
+            txt_cedula.setText("");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "error" + ex);
         }
-}
+    }
 
+    public void ActualizarAdmin(String id) { // este metodo es para actualizar los administradores resgistrados mediante una tabla directacmente
+Connection con;
 
-     public void EliminaRegistro(String id)
-    {
+    try {
+        PreparedStatement ps;
+        con = getConnection();
+        ps = con.prepareStatement("UPDATE `admin` SET nombre=?, cedula=?, direccion=?, telefono=?, preparacion_academica=?, contraseña=? WHERE id_admin=?");
+        ps.setString(1, txt_nombre.getText());
+         ps.setString(2, txt_cedula.getText());
+            ps.setString(3, txt_direccion.getText());
+             ps.setString(4, txt_telefono.getText());
+         ps.setString(5, txt_prepa.getText());
+          ps.setString(6, String.valueOf(txt_contra.getPassword()));
+        ps.setString(7, id);
+
+        int res = ps.executeUpdate();
+
+        if (res > 0) {
+            JOptionPane.showMessageDialog(null, "Persona Modificada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al Modificar persona");
+        }
+        tabla("");
+        con.close();
+
+    } catch (SQLException e) {
+        System.err.println(e);
+    }
+    }
+    public void EliminaRegistro(String id) {
         String sql = "delete from admin where id_admin = " + id;
         Statement st;
         Connection conexion = getConnection();
-        try
-        {
+        try {
             st = conexion.createStatement();
             int rs = st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
-        }catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +162,6 @@ public void ActualizarAdmin(String id){
         lbl_dire = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JTextField();
         lbl_correo = new javax.swing.JLabel();
-        btn_editar = new javax.swing.JButton();
         lbl_tel = new javax.swing.JLabel();
         lbl_prepa = new javax.swing.JLabel();
         txt_prepa = new javax.swing.JTextField();
@@ -197,18 +211,6 @@ public void ActualizarAdmin(String id){
         lbl_correo.setForeground(new java.awt.Color(81, 124, 164));
         lbl_correo.setText("Contraseña:");
         panel_admin.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
-
-        btn_editar.setBackground(new java.awt.Color(255, 255, 255));
-        btn_editar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btn_editar.setForeground(new java.awt.Color(94, 141, 147));
-        btn_editar.setText("Editar");
-        btn_editar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editarActionPerformed(evt);
-            }
-        });
-        panel_admin.add(btn_editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 100, 40));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
@@ -265,7 +267,7 @@ public void ActualizarAdmin(String id){
                 btn_actualizarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 100, 40));
+        panel_admin.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 100, 40));
 
         txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
         panel_admin.add(txt_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 159, 20));
@@ -280,7 +282,7 @@ public void ActualizarAdmin(String id){
                 btn_eliminarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 100, 40));
+        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,6 +295,11 @@ public void ActualizarAdmin(String id){
                 "", "", "", ""
             }
         ));
+        tabla_admin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_adminMouseClicked(evt);
+            }
+        });
         scrpanel_tabla.setViewportView(tabla_admin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -333,23 +340,17 @@ public void ActualizarAdmin(String id){
     private void btn_registrapaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrapaciActionPerformed
 
         // Este boton para permite registrar pacientes nuevos a la BD
-
         String nom = txt_nombre.getText();
         String prepa = txt_prepa.getText();
         String ced = txt_cedula.getText();
         String dir = txt_direccion.getText();
         String tel = txt_telefono.getText();
-       String contra = String.valueOf(txt_contra.getPassword());
-        if(ced.equals(""))
-        {
+        String contra = String.valueOf(txt_contra.getPassword());
+        if (ced.equals("")) {
             JOptionPane.showMessageDialog(null, "Agrega un cedula");
-        }
-
-        else if(contra.equals(""))
-        {
+        } else if (contra.equals("")) {
             JOptionPane.showMessageDialog(null, "Agrega la contraseña");
-        }
-        else{
+        } else {
             PreparedStatement ps;
             String query = "INSERT INTO `admin`(`nombre`, `cedula`, `direccion`, `telefono`, `preparacion_academica`, `contraseña`) VALUES (?,?,?,?,?,?)";
             try {
@@ -360,44 +361,45 @@ public void ActualizarAdmin(String id){
                 ps.setString(3, dir);
                 ps.setString(4, tel);
                 ps.setString(5, prepa);
-                ps.setString(6,contra);
-             
+                ps.setString(6, contra);
 
-                if(ps.executeUpdate() > 0)
-                {
+                if (ps.executeUpdate() > 0) {
                     JOptionPane.showMessageDialog(null, "Nuevo Administrador Agregado");
-                                    Limpiar();
+                    Limpiar();
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(frm_main.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "error "+ex);
+                JOptionPane.showMessageDialog(null, "error " + ex);
             }
         }
     }//GEN-LAST:event_btn_registrapaciActionPerformed
 
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        // TODO add your handling code here:
-        tabla("");
-    }//GEN-LAST:event_btn_editarActionPerformed
-
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        // TODO add your handling code here:
-         MyConnetion con = new MyConnetion();
-     Connection conexion = getConnection();
-        String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
-          String nom = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 1).toString();
+      // este boton permite actualizar un administrador
+         String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
         ActualizarAdmin(id);
-        tabla("admin");
+        tabla("");
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        // TODO add your handling code here:
-           String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
+        // este boton permite eliminar un administrador
+        String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
         Connection conexion = getConnection();
         EliminaRegistro(id);
         tabla("admin");
     }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void tabla_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_adminMouseClicked
+       // este evento es para que al momento de darle click a cualquier administrador aparesca en todos los textfield
+        
+        txt_nombre.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 1).toString());
+        txt_cedula.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 2).toString());
+        txt_direccion.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 3).toString());
+        txt_telefono.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
+        txt_prepa.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
+        txt_contra.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
+    }//GEN-LAST:event_tabla_adminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -436,7 +438,6 @@ public void ActualizarAdmin(String id){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
-    private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
