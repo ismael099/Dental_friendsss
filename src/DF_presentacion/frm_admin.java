@@ -173,6 +173,7 @@ Connection con;
         btn_actualizar = new javax.swing.JButton();
         txt_contra = new javax.swing.JPasswordField();
         btn_eliminar = new javax.swing.JButton();
+        btn_vaciar = new javax.swing.JButton();
         scrpanel_tabla = new javax.swing.JScrollPane();
         tabla_admin = new javax.swing.JTable();
 
@@ -282,7 +283,19 @@ Connection con;
                 btn_eliminarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
+        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 100, 40));
+
+        btn_vaciar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_vaciar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_vaciar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_vaciar.setText("Vaciar");
+        btn_vaciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vaciarActionPerformed(evt);
+            }
+        });
+        panel_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -366,6 +379,7 @@ Connection con;
                 if (ps.executeUpdate() > 0) {
                     JOptionPane.showMessageDialog(null, "Nuevo Administrador Agregado");
                     Limpiar();
+                    tabla("");
                 }
 
             } catch (SQLException ex) {
@@ -400,6 +414,11 @@ Connection con;
         txt_prepa.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
         txt_contra.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
     }//GEN-LAST:event_tabla_adminMouseClicked
+
+    private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
+        // Este boton funciona para vaciar todos los textfield
+        Limpiar();
+    }//GEN-LAST:event_btn_vaciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,6 +460,7 @@ Connection con;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
+    private javax.swing.JButton btn_vaciar;
     private javax.swing.JLabel lbl_cedu;
     private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_dire;
