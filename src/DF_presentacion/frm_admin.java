@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frm_admin extends javax.swing.JFrame {
 DefaultTableModel model = new DefaultTableModel();
+
  // procedemos a crear una tabla mediante el defaulttablemodel
 
     /**
@@ -28,6 +29,7 @@ DefaultTableModel model = new DefaultTableModel();
      */
     public frm_admin() {
         initComponents();
+        tabla("");
     }
    // creamos un metodo llamado tabla para crear rellenar la tabla
     public void tabla (String tabla){
@@ -36,7 +38,7 @@ DefaultTableModel model = new DefaultTableModel();
         MyConnetion con = new MyConnetion();
         Connection conexion = getConnection();
         DefaultTableModel model = new DefaultTableModel();
-     model.addColumn("ID"); 
+       model.addColumn("ID"); 
         model.addColumn("Nombre");
         model.addColumn("Cedula");
         model.addColumn("Direccion");
@@ -384,6 +386,7 @@ public void ActualizarAdmin(String id){
          MyConnetion con = new MyConnetion();
      Connection conexion = getConnection();
         String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
+          String nom = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 1).toString();
         ActualizarAdmin(id);
         tabla("admin");
     }//GEN-LAST:event_btn_actualizarActionPerformed
