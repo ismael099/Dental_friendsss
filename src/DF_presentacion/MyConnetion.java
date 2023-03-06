@@ -7,6 +7,10 @@ package DF_presentacion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+
+
 /**
  *
  * @author jim3j
@@ -27,4 +31,7 @@ public class MyConnetion {
     }
     return con;
 }
+   static Statement createStatement(){
+       throw new UnsupportedOperationException("Error");
+   }  
 }
