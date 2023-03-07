@@ -5,6 +5,11 @@
  */
 package DF_presentacion;
 
+/**
+ *
+ * @author jim3j
+ */
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,19 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Alian Peralta
- */
 public class frm_Login extends javax.swing.JFrame {
 
     /**
-     * Creates new form frm_Login
+     * Creates new form frm_logins
      */
     public frm_Login() {
         initComponents();
     }
-   public boolean RevisarUsuario(String usuario){
+public boolean RevisarUsuario(String usuario){
         //Funcion para Revisar si el usuario existe dentro de la BD
         String a,b;
         PreparedStatement ps;
@@ -45,7 +46,6 @@ public class frm_Login extends javax.swing.JFrame {
         }
         return checkUser;
 }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,7 +69,6 @@ public class frm_Login extends javax.swing.JFrame {
         lb_img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Inicio de Sesion");
 
         lbl_panei.setBackground(new java.awt.Color(50, 113, 155));
         lbl_panei.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -90,11 +89,6 @@ public class frm_Login extends javax.swing.JFrame {
         lbl_panei.add(lbl_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 238, -1, -1));
 
         txt_usuario.setToolTipText("");
-        txt_usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usuarioActionPerformed(evt);
-            }
-        });
         lbl_panei.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 105, -1));
 
         btn_boton.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,7 +106,7 @@ public class frm_Login extends javax.swing.JFrame {
         lbl_dfdental.setText("DF");
         lbl_dfdental.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                titulo(evt);
+                lbl_dfdentaltitulo(evt);
             }
         });
         lbl_panei.add(lbl_dfdental, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
@@ -127,13 +121,13 @@ public class frm_Login extends javax.swing.JFrame {
         lbl_df.setText("Dental Friends");
         lbl_df.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dental(evt);
+                lbl_dfdental(evt);
             }
         });
         lbl_panei.add(lbl_df, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
         lbl_panei.add(txt_clave, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 120, -1));
 
-        lb_img.setIcon(new javax.swing.ImageIcon("C:\\Users\\Alian Peralta\\Desktop\\Proyecto santiago\\sellos.png")); // NOI18N
+        lb_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sellos.png"))); // NOI18N
         lb_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_imgMouseClicked(evt);
@@ -145,9 +139,9 @@ public class frm_Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(lb_img)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(lbl_panei, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -156,80 +150,74 @@ public class frm_Login extends javax.swing.JFrame {
                 .addComponent(lbl_panei, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(42, 42, 42)
                 .addComponent(lb_img)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
-        //Este es el texfield del usuario al momento del usuario ingresar algun dato que no queremos en el text field desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_usuarioActionPerformed
 
     private void btn_botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_botonActionPerformed
         // Este es el boton que permite que el usuario ingrese
-       PreparedStatement ps;
+        PreparedStatement ps;
         ResultSet rs;
         String Usuario, Clave,S,q;
         Usuario = txt_usuario.getText();
         Clave = String.valueOf(txt_clave.getPassword());
         String query = "SELECT * FROM `admin` WHERE `nombre` =? AND `contraseña` =?";
-        
+
         try{
             ps = MyConnetion.getConnection().prepareStatement(query);
             ps.setString(1, Usuario);
             ps.setString(2, Clave);
-            
+
             rs = ps.executeQuery();
-            
+
             if(rs.next()){
-            frm_main mf = new frm_main();
-            mf.setVisible(true);
-            mf.pack();
-            this.dispose();
+                frm_main mf = new frm_main();
+                mf.setVisible(true);
+                mf.pack();
+                this.dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Usuario o Clave incorrectos", "Fallo en Acesso",2);
             }
-            }   catch (SQLException ex){
+        }   catch (SQLException ex){
             Logger.getLogger(frm_Login.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error" + ex);
-}
-         // Tenemos estas Variables definidas para agregarles un valor en especifico despues
-      
-         // aqui estamos definiendo que la variable usuario sera igual al texfiel de usuario 
-      
-        //aqui estamos definiendo que la variable clave sera igual al texfiel de clave 
-/** usamos este if else para que solo deje pasar al main a un admin 
- * y esto es porque la condicion del if es que admin es igual a la variable de usuario 
- * y al igual que la variable clave que tambien es igual a admin.
-       
-        */ 
-//if ("admin".equals(Usuario) && "admin".equals(Clave)){
-//            JOptionPane.showMessageDialog(null,"Bienvenido " + Usuario); // si la condicion se cumple aparecera este mensaje 
-//            frm_main mf = new frm_main(); // aqui estamos creando un mf nuevo
-//            mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
-//            mf.pack();
-//            this.dispose(); 
-//        }
-//        else {
-//            JOptionPane.showMessageDialog(null,"No eres admin muevalo ratrero"); // en caso de que la condicion no se cumpla aparecera este mensaje
-//        }
+        }
+        // Tenemos estas Variables definidas para agregarles un valor en especifico despues
 
+        // aqui estamos definiendo que la variable usuario sera igual al texfiel de usuario
+
+        //aqui estamos definiendo que la variable clave sera igual al texfiel de clave
+        /** usamos este if else para que solo deje pasar al main a un admin
+        * y esto es porque la condicion del if es que admin es igual a la variable de usuario
+        * y al igual que la variable clave que tambien es igual a admin.
+
+        */
+        //if ("admin".equals(Usuario) && "admin".equals(Clave)){
+            //            JOptionPane.showMessageDialog(null,"Bienvenido " + Usuario); // si la condicion se cumple aparecera este mensaje
+            //            frm_main mf = new frm_main(); // aqui estamos creando un mf nuevo
+            //            mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
+            //            mf.pack();
+            //            this.dispose();
+            //        }
+        //        else {
+            //            JOptionPane.showMessageDialog(null,"No eres admin muevalo ratrero"); // en caso de que la condicion no se cumpla aparecera este mensaje
+            //        }
     }//GEN-LAST:event_btn_botonActionPerformed
 
-    private void titulo(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titulo
+    private void lbl_dfdentaltitulo(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_dfdentaltitulo
         // En caso de que toquen el titulo aparecera este mensaje
-         JOptionPane.showMessageDialog(null,"Tocaste de el Titulo y este significa DF = Dental Friends");
-    }//GEN-LAST:event_titulo
+        JOptionPane.showMessageDialog(null,"Tocaste de el Titulo y este significa DF = Dental Friends");
+    }//GEN-LAST:event_lbl_dfdentaltitulo
 
-    private void dental(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dental
+    private void lbl_dfdental(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_dfdental
         // En caso de que toquen estas palabras aparecera este mensaje
         JOptionPane.showMessageDialog(null,"Tocaste Dental Friends");
-    }//GEN-LAST:event_dental
+    }//GEN-LAST:event_lbl_dfdental
 
     private void lb_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_imgMouseClicked
         // En caso de que toquen el logo aparecera este mensaje
@@ -261,6 +249,7 @@ public class frm_Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frm_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

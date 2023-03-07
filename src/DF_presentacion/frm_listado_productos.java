@@ -83,7 +83,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
         lbl_descripcion.setForeground(new java.awt.Color(94, 141, 147));
         lbl_descripcion.setText("Descripción:");
 
-        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-salida-32.png")); // NOI18N
         btn_salir.setToolTipText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,10 +91,10 @@ public class frm_listado_productos extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-búsqueda-32.png")); // NOI18N
         btn_buscar.setToolTipText("Buscar");
 
-        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
+        btn_imprimir.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-imprimir-32.png")); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
         btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +128,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
             }
         });
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\lo.png")); // NOI18N
 
         javax.swing.GroupLayout panel_listado_productoLayout = new javax.swing.GroupLayout(panel_listado_producto);
         panel_listado_producto.setLayout(panel_listado_productoLayout);
@@ -139,37 +139,34 @@ public class frm_listado_productos extends javax.swing.JFrame {
                     .addGroup(panel_listado_productoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_productoLayout.createSequentialGroup()
-                                .addComponent(btn_imprimir)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_buscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_salir)
-                                .addGap(305, 305, 305))
                             .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_logo)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_descripcion)
-                                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                        .addComponent(lbl_id)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbl_nombre)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(11, 11, 11)
-                                        .addComponent(lbl_marca)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(11, 11, 11)
-                                        .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(323, 323, 323))))
+                                .addGap(586, 586, 586)
+                                .addComponent(btn_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_buscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_logo)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_descripcion)
+                            .addGroup(panel_listado_productoLayout.createSequentialGroup()
+                                .addComponent(lbl_id)
+                                .addGap(12, 12, 12)
+                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_nombre)
+                                .addGap(17, 17, 17)
+                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(lbl_marca)
+                                .addGap(17, 17, 17)
+                                .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel_listado_productoLayout.createSequentialGroup()
                         .addGap(291, 291, 291)
                         .addComponent(lbl_title)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
         panel_listado_productoLayout.setVerticalGroup(
             panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,14 +192,14 @@ public class frm_listado_productos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_buscar)
-                    .addComponent(btn_salir)
-                    .addComponent(btn_imprimir))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 390));
+        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 390));
 
         pack();
         setLocationRelativeTo(null);

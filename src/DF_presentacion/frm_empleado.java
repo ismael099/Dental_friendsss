@@ -87,6 +87,8 @@ public void Limpiar(){
         lbl_titu = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         btn_salir = new javax.swing.JButton();
+        lbl_cedula = new javax.swing.JLabel();
+        txt_cedu = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de empleado");
@@ -121,6 +123,11 @@ public void Limpiar(){
         panel_empleado.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 123, -1));
 
         cmb_sex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
+        cmb_sex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_sexActionPerformed(evt);
+            }
+        });
         panel_empleado.add(cmb_sex, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 160, -1));
 
         Sexo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -143,7 +150,7 @@ public void Limpiar(){
                 btn_regiempActionPerformed(evt);
             }
         });
-        panel_empleado.add(btn_regiemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 122, 44));
+        panel_empleado.add(btn_regiemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 122, 44));
 
         lbl_titu.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_titu.setForeground(new java.awt.Color(94, 141, 147));
@@ -160,7 +167,13 @@ public void Limpiar(){
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_empleado.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 70, 60));
+        panel_empleado.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, 70, 60));
+
+        lbl_cedula.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_cedula.setText("Cedula:");
+        panel_empleado.add(lbl_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
+        panel_empleado.add(txt_cedu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 130, -1));
 
         getContentPane().add(panel_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 470));
 
@@ -180,7 +193,7 @@ public void Limpiar(){
         String dir = txt_direccion.getText();
         String tel = txt_telefono.getText();
         String sal = txt_salario.getText();
-        
+        String cedu = txt_cedu.getText();
 
         
         
@@ -214,7 +227,7 @@ public void Limpiar(){
     
         else{
         PreparedStatement ps;
-        String query = "INSERT INTO `empleado`(`id_empleado`, `nombre`, `apellido`, `sexo`, `direccion`, `telefono`,`salario`) VALUES (0,?,?,?,?,?,?)";
+        String query = "INSERT INTO `empleado`(`id_empleado`, `nombre`, `apellido`, `sexo`, `direccion`, `telefono`,`salario`,`cedula`) VALUES (0,?,?,?,?,?,?,?)";
         try {
             ps = MyConnetion.getConnection().prepareStatement(query);
             
@@ -224,6 +237,7 @@ public void Limpiar(){
             ps.setString(4, dir);
             ps.setString(5, tel);
             ps.setString(6, sal);
+            ps.setString(7, cedu);
             if(ps.executeUpdate() > 0)
             {
                 JOptionPane.showMessageDialog(null, "Nuevo Empleado Agregado");
@@ -244,6 +258,10 @@ public void Limpiar(){
         mf.pack();
         this.dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
+
+    private void cmb_sexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_sexActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_sexActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +304,7 @@ public void Limpiar(){
     private javax.swing.JButton btn_salir;
     private javax.swing.JComboBox<String> cmb_sex;
     private javax.swing.JLabel lbl_ape;
+    private javax.swing.JLabel lbl_cedula;
     private javax.swing.JLabel lbl_dire1;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_nombre;
@@ -294,6 +313,7 @@ public void Limpiar(){
     private javax.swing.JLabel lbl_titu;
     private javax.swing.JPanel panel_empleado;
     private javax.swing.JTextField txt_apellido;
+    private javax.swing.JTextField txt_cedu;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_salario;

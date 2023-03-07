@@ -40,12 +40,12 @@ public class frm_listado_factura extends javax.swing.JFrame {
 
         panel_listado_factura = new javax.swing.JPanel();
         lbl_facturacion = new javax.swing.JLabel();
-        txt_nombre = new javax.swing.JTextField();
-        txt_cedula = new javax.swing.JTextField();
-        lbl_nombre = new javax.swing.JLabel();
-        lbl_cedula = new javax.swing.JLabel();
-        txt_telefono = new javax.swing.JTextField();
-        lbl_tel = new javax.swing.JLabel();
+        txt_id_factura = new javax.swing.JTextField();
+        txt_num_corre = new javax.swing.JTextField();
+        lbl_id_factura = new javax.swing.JLabel();
+        lbl_num_corre = new javax.swing.JLabel();
+        txt_id_emp = new javax.swing.JTextField();
+        lbl_id_emp = new javax.swing.JLabel();
         lbl_detalle = new javax.swing.JLabel();
         btn_vaciar = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
@@ -66,30 +66,24 @@ public class frm_listado_factura extends javax.swing.JFrame {
         lbl_facturacion.setForeground(new java.awt.Color(94, 141, 147));
         lbl_facturacion.setText("Factura");
         panel_listado_factura.add(lbl_facturacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
-        panel_listado_factura.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 132, -1));
+        panel_listado_factura.add(txt_id_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 100, -1));
+        panel_listado_factura.add(txt_num_corre, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 120, -1));
 
-        txt_cedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cedulaActionPerformed(evt);
-            }
-        });
-        panel_listado_factura.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 129, -1));
+        lbl_id_factura.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_id_factura.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_id_factura.setText("Id factura");
+        panel_listado_factura.add(lbl_id_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
-        lbl_nombre.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lbl_nombre.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre.setText("Nombre");
-        panel_listado_factura.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        lbl_num_corre.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_num_corre.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_num_corre.setText("Num correlativa");
+        panel_listado_factura.add(lbl_num_corre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+        panel_listado_factura.add(txt_id_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 140, 110, -1));
 
-        lbl_cedula.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_cedula.setText("Cedula");
-        panel_listado_factura.add(lbl_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
-        panel_listado_factura.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 126, -1));
-
-        lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_tel.setText("Telefono");
-        panel_listado_factura.add(lbl_tel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
+        lbl_id_emp.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_id_emp.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_id_emp.setText("Id empleado");
+        panel_listado_factura.add(lbl_id_emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
 
         lbl_detalle.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_detalle.setForeground(new java.awt.Color(81, 124, 164));
@@ -103,7 +97,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_vaciarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 131, 30, 30));
+        panel_listado_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(697, 121, 40, 40));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir ");
@@ -112,7 +106,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
+        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 50, 40));
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
@@ -121,7 +115,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_buscarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, -1, -1));
+        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 40, 40));
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -130,7 +124,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
                 btn_imprimirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, -1));
+        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, -1, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,16 +152,12 @@ public class frm_listado_factura extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_listado_factura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panel_listado_factura, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cedulaActionPerformed
-        // Este es el texfield de la cedula del paciente desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_cedulaActionPerformed
 
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
         // Este es el boton que permite vaciar todos los text field que esten llenos 
@@ -253,16 +243,16 @@ public class frm_listado_factura extends javax.swing.JFrame {
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lbl_cedula;
     private javax.swing.JLabel lbl_detalle;
     private javax.swing.JLabel lbl_facturacion;
+    private javax.swing.JLabel lbl_id_emp;
+    private javax.swing.JLabel lbl_id_factura;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JLabel lbl_nombre;
-    private javax.swing.JLabel lbl_tel;
+    private javax.swing.JLabel lbl_num_corre;
     private javax.swing.JPanel panel_listado_factura;
     private javax.swing.JScrollPane tabla_factura;
-    private javax.swing.JTextField txt_cedula;
-    private javax.swing.JTextField txt_nombre;
-    private javax.swing.JTextField txt_telefono;
+    private javax.swing.JTextField txt_id_emp;
+    private javax.swing.JTextField txt_id_factura;
+    private javax.swing.JTextField txt_num_corre;
     // End of variables declaration//GEN-END:variables
 }
