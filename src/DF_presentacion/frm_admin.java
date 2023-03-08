@@ -32,7 +32,7 @@ public class frm_admin extends javax.swing.JFrame {
      */
     public frm_admin() {
         initComponents();
-        tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
+//        tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
 
     }
     // creamos estemedo metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
@@ -144,7 +144,67 @@ Connection con;
             System.out.println(e);
         }
     }
+public void buscar(String nombre){
+    Statement ps;
+  MyConnetion con = new MyConnetion();  
+        Connection conexion = getConnection();
+        String query = "select * from `admin` where `nombre` = '"+ txt_nombre.getText()+"'" + " or cedula = '" + txt_cedula.getText()+ "'" + " or direccion = '" + txt_direccion.getText()+ "'" +  "or preparacion_academica = '" + txt_prepa.getText() + "'" + "or telefono = '" + txt_telefono.getText() +"'";
+//        "update `admin` set nombre = '" + nombre.getText() +  "',cedula = '" + cedula.getText() +"', direccion = '" + direccion.getText() + "' ,preparacion_academica = '" + preparacion_academica.getText() + "',contraseña = '" + contraseña.getText() +"';
+//                +  "OR `cedula` = "
+//                + txt_cedula.getText() +"OR `direccion` = " + txt_direccion.getText() + "OR `preparacion_academica` = " + txt_prepa.getText();
+        
+      
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("Cedula");
+        model.addColumn("Direccion");
+        model.addColumn("Telefono");
+        model.addColumn("Preparacion Academica");
+        model.addColumn("Contraseña");
 
+        tabla_admin.setModel(model);
+        String[] dato = new String[7];
+        try {
+            
+                ps = conexion.createStatement();
+            ResultSet rs = ps.executeQuery(query);
+            
+//                while (rs.next()) {
+//                dato[0] = rs.getString(1);
+//                dato[1] = rs.getString(2);
+//                dato[2] = rs.getString(3);
+//                dato[3] = rs.getString(4);
+//                dato[4] = rs.getString(5);
+//                dato[5] = rs.getString(6);
+//                dato[6] = rs.getString(7);
+//                model.addRow(dato);
+//            }
+            if (rs.next()) {
+            txt_nombre.setText(rs.getString("nombre"));
+            txt_cedula.setText(rs.getString("cedula"));
+            txt_direccion.setText(rs.getString("direccion"));
+            txt_telefono.setText(rs.getString("telefono"));
+            txt_prepa.setText(rs.getString("preparacion_academica"));
+           txt_contra.setText(rs.getString("contraseña"));
+           
+//             dato[0] = rs.getString(1);
+//                dato[1] = rs.getString(2);
+//                dato[2] = rs.getString(3);
+//                dato[3] = rs.getString(4);
+//                dato[4] = rs.getString(5);
+//                dato[5] = rs.getString(6);
+//                dato[6] = rs.getString(7);
+//                model.addRow(dato);
+            }
+            else {
+             JOptionPane.showMessageDialog(null, "Este admin no existe");
+             Limpiar();
+            }
+            
+        } catch (SQLException ex) {
+               ex.printStackTrace();
+        }    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,7 +221,7 @@ Connection con;
         txt_cedula = new javax.swing.JTextField();
         lbl_dire = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JTextField();
-        lbl_correo = new javax.swing.JLabel();
+        lbl_buscar = new javax.swing.JLabel();
         lbl_tel = new javax.swing.JLabel();
         lbl_prepa = new javax.swing.JLabel();
         txt_prepa = new javax.swing.JTextField();
@@ -174,6 +234,9 @@ Connection con;
         txt_contra = new javax.swing.JPasswordField();
         btn_eliminar = new javax.swing.JButton();
         btn_vaciar = new javax.swing.JButton();
+        lbl_contra = new javax.swing.JLabel();
+        txt_buscar = new javax.swing.JTextField();
+        btn_buscar = new javax.swing.JButton();
         scrpanel_tabla = new javax.swing.JScrollPane();
         tabla_admin = new javax.swing.JTable();
 
@@ -190,7 +253,7 @@ Connection con;
         panel_admin.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_admin.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 120, 20));
+        panel_admin.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, 20));
 
         lbl_cedu.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_cedu.setForeground(new java.awt.Color(81, 124, 164));
@@ -208,10 +271,10 @@ Connection con;
         txt_direccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
         panel_admin.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 130, 20));
 
-        lbl_correo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_correo.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_correo.setText("Contraseña:");
-        panel_admin.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
+        lbl_buscar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_buscar.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_buscar.setText("Nombre:");
+        panel_admin.add(lbl_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
@@ -232,10 +295,10 @@ Connection con;
         lbl_title.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_title.setForeground(new java.awt.Color(94, 141, 147));
         lbl_title.setText("Registro de Admin");
-        panel_admin.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
+        panel_admin.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
-        panel_admin.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+        panel_admin.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir al menu principal");
@@ -296,6 +359,26 @@ Connection con;
             }
         });
         panel_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
+
+        lbl_contra.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_contra.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_contra.setText("Contraseña:");
+        panel_admin.add(lbl_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
+
+        txt_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
+        panel_admin.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 120, 20));
+
+        btn_buscar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_buscar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_buscar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_buscar.setText("Buscar");
+        btn_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+        panel_admin.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 100, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -420,6 +503,11 @@ Connection con;
         Limpiar();
     }//GEN-LAST:event_btn_vaciarActionPerformed
 
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        buscar("");
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,12 +545,14 @@ Connection con;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
+    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
+    private javax.swing.JLabel lbl_buscar;
     private javax.swing.JLabel lbl_cedu;
-    private javax.swing.JLabel lbl_correo;
+    private javax.swing.JLabel lbl_contra;
     private javax.swing.JLabel lbl_dire;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_nombre;
@@ -472,6 +562,7 @@ Connection con;
     private javax.swing.JPanel panel_admin;
     private javax.swing.JScrollPane scrpanel_tabla;
     private javax.swing.JTable tabla_admin;
+    private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JPasswordField txt_contra;
     private javax.swing.JTextField txt_direccion;
