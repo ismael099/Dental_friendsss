@@ -32,40 +32,59 @@ public class frm_admin extends javax.swing.JFrame {
      */
     public frm_admin() {
         initComponents();
-//        tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
+        tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
 
     }
     // creamos estemedo metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
 
     public void tabla(String tabla) {
-        String sql = "Select * from `admin` " + tabla;  
+       String sql = " " +  tabla;
         Statement st;
-        MyConnetion con = new MyConnetion();  
-        Connection conexion = getConnection();
-        model.addColumn("ID");
+        MyConnetion con = new MyConnetion();
+        Connection conexion = con.getConnection();
+        DefaultTableModel model = new DefaultTableModel();
+     model.addColumn("ID"); 
         model.addColumn("Nombre");
         model.addColumn("Cedula");
         model.addColumn("Direccion");
         model.addColumn("Telefono");
         model.addColumn("Preparacion Academica");
         model.addColumn("Contraseña");
-
+        
         tabla_admin.setModel(model);
-        String[] dato = new String[7];
-        try {
+        String [] dato = new String[7];
+        if(tabla.equals("")){
+            sql = "Select * from `admin`";
+        }
+        else {
+            sql = "select * from `admin` where `nombre` = '"+ txt_nombre.getText()+"'" + " or cedula = '" + txt_cedula.getText()+ "'" + " or direccion = '" + txt_direccion.getText()+ "'" +  "or preparacion_academica = '" + txt_prepa.getText() + "'" + "or telefono = '" + txt_telefono.getText() +"'";
+            
+        }
+        try{
             st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                dato[0] = rs.getString(1);
-                dato[1] = rs.getString(2);
-                dato[2] = rs.getString(3);
-                dato[3] = rs.getString(4);
-                dato[4] = rs.getString(5);
-                dato[5] = rs.getString(6);
-                dato[6] = rs.getString(7);
+            while(rs.next())
+            {  
+                  
+                dato[0] =rs.getString(1);
+                dato[1] =rs.getString(2);
+                dato[2] =rs.getString(3);
+                dato[3] =rs.getString(4);
+                dato[4] =rs.getString(5);
+                dato[5] =rs.getString(6);
+                dato[6] =rs.getString(7);
                 model.addRow(dato);
+                
+                 txt_nombre.setText(rs.getString("nombre"));
+            txt_cedula.setText(rs.getString("cedula"));
+            txt_direccion.setText(rs.getString("direccion"));
+            txt_telefono.setText(rs.getString("telefono"));
+            txt_prepa.setText(rs.getString("preparacion_academica"));
+           txt_contra.setText(rs.getString("contraseña"));
+           
             }
-        } catch (SQLException e) {
+        }catch(SQLException e)
+        {
             e.printStackTrace();
         }
     }
@@ -144,67 +163,6 @@ Connection con;
             System.out.println(e);
         }
     }
-public void buscar(String nombre){
-    Statement ps;
-  MyConnetion con = new MyConnetion();  
-        Connection conexion = getConnection();
-        String query = "select * from `admin` where `nombre` = '"+ txt_nombre.getText()+"'" + " or cedula = '" + txt_cedula.getText()+ "'" + " or direccion = '" + txt_direccion.getText()+ "'" +  "or preparacion_academica = '" + txt_prepa.getText() + "'" + "or telefono = '" + txt_telefono.getText() +"'";
-//        "update `admin` set nombre = '" + nombre.getText() +  "',cedula = '" + cedula.getText() +"', direccion = '" + direccion.getText() + "' ,preparacion_academica = '" + preparacion_academica.getText() + "',contraseña = '" + contraseña.getText() +"';
-//                +  "OR `cedula` = "
-//                + txt_cedula.getText() +"OR `direccion` = " + txt_direccion.getText() + "OR `preparacion_academica` = " + txt_prepa.getText();
-        
-      
-        model.addColumn("ID");
-        model.addColumn("Nombre");
-        model.addColumn("Cedula");
-        model.addColumn("Direccion");
-        model.addColumn("Telefono");
-        model.addColumn("Preparacion Academica");
-        model.addColumn("Contraseña");
-
-        tabla_admin.setModel(model);
-        String[] dato = new String[7];
-        try {
-            
-                ps = conexion.createStatement();
-            ResultSet rs = ps.executeQuery(query);
-            
-//                while (rs.next()) {
-//                dato[0] = rs.getString(1);
-//                dato[1] = rs.getString(2);
-//                dato[2] = rs.getString(3);
-//                dato[3] = rs.getString(4);
-//                dato[4] = rs.getString(5);
-//                dato[5] = rs.getString(6);
-//                dato[6] = rs.getString(7);
-//                model.addRow(dato);
-//            }
-            if (rs.next()) {
-            txt_nombre.setText(rs.getString("nombre"));
-            txt_cedula.setText(rs.getString("cedula"));
-            txt_direccion.setText(rs.getString("direccion"));
-            txt_telefono.setText(rs.getString("telefono"));
-            txt_prepa.setText(rs.getString("preparacion_academica"));
-           txt_contra.setText(rs.getString("contraseña"));
-           
-//             dato[0] = rs.getString(1);
-//                dato[1] = rs.getString(2);
-//                dato[2] = rs.getString(3);
-//                dato[3] = rs.getString(4);
-//                dato[4] = rs.getString(5);
-//                dato[5] = rs.getString(6);
-//                dato[6] = rs.getString(7);
-//                model.addRow(dato);
-            }
-            else {
-             JOptionPane.showMessageDialog(null, "Este admin no existe");
-             Limpiar();
-            }
-            
-        } catch (SQLException ex) {
-               ex.printStackTrace();
-        }    
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -221,7 +179,6 @@ public void buscar(String nombre){
         txt_cedula = new javax.swing.JTextField();
         lbl_dire = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JTextField();
-        lbl_buscar = new javax.swing.JLabel();
         lbl_tel = new javax.swing.JLabel();
         lbl_prepa = new javax.swing.JLabel();
         txt_prepa = new javax.swing.JTextField();
@@ -235,7 +192,6 @@ public void buscar(String nombre){
         btn_eliminar = new javax.swing.JButton();
         btn_vaciar = new javax.swing.JButton();
         lbl_contra = new javax.swing.JLabel();
-        txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         scrpanel_tabla = new javax.swing.JScrollPane();
         tabla_admin = new javax.swing.JTable();
@@ -270,11 +226,6 @@ public void buscar(String nombre){
 
         txt_direccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
         panel_admin.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 130, 20));
-
-        lbl_buscar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_buscar.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_buscar.setText("Nombre:");
-        panel_admin.add(lbl_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
@@ -319,7 +270,7 @@ public void buscar(String nombre){
                 btn_registrapaciActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_registrapaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 100, 40));
+        panel_admin.add(btn_registrapaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 100, 40));
 
         btn_actualizar.setBackground(new java.awt.Color(255, 255, 255));
         btn_actualizar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -331,7 +282,7 @@ public void buscar(String nombre){
                 btn_actualizarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 100, 40));
+        panel_admin.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 100, 40));
 
         txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
         panel_admin.add(txt_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 159, 20));
@@ -346,7 +297,7 @@ public void buscar(String nombre){
                 btn_eliminarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 100, 40));
+        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 100, 40));
 
         btn_vaciar.setBackground(new java.awt.Color(255, 255, 255));
         btn_vaciar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -358,15 +309,12 @@ public void buscar(String nombre){
                 btn_vaciarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 100, 40));
+        panel_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 40));
 
         lbl_contra.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_contra.setForeground(new java.awt.Color(81, 124, 164));
         lbl_contra.setText("Contraseña:");
         panel_admin.add(lbl_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
-
-        txt_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
-        panel_admin.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 120, 20));
 
         btn_buscar.setBackground(new java.awt.Color(255, 255, 255));
         btn_buscar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -378,17 +326,14 @@ public void buscar(String nombre){
                 btn_buscarActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 100, 40));
+        panel_admin.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 100, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "", "", "", ""
+                "ID", "Nombre", "Cedula", "Direccion", "Telefono", "Preparacion Academica", "Contraseña"
             }
         ));
         tabla_admin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -414,10 +359,10 @@ public void buscar(String nombre){
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scrpanel_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panel_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -501,11 +446,13 @@ public void buscar(String nombre){
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
         // Este boton funciona para vaciar todos los textfield
         Limpiar();
+    
     }//GEN-LAST:event_btn_vaciarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
-        buscar("");
+        // Este boton sirve para buscar administradores
+        tabla("admin");
+        
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
@@ -550,7 +497,6 @@ public void buscar(String nombre){
     private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
-    private javax.swing.JLabel lbl_buscar;
     private javax.swing.JLabel lbl_cedu;
     private javax.swing.JLabel lbl_contra;
     private javax.swing.JLabel lbl_dire;
@@ -562,7 +508,6 @@ public void buscar(String nombre){
     private javax.swing.JPanel panel_admin;
     private javax.swing.JScrollPane scrpanel_tabla;
     private javax.swing.JTable tabla_admin;
-    private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JPasswordField txt_contra;
     private javax.swing.JTextField txt_direccion;
