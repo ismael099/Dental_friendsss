@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ede43d20-eb60-42ed-9c0c-0c452ec444f5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="134f0665-3355-4708-b348-72145332c1f2">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -14,43 +14,37 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[select * from factura;]]>
+		<![CDATA[select * from factura]]>
 	</queryString>
 	<field name="id_factura" class="java.lang.Integer">
 		<fieldDescription><![CDATA[id del la factura]]></fieldDescription>
 	</field>
-	<field name="nombre_empresa" class="java.lang.String">
-		<fieldDescription><![CDATA[nombre de la empresa]]></fieldDescription>
+	<field name="numero_correlativa" class="java.lang.String">
+		<fieldDescription><![CDATA[numero de correlativa de la factura]]></fieldDescription>
 	</field>
-	<field name="fecha" class="java.sql.Date">
-		<fieldDescription><![CDATA[fecha de la factura]]></fieldDescription>
-	</field>
-	<field name="subtotal" class="java.lang.Double">
-		<fieldDescription><![CDATA[subtotal de la factura]]></fieldDescription>
-	</field>
-	<field name="descuento" class="java.lang.Double">
-		<fieldDescription><![CDATA[descuento de la factura]]></fieldDescription>
-	</field>
-	<field name="impuesto" class="java.lang.Double">
-		<fieldDescription><![CDATA[impuesto de la factura]]></fieldDescription>
-	</field>
-	<field name="total" class="java.lang.Double">
-		<fieldDescription><![CDATA[total de la factura]]></fieldDescription>
+	<field name="fecha_correlativa" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha correlativa de la factura]]></fieldDescription>
 	</field>
 	<field name="tipo_pago" class="java.lang.String">
 		<fieldDescription><![CDATA[tipo de pago de la factura]]></fieldDescription>
 	</field>
-	<field name="id_servicio" class="java.lang.Integer">
-		<fieldDescription><![CDATA[id del servicio recivido]]></fieldDescription>
+	<field name="subtotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[subtotal de la factura]]></fieldDescription>
 	</field>
-	<field name="id_paciente" class="java.lang.Integer">
-		<fieldDescription><![CDATA[id del paciente atendido]]></fieldDescription>
+	<field name="itbs" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Empleado_id_empleado" class="java.lang.Integer">
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[total de la factura]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
 		<fieldDescription><![CDATA[id del empleado]]></fieldDescription>
 	</field>
-	<field name="Doctor_id_dr" class="java.lang.Integer">
+	<field name="id_doctor" class="java.lang.Integer">
 		<fieldDescription><![CDATA[id del doctor]]></fieldDescription>
+	</field>
+	<field name="id_servicios" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id de los servicios]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -58,11 +52,11 @@
 	<title>
 		<band height="132" splitType="Stretch">
 			<image>
-				<reportElement x="134" y="0" width="280" height="90" uuid="e35b3c48-e883-454b-b8c1-14c7334a3719"/>
+				<reportElement x="144" y="3" width="280" height="90" uuid="41e6f65a-b632-4512-829e-e3a3a6eacfca"/>
 				<imageExpression><![CDATA["C:\\Users\\jim3j\\Downloads\\Proyecto santiago\\lo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="-3" y="107" width="558" height="25" uuid="7e59bf1c-21e3-47c8-95d6-10aaded7b386"/>
+				<reportElement x="0" y="107" width="558" height="25" uuid="7e9a073e-f5f9-489b-9e7f-b97e014f98ba"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
@@ -76,178 +70,150 @@
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="7" width="46" height="18" forecolor="#000000" uuid="0f695cf3-15ef-4664-ab93-b402ad038c73"/>
+				<reportElement style="Column header" x="0" y="7" width="55" height="18" forecolor="#000000" uuid="c114b1f7-b0dc-4ce9-a901-dae80e8f4265"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[id_factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="46" y="7" width="46" height="18" forecolor="#000000" uuid="f9221633-1a22-4461-8028-5e649da0a768"/>
+				<reportElement style="Column header" x="55" y="7" width="55" height="18" forecolor="#000000" uuid="a534e7fb-418b-40ff-a20a-058c81c9a1f0"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[nombre_empresa]]></text>
+				<text><![CDATA[numero_correlativa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="92" y="7" width="46" height="18" forecolor="#000000" uuid="fe90960f-835f-4f8e-8b80-1c3fa67f93eb"/>
+				<reportElement style="Column header" x="110" y="7" width="55" height="18" forecolor="#000000" uuid="e9863430-cdae-4523-8c97-145a4ca619fc"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[fecha]]></text>
+				<text><![CDATA[fecha_correlativa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="7" width="46" height="18" forecolor="#000000" uuid="3204b236-6745-4790-9069-f810d4eeaa3a"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[subtotal]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="184" y="7" width="46" height="18" forecolor="#000000" uuid="1602b78f-9e06-4fed-a656-2c0854f51e93"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[descuento]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="230" y="7" width="46" height="18" forecolor="#000000" uuid="5c208602-c6cf-4238-aefd-725920f0da72"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[impuesto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="276" y="7" width="46" height="18" forecolor="#000000" uuid="10803448-8873-4fe9-b9f6-09683d01a519"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[total]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="322" y="7" width="46" height="18" forecolor="#000000" uuid="b23b7ad0-5117-4943-bae2-bdd5470d5867"/>
+				<reportElement style="Column header" x="165" y="7" width="55" height="18" forecolor="#000000" uuid="a0cb8b67-76ad-4456-a813-a14e52c73351"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[tipo_pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="368" y="7" width="46" height="18" forecolor="#000000" uuid="73649d34-42b3-4d48-95d7-392fdedc9be1"/>
+				<reportElement style="Column header" x="220" y="7" width="55" height="18" forecolor="#000000" uuid="bafd6069-7916-4d4e-8ece-365ef04e64e7"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[id_servicio]]></text>
+				<text><![CDATA[subtotal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="414" y="7" width="46" height="18" forecolor="#000000" uuid="04bc4f49-4193-4f25-ad5d-2d17abe138d2"/>
+				<reportElement style="Column header" x="275" y="7" width="55" height="18" forecolor="#000000" uuid="ef2eb1b8-ba6e-4737-8988-7cfd836f434f"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[id_paciente]]></text>
+				<text><![CDATA[itbs]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="460" y="7" width="46" height="18" forecolor="#000000" uuid="f1f80842-c2b3-4484-80ec-d08f8ada58d4"/>
+				<reportElement style="Column header" x="330" y="7" width="55" height="18" forecolor="#000000" uuid="c0db114b-755c-4421-a712-804b2678ec15"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Empleado_id_empleado]]></text>
+				<text><![CDATA[total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="506" y="7" width="46" height="18" forecolor="#000000" uuid="b72a0d2f-cdd9-4991-aa8c-d0e630d2453a"/>
+				<reportElement style="Column header" x="385" y="7" width="55" height="18" forecolor="#000000" uuid="ada52e45-a09f-49ef-b45e-afe3a77b73dc"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[Doctor_id_dr]]></text>
+				<text><![CDATA[id_empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="440" y="7" width="55" height="18" forecolor="#000000" uuid="3443beea-1b91-4ad2-9214-0ba54353398c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[id_doctor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="495" y="7" width="55" height="18" forecolor="#000000" uuid="731d8651-f0c5-4927-bbaa-efc1b726f9de"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[id_servicios]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<frame>
-				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="d59e104e-e2f1-43b7-a5f9-9cf10f0bd2e5"/>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="e2fd5d53-2572-43a0-9c45-aa79678f3ddd"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="0" y="0" width="46" height="18" uuid="39379dcd-8a64-4682-a212-b79e693184c4"/>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="55" height="18" uuid="07ef6499-1bf9-4c0f-9b46-a5c5b334c75b"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="46" y="0" width="46" height="18" uuid="4858e793-9dd3-435e-93a7-85f4311568a1"/>
+					<reportElement style="Detail" positionType="Float" x="55" y="0" width="55" height="18" uuid="9fbb2dd2-d77c-488f-aa6c-e5960771dac3"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{nombre_empresa}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{numero_correlativa}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="92" y="0" width="46" height="18" uuid="10473d18-9990-425b-aec0-a760e2c380e0"/>
+					<reportElement style="Detail" positionType="Float" x="110" y="0" width="55" height="18" uuid="065e20e5-e562-45bc-835c-fadaa7c7ebcd"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{fecha_correlativa}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="138" y="0" width="46" height="18" uuid="6e91a88b-8273-40b7-8a17-eba169cc254f"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="184" y="0" width="46" height="18" uuid="3e7882da-8566-4394-b428-8278e2494333"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="230" y="0" width="46" height="18" uuid="1ea9c75b-13cc-4dcf-ab83-dc1e5fed4795"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{impuesto}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="276" y="0" width="46" height="18" uuid="28c60796-8f94-4664-a3d4-b314e1fafdf7"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="322" y="0" width="46" height="18" uuid="e746e5c2-5335-49d4-825a-9b1b353b97ed"/>
+					<reportElement style="Detail" positionType="Float" x="165" y="0" width="55" height="18" uuid="fcb3d511-082d-4f72-973e-592e30b734a4"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{tipo_pago}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="368" y="0" width="46" height="18" uuid="6f76b8c5-f615-40a3-bbae-2033b858dee2"/>
+					<reportElement style="Detail" positionType="Float" x="220" y="0" width="55" height="18" uuid="0ae92f61-3cab-4927-b5c4-7e4ee716c342"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{id_servicio}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="414" y="0" width="46" height="18" uuid="d37d830d-4194-4672-b954-7e01f1164aef"/>
+					<reportElement style="Detail" positionType="Float" x="275" y="0" width="55" height="18" uuid="5830745e-d0e4-492c-9ba5-65d1694b9758"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{id_paciente}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{itbs}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="460" y="0" width="46" height="18" uuid="b4d30572-4589-4c38-b4f7-9382641a0bbb"/>
+					<reportElement style="Detail" positionType="Float" x="330" y="0" width="55" height="18" uuid="a4fcbe7b-e488-4a4a-809f-f20a41c3cf1b"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{Empleado_id_empleado}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="506" y="0" width="46" height="18" uuid="b3b44ccf-802b-483a-a4a6-fd1f984081cd"/>
+					<reportElement style="Detail" positionType="Float" x="440" y="0" width="55" height="18" uuid="777e5494-fd2f-4b05-883b-71ae4036928c"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{Doctor_id_dr}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{id_doctor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="495" y="0" width="55" height="18" uuid="74243543-a5cf-4b2d-ac71-24034e469d96"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_servicios}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="385" y="0" width="27" height="18" uuid="639b9471-3474-479d-ac08-34f2ad33cec8"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_empleado}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -255,7 +221,7 @@
 	<columnFooter>
 		<band height="7" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="97dca22c-dfb1-4224-954a-3ffddd5477f8"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6447ab32-0d60-4b73-bfc5-86416e4486b3"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -265,44 +231,44 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="-22" y="3" width="604" height="22" backcolor="#006666" uuid="367f0066-5078-4a72-95d3-bf2cfbd21531"/>
+				<reportElement mode="Opaque" x="-19" y="3" width="577" height="22" backcolor="#006666" uuid="cf490362-cce8-49af-8955-429f812bd3a8"/>
 				<staticText>
-					<reportElement x="0" y="0" width="50" height="20" forecolor="#000000" uuid="4b7d1636-5361-43ef-8e03-62e5e9265bc3"/>
+					<reportElement x="0" y="0" width="50" height="20" forecolor="#000000" uuid="35f9c9a2-9b71-45a8-8f59-96f511270d21"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fecha:]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="50" y="0" width="100" height="20" uuid="360d61ce-2021-4728-8b92-9ae953d2133c"/>
+					<reportElement x="50" y="0" width="100" height="20" uuid="4fbffa0f-5444-4a64-89f0-2398699a4320"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
-					<reportElement x="539" y="0" width="19" height="20" uuid="95c6292c-a234-4395-865d-2152da568692"/>
+					<reportElement x="539" y="0" width="19" height="20" uuid="74a44d5b-d40c-409a-8512-f906df65d163"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField pattern="h.mm a">
-					<reportElement x="208" y="0" width="100" height="20" uuid="1a47d5e5-c900-4a90-813c-9a3dc6d18d71"/>
+					<reportElement x="208" y="0" width="100" height="20" uuid="add273c6-a220-43df-9fd6-fdfff0d623b7"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="175" y="0" width="100" height="20" uuid="0475f814-53d5-4690-9a85-1f69f10c8994"/>
+					<reportElement x="175" y="0" width="100" height="20" uuid="022d4ec4-61b1-428c-9f4d-cbad260df7d9"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Hora:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="487" y="0" width="52" height="20" uuid="17974165-acd4-48f9-a2ce-d70c160ea77c"/>
+					<reportElement x="487" y="0" width="52" height="20" uuid="1cc622d7-9e55-4221-82f8-9b104b6866e8"/>
 					<textElement>
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>

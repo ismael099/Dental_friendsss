@@ -5,24 +5,30 @@
  */
 package DF_presentacion;
 
+import static DF_presentacion.MyConnetion.getConnection;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Alian Peralta
  */
 public class frm_factura extends javax.swing.JFrame {
-
+DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form frm_factura
      */
     public frm_factura() {
         initComponents();
+        MostrarFactura("");
     }
+    
  public boolean RevisarFactura(String id){
           PreparedStatement ps;
         ResultSet rs;
@@ -42,7 +48,51 @@ public class frm_factura extends javax.swing.JFrame {
         }
         return checkUser;
     }
- 
+ public void MostrarFactura(String tabla) {
+       String sql = "Select * from `factura`" +  tabla;
+        Statement st;
+        MyConnetion con = new MyConnetion();
+        Connection conexion = con.getConnection();
+        
+     model.addColumn("ID"); 
+        model.addColumn("Numero Correlativa");
+        model.addColumn("Fecha Correlativa");
+        model.addColumn("Tipo de pago");
+        model.addColumn("Subtotal");
+        model.addColumn("Itbis");
+        model.addColumn("Total");
+        model.addColumn("ID empleado");
+        model.addColumn("ID Doctor");
+        model.addColumn("ID servicios");
+       
+        
+        tabla_factura.setModel(model);
+        String [] dato = new String[10];
+//        }
+        try{
+            st = conexion.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+            {  
+                  
+                dato[0] =rs.getString(1);
+                dato[1] =rs.getString(2);
+                dato[2] =rs.getString(3);
+                dato[3] =rs.getString(4);
+                dato[4] =rs.getString(5);
+                dato[5] =rs.getString(6);
+                dato[6] =rs.getString(7);
+                dato[7] =rs.getString(8);
+                dato[8] =rs.getString(9);
+                dato[9] =rs.getString(10);
+                
+                model.addRow(dato);
+            }
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
    public void Limpiar(){
     try{
        txt_num_correlativa.setText("");
@@ -59,6 +109,38 @@ public class frm_factura extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"error"+ ex);
     }
 }
+   public void ActualizarFactura(String id){
+       Connection con;
+
+    try {
+        PreparedStatement ps;
+        con = getConnection();
+        ps = con.prepareStatement("UPDATE `factura` SET numero_correlativa=?, fecha_correlativa=?, tipo_pago=?, subtotal=?, itbs=?, total=?, id_empleado=?, id_doctor=?, id_servicios=? WHERE id_factura=?");
+        ps.setString(1, txt_num_correlativa.getText());
+         ps.setString(2, txt_fecha_correletiva.getText());
+         ps.setString(3, (String) cmb_tipo_pago.getSelectedItem());
+         ps.setString(4, txt_subtotal.getText());
+         ps.setString(5, txt_itbis.getText());
+         ps.setString(6, txt_total.getText());
+          ps.setString(7, txt_id_empleado.getText());
+           ps.setString(8, txt_id_doctor.getText());
+            ps.setString(9, txt_id_serv.getText());
+        ps.setString(10, id);
+
+        int res = ps.executeUpdate();
+
+        if (res > 0) {
+            JOptionPane.showMessageDialog(null, "Factura Actualizada");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la factura");
+        }
+        MostrarFactura("");
+        con.close();
+
+    } catch (SQLException e) {
+        System.err.println(e);
+    }
+   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,12 +174,16 @@ public class frm_factura extends javax.swing.JFrame {
         lbl_subtitulo = new javax.swing.JLabel();
         btn_salir = new javax.swing.JButton();
         txt_id_serv = new javax.swing.JTextField();
+        btn_listado = new javax.swing.JButton();
+        btn_vaciar = new javax.swing.JButton();
+        btn_actualizar = new javax.swing.JButton();
         tabla_facturas = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_factura = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Facturación");
-        setPreferredSize(new java.awt.Dimension(1235, 498));
+        setPreferredSize(new java.awt.Dimension(1235, 559));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_factura.setBackground(new java.awt.Color(255, 255, 255));
@@ -179,7 +265,7 @@ public class frm_factura extends javax.swing.JFrame {
                 btn_factActionPerformed(evt);
             }
         });
-        panel_factura.add(btn_fact, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 376, 130, 60));
+        panel_factura.add(btn_fact, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 130, 60));
 
         lbl_titulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(94, 141, 147));
@@ -187,7 +273,7 @@ public class frm_factura extends javax.swing.JFrame {
         panel_factura.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 23, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
-        panel_factura.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 68, -1, -1));
+        panel_factura.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         lbl_subtitulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_subtitulo.setForeground(new java.awt.Color(94, 141, 147));
@@ -201,23 +287,64 @@ public class frm_factura extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 389, 70, 60));
+        panel_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 60));
         panel_factura.add(txt_id_serv, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 338, 160, -1));
 
-        getContentPane().add(panel_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 460));
+        btn_listado.setBackground(new java.awt.Color(255, 255, 255));
+        btn_listado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_listado.setForeground(new java.awt.Color(94, 141, 147));
+        btn_listado.setText("Listado");
+        btn_listado.setToolTipText("");
+        btn_listado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_listadoActionPerformed(evt);
+            }
+        });
+        panel_factura.add(btn_listado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 130, 60));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btn_vaciar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_vaciar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_vaciar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_vaciar.setText("Vaciar");
+        btn_vaciar.setToolTipText("");
+        btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vaciarActionPerformed(evt);
+            }
+        });
+        panel_factura.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 130, 60));
+
+        btn_actualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btn_actualizar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_actualizar.setForeground(new java.awt.Color(94, 141, 147));
+        btn_actualizar.setText("Actualizar");
+        btn_actualizar.setToolTipText("");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
+        panel_factura.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 130, 60));
+
+        getContentPane().add(panel_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 520));
+
+        tabla_factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", "", "", ""
+
             }
         ));
-        tabla_facturas.setViewportView(jTable1);
+        tabla_factura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_facturaMouseClicked(evt);
+            }
+        });
+        tabla_facturas.setViewportView(tabla_factura);
 
         getContentPane().add(tabla_facturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 520, 430));
 
@@ -270,6 +397,7 @@ public class frm_factura extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null, "Nueva Factura Agregada");
                 Limpiar();
+                MostrarFactura("");
             }
             
         } catch (SQLException ex) {
@@ -285,6 +413,40 @@ public class frm_factura extends javax.swing.JFrame {
         mf.pack();
         this.dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
+
+    private void btn_listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listadoActionPerformed
+        // Este boton funciona para ir donde estan todos los registros de las facturas
+          frm_listado_factura mf = new frm_listado_factura(); // aqui estamos creando un mf nuevo
+        mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
+        mf.pack();
+        this.dispose();
+    }//GEN-LAST:event_btn_listadoActionPerformed
+
+    private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
+        // Este boton funciona para Vaciar todos el textfields
+        Limpiar();
+    }//GEN-LAST:event_btn_vaciarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // Este boton funciona para actualizar una factura ya registrada en la base de datos
+        String id = tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 0).toString();
+        ActualizarFactura(id);
+        MostrarFactura("");
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void tabla_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_facturaMouseClicked
+        // TODO add your handling code here:
+    txt_num_correlativa.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 1).toString());
+    txt_fecha_correletiva.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 2).toString());
+    cmb_tipo_pago.setSelectedItem(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 3).toString());
+    txt_subtotal.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 4).toString());
+    txt_itbis.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 5).toString());
+    txt_total.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 6).toString());
+    txt_id_empleado.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 7).toString());
+    txt_id_doctor.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 8).toString());
+    txt_id_serv.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 9).toString());
+       
+    }//GEN-LAST:event_tabla_facturaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -322,10 +484,12 @@ public class frm_factura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_fact;
+    private javax.swing.JButton btn_listado;
     private javax.swing.JButton btn_salir;
+    private javax.swing.JButton btn_vaciar;
     private javax.swing.JComboBox<String> cmb_tipo_pago;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_fecha_correlativa;
     private javax.swing.JLabel lbl_id_doctor;
     private javax.swing.JLabel lbl_id_empleado;
@@ -339,6 +503,7 @@ public class frm_factura extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JLabel lbl_total;
     private javax.swing.JPanel panel_factura;
+    private javax.swing.JTable tabla_factura;
     private javax.swing.JScrollPane tabla_facturas;
     private javax.swing.JTextField txt_fecha_correletiva;
     private javax.swing.JTextField txt_id_doctor;
