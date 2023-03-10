@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Alian Peralta
  */
-public class frm_empleado extends javax.swing.JFrame {
+public class frm_empleado_1 extends javax.swing.JFrame {
 DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form frm_empleado
      */
-    public frm_empleado() {
+    public frm_empleado_1() {
         initComponents();
         MostrarEmpleados("");
     }
@@ -52,93 +52,89 @@ DefaultTableModel model = new DefaultTableModel();
         }
         return checkUser;
     }
+     public void MostrarEmpleados(String filtro) {
+    MyConnetion con = new MyConnetion();
+    Connection conexion = con.getConnection();
     
-    
-    public void RefrescarTabla(){
-        try{
-            model.setColumnCount(0);
-            model.setRowCount(0);
-            tabla_empleado.revalidate();
-        }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"Error" + ex);
-        }
-    }
-    
-     public void MostrarEmpleados (String empleado){
-          // este metodo funciona para mostrar todos los empleados almacenados en la base de datos con el defaulttablemodel
-        String sql = "Select * from `empleado`" +  empleado;
-        Statement st;
-        MyConnetion cc = new MyConnetion();
-        Connection cn = MyConnetion.getConnection();
-        RefrescarTabla();
-      model.addColumn("ID"); 
-        model.addColumn("Nombre");
-        model.addColumn("Apellido");
-        model.addColumn("Sexo");
-        model.addColumn("Dirección");
-        model.addColumn("Telefono");
-        model.addColumn("Salario");
-        model.addColumn("Cedula");
-       
-        
-        tabla_empleado.setModel(model);
-        String [] dato = new String[8];
-        try{
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
-            {  
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID"); 
+    model.addColumn("Nombre");
+    model.addColumn("Apellido");
+    model.addColumn("Sexo");
+    model.addColumn("Dirección");
+    model.addColumn("Telefono");
+    model.addColumn("Salario");
+    model.addColumn("Cedula");
 
-            dato[0] =rs.getString(1);
-            dato[1] =rs.getString(2);
-            dato[2] =rs.getString(3);
-            dato[3] =rs.getString(4);
-            dato[4] =rs.getString(5);
-            dato[5] =rs.getString(6);
-            dato[6] =rs.getString(7);
-            dato[7] =rs.getString(8);
-                
-                model.addRow(dato);
-            }
-        }catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
+    tabla_empleado.setModel(model);
+    
+    String sql = "SELECT * FROM empleado";
+    if (filtro != null && !filtro.isEmpty()) {
+        sql += " WHERE " + filtro;
     }
-    public void ActualizarEmpleados (String id){
-        // Este metodo funciona para actualizar un empleado ya registrado en la base de datos
-  Connection con;
 
     try {
-        PreparedStatement ps;
+        Statement st = conexion.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            String[] dato = new String[8];
+            dato[0] = rs.getString(1);
+            dato[1] = rs.getString(2);
+            dato[2] = rs.getString(3);
+            dato[3] = rs.getString(4);
+            dato[4] = rs.getString(5);
+            dato[5] = rs.getString(6);
+            dato[6] = rs.getString(7);
+            dato[7] = rs.getString(8);
+            model.addRow(dato);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    public void ActualizarEmpleados (String id){
+        // Este metodo funciona para actualizar un empleado ya registrado en la base de datos
+    Connection con = null;
+    PreparedStatement ps = null;
+    
+    try {
         con = getConnection();
-        ps = con.prepareStatement("UPDATE `empleado` SET nombre=?, apellido=?, sexo=?, direccion=?, telefono=?, salario=?,cedula=? WHERE id_empleado=?");
-        ps.setString(8, id);
+        ps = con.prepareStatement("UPDATE `empleado` SET nombre=?, apellido=?, sexo=?, direccion=?, telefono=?, salario=?, cedula=? WHERE id_empleado=?");
+        
         ps.setString(1, txt_nombre.getText());
-         ps.setString(2, txt_apellido.getText());
-          ps.setString(3, (String) cmb_sex.getSelectedItem());
-            ps.setString(4, txt_direccion.getText());
-             ps.setString(5, txt_telefono.getText());
-               ps.setString(6, txt_salario.getText());
-         ps.setString(7, txt_cedu.getText());
-       
+        ps.setString(2, txt_apellido.getText());
+        ps.setString(3, (String) cmb_sex.getSelectedItem());
+        ps.setString(4, txt_direccion.getText());
+        ps.setString(5, txt_telefono.getText());
+        ps.setDouble(6, Double.parseDouble(txt_salario.getText()));
+        ps.setString(7, txt_cedu.getText());
+        ps.setString(8, id);
 
         int res = ps.executeUpdate();
 
         if (res > 0) {
             JOptionPane.showMessageDialog(null, "Empleado Modificado");
-            MostrarEmpleados("");
-            
         } else {
             JOptionPane.showMessageDialog(null, "Error al Modificar Empleado");
         }
-        con.close();
 
+        MostrarEmpleados("");
+        
     } catch (SQLException e) {
         System.err.println(e);
+    } finally {
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
     }
-    }
+}
 public void Limpiar(){
     try{
        String nom = txt_nombre.getText();

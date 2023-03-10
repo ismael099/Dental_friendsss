@@ -30,6 +30,7 @@ DefaultTableModel model = new DefaultTableModel();
     }
     
  public boolean RevisarFactura(String id){
+     // Este metodo sirve para revisar al momento de insertar una nueva factura no se repita el id
           PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
@@ -48,8 +49,9 @@ DefaultTableModel model = new DefaultTableModel();
         }
         return checkUser;
     }
- public void MostrarFactura(String tabla) {
-       String sql = "Select * from `factura`" +  tabla;
+ public void MostrarFactura(String factura) {
+      // este metodo funciona para mostrar todos las facturas almacenados en la base de datos con el defaulttablemodel
+       String sql = "Select * from `factura`" +  factura;
         Statement st;
         MyConnetion con = new MyConnetion();
         Connection conexion = con.getConnection();
@@ -68,7 +70,7 @@ DefaultTableModel model = new DefaultTableModel();
         
         tabla_factura.setModel(model);
         String [] dato = new String[10];
-//        }
+      
         try{
             st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -94,6 +96,7 @@ DefaultTableModel model = new DefaultTableModel();
         }
     }
    public void Limpiar(){
+       // este metodo funciona para vaciar todos los texfields
     try{
        txt_num_correlativa.setText("");
        txt_fecha_correletiva.setText("");
@@ -110,6 +113,7 @@ DefaultTableModel model = new DefaultTableModel();
     }
 }
    public void ActualizarFactura(String id){
+       // este metodo sirve para actualizar una factura registrada en la base de datos
        Connection con;
 
     try {
@@ -435,7 +439,7 @@ DefaultTableModel model = new DefaultTableModel();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void tabla_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_facturaMouseClicked
-        // TODO add your handling code here:
+        // Este es un evento que al momento de darle click a una factura se reseñen todos los texfields con los datos de esta
     txt_num_correlativa.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 1).toString());
     txt_fecha_correletiva.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 2).toString());
     cmb_tipo_pago.setSelectedItem(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 3).toString());
