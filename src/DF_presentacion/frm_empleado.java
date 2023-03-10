@@ -54,10 +54,10 @@ DefaultTableModel model = new DefaultTableModel();
     }
     
     
-    public void RefrescarTabla(){
+    public void RefrescarTabla(){ // este metodo es para refrecar la tabla
         try{
-            model.setColumnCount(0);
-            model.setRowCount(0);
+            model.setColumnCount(0); // con esto refrescamos todas las columnas 
+            model.setRowCount(0); // este refresca todas las filas
             tabla_empleado.revalidate();
         }
         catch(Exception ex){
@@ -103,7 +103,7 @@ DefaultTableModel model = new DefaultTableModel();
             }
         }catch(SQLException e)
         {
-         System.err.println(e);
+        JOptionPane.showMessageDialog(null, "error "+e);
         }
     }
     public void ActualizarEmpleados (String id){
@@ -136,10 +136,10 @@ DefaultTableModel model = new DefaultTableModel();
         con.close();
 
     } catch (SQLException e) {
-        System.err.println(e);
+        JOptionPane.showMessageDialog(null, "error "+e);
     }
     }
-public void Limpiar(){
+public void Limpiar(){  // con este metodo vaciamos todos el textfields que tengamos
     try{
        String nom = txt_nombre.getText();
         String ape = txt_apellido.getText();
@@ -335,7 +335,6 @@ public void Limpiar(){
         // Este es el boton que permite registrar un empleado 
     
         
-        //Boton para registrar datos nuevos a la BD
       
         String nom = txt_nombre.getText();
         String ape = txt_apellido.getText();

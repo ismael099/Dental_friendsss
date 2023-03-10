@@ -32,7 +32,7 @@ DefaultTableModel model = new DefaultTableModel();
      */
     public frm_listado_empleado() {
         initComponents();
-        MostrarEmpleados("");
+        MostrarEmpleados(""); // esto es para que la tabla aparesca desde que ejecutemos la pantalla
     }
     
  public boolean RevisarEmpleado(String usuario){
@@ -55,10 +55,10 @@ DefaultTableModel model = new DefaultTableModel();
         }
         return checkUser;
     }
-  public void RefrescarTabla(){
+  public void RefrescarTabla(){ // este metodo es para refrecar la tabla
         try{
-            model.setColumnCount(0);
-            model.setRowCount(0);
+            model.setColumnCount(0); // con esto refrescamos todas las columnas 
+            model.setRowCount(0); // este refresca todas las filas
             tabla_empleado.revalidate();
         }
         catch(Exception ex){
@@ -66,14 +66,14 @@ DefaultTableModel model = new DefaultTableModel();
         }
     }
     
-     public void MostrarEmpleados (String empleado){
+     public void MostrarEmpleados (String empleados){
           // este metodo funciona para mostrar todos los empleados almacenados en la base de datos con el defaulttablemodel
-        String sql = "" +  empleado;
+        String sql = "" +  empleados; // esta variable es para el sql aqui esta vacia para poder hacer el if, else
         Statement st;
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-      model.addColumn("ID"); 
+      model.addColumn("ID");  // de esta manera se llena el defaulttablemodel
         model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("Sexo");
@@ -83,20 +83,20 @@ DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Cedula");
        
         
-        tabla_empleado.setModel(model);
+        tabla_empleado.setModel(model); //aqui le decimos a quien se le va a llenar
       
-        String [] dato = new String[8];
-          if(empleado.equals("")){
-            sql = "Select * from `empleado`";
+        String [] dato = new String[8]; // aqui creamos un array para decirle a java lo que va a ejecutar
+          if(empleados.equals("")){ // este es el if que dije que iba a usar
+            sql = "Select * from `empleado`"; // esta sql es el que aparece desde que entramos a la pantalla y es porque no estamos buscando nada
         }
           else {
-          sql = "select * from `empleado` where `id_empleado` = '"+ txt_id_empleado.getText()+"'" + " or nombre = '" + txt_empleado.getText()+ "'" + " or telefono = '" + txt_telefono.getText()+ "'" +  "or cedula = '" + txt_cedula.getText() + "'";
-              
+          sql = "select * from `empleado` where `id_empleado` = '" + txt_id_empleado.getText()+ "'";// + " or nombre = '" + txt_empleado.getText()+ "'" + " or telefono = '" + txt_telefono.getText()+ "'" +  "or cedula = '" + txt_cedula.getText() + "'";
+             // este sql es el que se ejecuta para buscar un empleado en este caso le estamos diciendo que por ejemplo nombre sea igual a un texfield en ese caso si llenamos ese textfield debe buscar a alguien con ese nombre 
           }
         try{
             st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next())
+            ResultSet rs = st.executeQuery(sql); // este codigo es el que va a ejecutar la variable sql
+            while(rs.next()) // este while nos servira para crear un bucle para que rellene el array
             {  
 
             dato[0] =rs.getString(1);
@@ -108,11 +108,29 @@ DefaultTableModel model = new DefaultTableModel();
             dato[6] =rs.getString(7);
             dato[7] =rs.getString(8);
                 
-                model.addRow(dato);
+                model.addRow(dato); // con esto le decimos a java que agregue todas esas filas que estan en el bucle se las agregue a la tabla
             }
         }catch(SQLException e)
         {
-         System.err.println(e);
+            JOptionPane.showMessageDialog(null,"Error" + e);
+        }
+    }
+     public void Limpiar(){  // con este metodo vaciamos todos el textfields que tengamos
+         txt_id_empleado.setText("");
+         txt_empleado.setText("");
+         txt_telefono.setText("");
+         txt_cedula.setText("");
+     }
+      public void EliminarEmpleado(String id) { // este metodo sirve para eliminar un empleado registrado en la base de datos
+        String sql = "delete from empleado where id_empleado = " + id;
+        Statement st;
+         Connection cn = MyConnetion.getConnection();
+        try {
+            st = cn.createStatement();
+            int rs = st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+        } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
     /**
@@ -134,41 +152,58 @@ DefaultTableModel model = new DefaultTableModel();
         txt_telefono = new javax.swing.JTextField();
         lbl_cedula = new javax.swing.JLabel();
         txt_cedula = new javax.swing.JTextField();
-        btn_vaciar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
         tabla_empleados = new javax.swing.JScrollPane();
         tabla_empleado = new javax.swing.JTable();
         btn_salir = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
         btn_imprimir = new javax.swing.JButton();
         lbl_logo = new javax.swing.JLabel();
+        btn_vaciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado de pacientes");
 
         panel_listado_paciente.setBackground(new java.awt.Color(255, 255, 255));
+        panel_listado_paciente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_titulo.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(94, 141, 147));
         lbl_titulo.setText("Lista de empleados:");
+        panel_listado_paciente.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 31, -1, -1));
 
         lbl_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_empleado.setForeground(new java.awt.Color(81, 124, 164));
         lbl_empleado.setText("id del empleado:");
+        panel_listado_paciente.add(lbl_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, -1, -1));
+        panel_listado_paciente.add(txt_id_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 144, 117, -1));
 
         lbl_nombre_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_nombre_empleado.setForeground(new java.awt.Color(81, 124, 164));
         lbl_nombre_empleado.setText("Nombre empleado:");
+        panel_listado_paciente.add(lbl_nombre_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 115, -1, -1));
+        panel_listado_paciente.add(txt_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 144, 102, -1));
 
         lbl_telefono.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_telefono.setForeground(new java.awt.Color(81, 124, 164));
         lbl_telefono.setText("Telefono:");
+        panel_listado_paciente.add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 115, -1, -1));
+        panel_listado_paciente.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 144, 107, -1));
 
         lbl_cedula.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
         lbl_cedula.setText("Cedula:");
+        panel_listado_paciente.add(lbl_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 115, -1, -1));
+        panel_listado_paciente.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 144, 88, -1));
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
-        btn_vaciar.setToolTipText("Vaciar");
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
+        btn_eliminar.setToolTipText("Vaciar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        panel_listado_paciente.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 50, 40));
 
         tabla_empleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,7 +218,14 @@ DefaultTableModel model = new DefaultTableModel();
 
             }
         ));
+        tabla_empleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_empleadoMouseClicked(evt);
+            }
+        });
         tabla_empleados.setViewportView(tabla_empleado);
+
+        panel_listado_paciente.add(tabla_empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 182, 701, 281));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
@@ -192,9 +234,16 @@ DefaultTableModel model = new DefaultTableModel();
                 btn_salirActionPerformed(evt);
             }
         });
+        panel_listado_paciente.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 469, -1, -1));
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+        panel_listado_paciente.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 469, -1, -1));
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -203,91 +252,24 @@ DefaultTableModel model = new DefaultTableModel();
                 btn_imprimirActionPerformed(evt);
             }
         });
+        panel_listado_paciente.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 470, -1, -1));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
+        lbl_logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_logoMouseClicked(evt);
+            }
+        });
+        panel_listado_paciente.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
-        javax.swing.GroupLayout panel_listado_pacienteLayout = new javax.swing.GroupLayout(panel_listado_paciente);
-        panel_listado_paciente.setLayout(panel_listado_pacienteLayout);
-        panel_listado_pacienteLayout.setHorizontalGroup(
-            panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabla_empleados)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_pacienteLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_imprimir)
-                        .addGap(37, 37, 37)
-                        .addComponent(btn_buscar)
-                        .addGap(32, 32, 32)
-                        .addComponent(btn_salir))
-                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                        .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbl_empleado)
-                                    .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                        .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                        .addComponent(lbl_nombre_empleado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbl_telefono)))
-                                .addGap(30, 30, 30)
-                                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_cedula))
-                                .addGap(34, 34, 34)
-                                .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                .addComponent(lbl_logo)
-                                .addGap(46, 46, 46)
-                                .addComponent(lbl_titulo)))
-                        .addGap(0, 72, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panel_listado_pacienteLayout.setVerticalGroup(
-            panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbl_logo))
-                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lbl_titulo)))
-                .addGap(12, 12, 12)
-                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                        .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_empleado)
-                            .addComponent(lbl_nombre_empleado)
-                            .addComponent(lbl_telefono)
-                            .addComponent(lbl_cedula))
-                        .addGap(7, 7, 7)
-                        .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btn_vaciar))
-                .addGap(18, 18, 18)
-                .addComponent(tabla_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_pacienteLayout.createSequentialGroup()
-                        .addComponent(btn_salir)
-                        .addGap(31, 31, 31))
-                    .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                        .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_buscar)
-                            .addComponent(btn_imprimir))
-                        .addContainerGap())))
-        );
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-empty-48.png"))); // NOI18N
+        btn_vaciar.setToolTipText("Vaciar");
+        btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vaciarActionPerformed(evt);
+            }
+        });
+        panel_listado_paciente.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 107, 52, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,10 +302,10 @@ DefaultTableModel model = new DefaultTableModel();
         Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
         try{
           
-            JasperReport jr = (JasperReport) JRLoader.loadObject(frm_paciente_listado.class.getResource("/Reportes/empleado.jasper"));
+            JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_empleado.class.getResource("/Reportes/empleado.jasper"));
             // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
           Map parametros = new HashMap<>(); 
-          parametros.put("Titulo", "Reporte Pacientes");
+          parametros.put("Titulo", "Reporte Empleados");
             
           JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
           JasperViewer jv = new JasperViewer(jp, false);
@@ -334,6 +316,37 @@ DefaultTableModel model = new DefaultTableModel();
 }
 
     }//GEN-LAST:event_btn_imprimirActionPerformed
+
+    private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
+        // Este boton sirve para vaciar todos los textfield
+        Limpiar();
+    }//GEN-LAST:event_btn_vaciarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+//         este boton permite eliminar un empleado registrado en la base de datos 
+          String id = tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString();
+        Connection cn = MyConnetion.getConnection();
+        EliminarEmpleado(id);
+        MostrarEmpleados("");
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // Este boton permite buscar un empleado registrado en la base de datos
+        MostrarEmpleados("empleado");
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void tabla_empleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_empleadoMouseClicked
+    txt_id_empleado.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString());
+    txt_empleado.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 1).toString());
+    txt_telefono.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 5).toString());
+      txt_cedula.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 7).toString());
+
+    }//GEN-LAST:event_tabla_empleadoMouseClicked
+
+    private void lbl_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoMouseClicked
+        // Este evento es para volver a poner todos los registros
+        MostrarEmpleados("");
+    }//GEN-LAST:event_lbl_logoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -372,6 +385,7 @@ DefaultTableModel model = new DefaultTableModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_imprimir;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;

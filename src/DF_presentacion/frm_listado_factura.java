@@ -34,12 +34,12 @@ DefaultTableModel model = new DefaultTableModel();
      */
     public frm_listado_factura() {
         initComponents();
-       MostrarFactura("");
+       MostrarFactura("");  // esto es para que la tabla aparesca desde que ejecutemos la pantalla
     }
-     public void RefrescarTabla(){
+     public void RefrescarTabla(){ // este metodo es para refrecar la tabla
         try{
-            model.setColumnCount(0);
-            model.setRowCount(0);
+              model.setColumnCount(0); // con esto refrescamos todas las columnas 
+            model.setRowCount(0); // este refresca todas las filas
             tabla_factura.revalidate();
         }
         catch(Exception ex){
@@ -47,7 +47,7 @@ DefaultTableModel model = new DefaultTableModel();
         }
     }
  public void MostrarFactura(String tabla) {
-   
+   // este metodo funciona para mostrar todas las facturas almacenadas en la base de datos con el defaulttablemodel
        String sql = "" +  tabla;
         Statement st;
        MyConnetion cc = new MyConnetion();
@@ -120,12 +120,12 @@ DefaultTableModel model = new DefaultTableModel();
         }
         return checkUser;
     }
-  public void Limpiar(){
+  public void Limpiar(){  // con este metodo vaciamos todos el textfields que tengamos
        txt_num_corre.setText("");
      txt_id_emp.setText("");
        txt_id_factura.setText("");
   }
-  public void EliminarFactura(String id){
+  public void EliminarFactura(String id){ // este metodo sirve para eliminar una factura registrado en la base de datos
        String sql = "delete from factura where id_factura = " + id;
         Statement st;
          Connection cn = MyConnetion.getConnection();
@@ -261,6 +261,11 @@ DefaultTableModel model = new DefaultTableModel();
         panel_listado_factura.add(tabla_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 690, 240));
 
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
+        lbl_logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_logoMouseClicked(evt);
+            }
+        });
         panel_listado_factura.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         btn_vaciar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-empty-48.png"))); // NOI18N
@@ -312,7 +317,7 @@ DefaultTableModel model = new DefaultTableModel();
         
         Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
         try{
-          JasperReport jr = (JasperReport) JRLoader.loadObject(frm_paciente_listado.class.getResource("/Reportes/factura.jasper"));
+          JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_factura.class.getResource("/Reportes/factura.jasper"));
            // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
           Map parametros = new HashMap<>();
           parametros.put("Titulo", "Reporte Factura");
@@ -352,6 +357,11 @@ DefaultTableModel model = new DefaultTableModel();
         mf.pack();
         this.dispose();
     }//GEN-LAST:event_lbl_facturacionMouseClicked
+
+    private void lbl_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoMouseClicked
+        //Esto es para que la tabla se vuelva a mostrar
+        MostrarFactura("");
+    }//GEN-LAST:event_lbl_logoMouseClicked
 
     /**
      * @param args the command line arguments
