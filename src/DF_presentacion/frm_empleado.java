@@ -103,7 +103,7 @@ DefaultTableModel model = new DefaultTableModel();
             }
         }catch(SQLException e)
         {
-            e.printStackTrace();
+         System.err.println(e);
         }
     }
     public void ActualizarEmpleados (String id){

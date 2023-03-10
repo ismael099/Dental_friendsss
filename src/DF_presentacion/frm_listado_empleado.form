@@ -47,7 +47,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tabla_pacientes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tabla_empleados" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="btn_imprimir" min="-2" max="-2" attributes="0"/>
@@ -60,18 +60,18 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="lbl_paciente" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbl_empleado" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt_id_empleado" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txt_paciente" min="-2" pref="102" max="-2" attributes="0"/>
+                                          <Component id="txt_empleado" min="-2" pref="102" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                           <Component id="txt_telefono" min="-2" pref="107" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lbl_nombre_paciente" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbl_nombre_empleado" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="lbl_telefono" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -114,15 +114,15 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbl_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbl_nombre_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_nombre_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txt_id_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt_cedula" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -130,7 +130,7 @@
                       <Component id="btn_vaciar" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="tabla_pacientes" min="-2" pref="281" max="-2" attributes="0"/>
+                  <Component id="tabla_empleados" min="-2" pref="281" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -161,7 +161,7 @@
             <Property name="text" type="java.lang.String" value="Lista de empleados:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbl_paciente">
+        <Component class="javax.swing.JLabel" name="lbl_empleado">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
@@ -174,7 +174,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txt_id_empleado">
         </Component>
-        <Component class="javax.swing.JLabel" name="lbl_nombre_paciente">
+        <Component class="javax.swing.JLabel" name="lbl_nombre_empleado">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
@@ -182,10 +182,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a4" green="7c" red="51" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre paciente:"/>
+            <Property name="text" type="java.lang.String" value="Nombre empleado:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_paciente">
+        <Component class="javax.swing.JTextField" name="txt_empleado">
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_telefono">
           <Properties>
@@ -221,24 +221,17 @@
             <Property name="toolTipText" type="java.lang.String" value="Vaciar"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="tabla_pacientes">
+        <Container class="javax.swing.JScrollPane" name="tabla_empleados">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tabla_empleado">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="6">
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
-                  </Table>
+                  <Table columnCount="0" rowCount="6"/>
                 </Property>
               </Properties>
             </Component>

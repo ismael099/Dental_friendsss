@@ -27,7 +27,8 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author deleo
  */
 public class frm_listado_factura extends javax.swing.JFrame {
-
+DefaultTableModel model = new DefaultTableModel();
+        
     /**
      * Creates new form frm_factura
      */
@@ -35,14 +36,23 @@ public class frm_listado_factura extends javax.swing.JFrame {
         initComponents();
        MostrarFactura("");
     }
+     public void RefrescarTabla(){
+        try{
+            model.setColumnCount(0);
+            model.setRowCount(0);
+            tabla_factura.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    }
  public void MostrarFactura(String tabla) {
    
        String sql = "" +  tabla;
         Statement st;
-        MyConnetion con = new MyConnetion();
-        Connection conexion = con.getConnection();
-          DefaultTableModel model = new DefaultTableModel();
-        
+       MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+          RefrescarTabla();
     model.addColumn("ID"); 
         model.addColumn("Numero Correlativa");
         model.addColumn("Fecha Correlativa");
@@ -64,7 +74,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
             
         }
         try{
-            st = conexion.createStatement();
+            st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next())
             {  
@@ -88,7 +98,7 @@ public class frm_listado_factura extends javax.swing.JFrame {
             }
         }catch(SQLException e)
         {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
   public boolean RevisarFactura(String id){
@@ -118,9 +128,9 @@ public class frm_listado_factura extends javax.swing.JFrame {
   public void EliminarFactura(String id){
        String sql = "delete from factura where id_factura = " + id;
         Statement st;
-        Connection conexion = getConnection();
+         Connection cn = MyConnetion.getConnection();
         try {
-            st = conexion.createStatement();
+            st = cn.createStatement();
             int rs = st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
         } catch (SQLException e) {
@@ -280,8 +290,8 @@ public class frm_listado_factura extends javax.swing.JFrame {
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // Este es el boton que permite eliminar una factura ya registrada en la base de datos.
          String id = tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 0).toString();
-        Connection conexion = getConnection();
-        EliminarFactura(id);
+//         Connection cn = MyConnetion.getConnection(); // con esto llamamos a nuestra conexion
+        EliminarFactura(id); // llamamos nuestro metodo para eliminar
         MostrarFactura("");
         
         
@@ -320,12 +330,12 @@ public class frm_listado_factura extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         //        Este es el boton que permite buscar cualquier empleado que este registrado en la base de datos
-        MostrarFactura("factura");
+        MostrarFactura("factura"); // con esto se llama a tu metodo 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void tabla_listado_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_listado_facturaMouseClicked
         // Este evento sirve para rellenar todos los text field
-         txt_num_corre.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 1).toString());
+         txt_num_corre.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 1).toString()); // esto siver para decirle a java que cuando clikcles un campo en especifico de la tabla rellene un texfield en especifico
     txt_id_factura.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 0).toString());
     txt_id_emp.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 7).toString());
     }//GEN-LAST:event_tabla_listado_facturaMouseClicked

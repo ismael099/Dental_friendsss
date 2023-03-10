@@ -28,7 +28,16 @@ DefaultTableModel model = new DefaultTableModel();
         initComponents();
         MostrarFactura("");
     }
-    
+     public void RefrescarTabla(){
+        try{
+            model.setColumnCount(0);
+            model.setRowCount(0);
+            tabla_factura.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    }
  public boolean RevisarFactura(String id){
      // Este metodo sirve para revisar al momento de insertar una nueva factura no se repita el id
           PreparedStatement ps;
@@ -53,9 +62,9 @@ DefaultTableModel model = new DefaultTableModel();
       // este metodo funciona para mostrar todos las facturas almacenados en la base de datos con el defaulttablemodel
        String sql = "Select * from `factura`" +  factura;
         Statement st;
-        MyConnetion con = new MyConnetion();
-        Connection conexion = con.getConnection();
-        
+         MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+        RefrescarTabla();
      model.addColumn("ID"); 
         model.addColumn("Numero Correlativa");
         model.addColumn("Fecha Correlativa");
@@ -72,7 +81,7 @@ DefaultTableModel model = new DefaultTableModel();
         String [] dato = new String[10];
       
         try{
-            st = conexion.createStatement();
+            st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next())
             {  
@@ -92,13 +101,13 @@ DefaultTableModel model = new DefaultTableModel();
             }
         }catch(SQLException e)
         {
-            e.printStackTrace();
+           JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
    public void Limpiar(){
        // este metodo funciona para vaciar todos los texfields
     try{
-       txt_num_correlativa.setText("");
+       txt_num_correlativa.setText(""); // con esto se vacia un textfield en especifico
        txt_fecha_correletiva.setText("");
        txt_subtotal.setText("");
       txt_itbis.setText("");
@@ -138,11 +147,10 @@ DefaultTableModel model = new DefaultTableModel();
         } else {
             JOptionPane.showMessageDialog(null, "Error al actualizar la factura");
         }
-        MostrarFactura("");
         con.close();
 
     } catch (SQLException e) {
-        System.err.println(e);
+       JOptionPane.showMessageDialog(null,"Error" + e);
     }
    }
     /**

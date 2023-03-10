@@ -35,13 +35,25 @@ public class frm_admin extends javax.swing.JFrame {
         tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
 
     }
-    // creamos estemedo metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
+    
+     public void RefrescarTabla(){ // este metodo funciona para refrescar la tabla
+        try{
+            model.setColumnCount(0);
+            model.setRowCount(0);
+            tabla_admin.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    }
+    // creamos este metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
 
     public void tabla(String tabla) {
-       String sql = " " +  tabla;
+       String sql = "" +  tabla;
         Statement st;
-        MyConnetion con = new MyConnetion();
-        Connection conexion = con.getConnection();
+        MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+        RefrescarTabla();
         DefaultTableModel model = new DefaultTableModel();
      model.addColumn("ID"); 
         model.addColumn("Nombre");
@@ -61,7 +73,7 @@ public class frm_admin extends javax.swing.JFrame {
             
         }
         try{
-            st = conexion.createStatement();
+            st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next())
             {  
@@ -85,7 +97,7 @@ public class frm_admin extends javax.swing.JFrame {
             }
         }catch(SQLException e)
         {
-            e.printStackTrace();
+           JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
 
@@ -144,23 +156,22 @@ Connection con;
         } else {
             JOptionPane.showMessageDialog(null, "Error al Modificar persona");
         }
-        tabla("");
         con.close();
 
     } catch (SQLException e) {
         System.err.println(e);
     }
     }
-    public void EliminaRegistro(String id) {
+    public void EliminaRegistro(String id) { // este metodo sirve para eliminar un admin registrado en la base de datos
         String sql = "delete from admin where id_admin = " + id;
         Statement st;
-        Connection conexion = getConnection();
+         Connection cn = MyConnetion.getConnection();
         try {
-            st = conexion.createStatement();
+            st = cn.createStatement();
             int rs = st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
         } catch (SQLException e) {
-            System.out.println(e);
+             JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
     /**
@@ -427,9 +438,9 @@ Connection con;
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // este boton permite eliminar un administrador
         String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
-        Connection conexion = getConnection();
+        Connection cn = MyConnetion.getConnection();
         EliminaRegistro(id);
-        tabla("admin");
+        tabla("");
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void tabla_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_adminMouseClicked

@@ -5,6 +5,10 @@
  */
 package DF_presentacion;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
@@ -14,6 +18,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -21,14 +26,95 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author jim3j
  */
 public class frm_listado_empleado extends javax.swing.JFrame {
-
+DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form frm_listado_empleado
      */
     public frm_listado_empleado() {
         initComponents();
+        MostrarEmpleados("");
     }
+    
+ public boolean RevisarEmpleado(String usuario){
+        // Este metodo sirve para revisar al momento de insertar un nuevo empleado no se repita el id
+          PreparedStatement ps;
+        ResultSet rs;
+        boolean checkUser = false;
+        String query = "SELECT * FROM `empleado` WHERE `id` =?";
+        try {
+            ps = MyConnetion.getConnection().prepareStatement(query);
+            ps.setString(1, usuario);
+            
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                checkUser = true;
+            }
+        }   catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+        return checkUser;
+    }
+  public void RefrescarTabla(){
+        try{
+            model.setColumnCount(0);
+            model.setRowCount(0);
+            tabla_empleado.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    }
+    
+     public void MostrarEmpleados (String empleado){
+          // este metodo funciona para mostrar todos los empleados almacenados en la base de datos con el defaulttablemodel
+        String sql = "" +  empleado;
+        Statement st;
+        MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+        RefrescarTabla();
+      model.addColumn("ID"); 
+        model.addColumn("Nombre");
+        model.addColumn("Apellido");
+        model.addColumn("Sexo");
+        model.addColumn("Dirección");
+        model.addColumn("Telefono");
+        model.addColumn("Salario");
+        model.addColumn("Cedula");
+       
+        
+        tabla_empleado.setModel(model);
+      
+        String [] dato = new String[8];
+          if(empleado.equals("")){
+            sql = "Select * from `empleado`";
+        }
+          else {
+          sql = "select * from `empleado` where `id_empleado` = '"+ txt_id_empleado.getText()+"'" + " or nombre = '" + txt_empleado.getText()+ "'" + " or telefono = '" + txt_telefono.getText()+ "'" +  "or cedula = '" + txt_cedula.getText() + "'";
+              
+          }
+        try{
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+            {  
 
+            dato[0] =rs.getString(1);
+            dato[1] =rs.getString(2);
+            dato[2] =rs.getString(3);
+            dato[3] =rs.getString(4);
+            dato[4] =rs.getString(5);
+            dato[5] =rs.getString(6);
+            dato[6] =rs.getString(7);
+            dato[7] =rs.getString(8);
+                
+                model.addRow(dato);
+            }
+        }catch(SQLException e)
+        {
+         System.err.println(e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,17 +126,17 @@ public class frm_listado_empleado extends javax.swing.JFrame {
 
         panel_listado_paciente = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
-        lbl_paciente = new javax.swing.JLabel();
+        lbl_empleado = new javax.swing.JLabel();
         txt_id_empleado = new javax.swing.JTextField();
-        lbl_nombre_paciente = new javax.swing.JLabel();
-        txt_paciente = new javax.swing.JTextField();
+        lbl_nombre_empleado = new javax.swing.JLabel();
+        txt_empleado = new javax.swing.JTextField();
         lbl_telefono = new javax.swing.JLabel();
         txt_telefono = new javax.swing.JTextField();
         lbl_cedula = new javax.swing.JLabel();
         txt_cedula = new javax.swing.JTextField();
         btn_vaciar = new javax.swing.JButton();
-        tabla_pacientes = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_empleados = new javax.swing.JScrollPane();
+        tabla_empleado = new javax.swing.JTable();
         btn_salir = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
         btn_imprimir = new javax.swing.JButton();
@@ -65,13 +151,13 @@ public class frm_listado_empleado extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(94, 141, 147));
         lbl_titulo.setText("Lista de empleados:");
 
-        lbl_paciente.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_paciente.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_paciente.setText("id del empleado:");
+        lbl_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_empleado.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_empleado.setText("id del empleado:");
 
-        lbl_nombre_paciente.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        lbl_nombre_paciente.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre_paciente.setText("Nombre paciente:");
+        lbl_nombre_empleado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_nombre_empleado.setForeground(new java.awt.Color(81, 124, 164));
+        lbl_nombre_empleado.setText("Nombre empleado:");
 
         lbl_telefono.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_telefono.setForeground(new java.awt.Color(81, 124, 164));
@@ -84,20 +170,20 @@ public class frm_listado_empleado extends javax.swing.JFrame {
         btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_empleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", "", "", "", "", ""
+
             }
         ));
-        tabla_pacientes.setViewportView(jTable1);
+        tabla_empleados.setViewportView(tabla_empleado);
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
@@ -127,7 +213,7 @@ public class frm_listado_empleado extends javax.swing.JFrame {
             .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabla_pacientes)
+                    .addComponent(tabla_empleados)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_pacienteLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btn_imprimir)
@@ -139,16 +225,16 @@ public class frm_listado_empleado extends javax.swing.JFrame {
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbl_paciente)
+                                    .addComponent(lbl_empleado)
                                     .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                        .addComponent(txt_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(35, 35, 35)
                                         .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
-                                        .addComponent(lbl_nombre_paciente)
+                                        .addComponent(lbl_nombre_empleado)
                                         .addGap(18, 18, 18)
                                         .addComponent(lbl_telefono)))
                                 .addGap(30, 30, 30)
@@ -178,19 +264,19 @@ public class frm_listado_empleado extends javax.swing.JFrame {
                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_paciente)
-                            .addComponent(lbl_nombre_paciente)
+                            .addComponent(lbl_empleado)
+                            .addComponent(lbl_nombre_empleado)
                             .addComponent(lbl_telefono)
                             .addComponent(lbl_cedula))
                         .addGap(7, 7, 7)
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_id_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btn_vaciar))
                 .addGap(18, 18, 18)
-                .addComponent(tabla_pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabla_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_pacienteLayout.createSequentialGroup()
@@ -289,18 +375,18 @@ public class frm_listado_empleado extends javax.swing.JFrame {
     private javax.swing.JButton btn_imprimir;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_cedula;
+    private javax.swing.JLabel lbl_empleado;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JLabel lbl_nombre_paciente;
-    private javax.swing.JLabel lbl_paciente;
+    private javax.swing.JLabel lbl_nombre_empleado;
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel panel_listado_paciente;
-    private javax.swing.JScrollPane tabla_pacientes;
+    private javax.swing.JTable tabla_empleado;
+    private javax.swing.JScrollPane tabla_empleados;
     private javax.swing.JTextField txt_cedula;
+    private javax.swing.JTextField txt_empleado;
     private javax.swing.JTextField txt_id_empleado;
-    private javax.swing.JTextField txt_paciente;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
 }
