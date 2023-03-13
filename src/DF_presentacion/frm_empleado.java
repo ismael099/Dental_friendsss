@@ -22,13 +22,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Alian Peralta
  */
 public class frm_empleado extends javax.swing.JFrame {
-DefaultTableModel model = new DefaultTableModel();
+DefaultTableModel model;
     /**
      * Creates new form frm_empleado
      */
     public frm_empleado() {
         initComponents();
+             this.model = (DefaultTableModel) tabla_empleado.getModel();
         MostrarEmpleados("");
+   
     }
    
    

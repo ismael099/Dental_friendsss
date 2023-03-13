@@ -20,13 +20,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Alian Peralta
  */
 public class frm_factura extends javax.swing.JFrame {
-DefaultTableModel model = new DefaultTableModel();
+DefaultTableModel model;
     /**
      * Creates new form frm_factura
      */
     public frm_factura() {
         initComponents();
+        this.model = (DefaultTableModel) tabla_factura.getModel();
         MostrarFactura("");
+        
+         
     }
      public void RefrescarTabla(){
         try{
@@ -40,6 +43,7 @@ DefaultTableModel model = new DefaultTableModel();
     }
  public boolean RevisarFactura(String id){
      // Este metodo sirve para revisar al momento de insertar una nueva factura no se repita el id
+    
           PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;

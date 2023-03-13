@@ -26,13 +26,15 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author jim3j
  */
 public class frm_listado_empleado extends javax.swing.JFrame {
-DefaultTableModel model = new DefaultTableModel();
+DefaultTableModel model;
     /**
      * Creates new form frm_listado_empleado
      */
     public frm_listado_empleado() {
         initComponents();
+           this.model = (DefaultTableModel) tabla_empleado.getModel();
         MostrarEmpleados(""); // esto es para que la tabla aparesca desde que ejecutemos la pantalla
+      
     }
     
  public boolean RevisarEmpleado(String usuario){

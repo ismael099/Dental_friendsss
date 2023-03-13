@@ -27,14 +27,16 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author deleo
  */
 public class frm_listado_factura extends javax.swing.JFrame {
-DefaultTableModel model = new DefaultTableModel();
+DefaultTableModel model;
         
     /**
      * Creates new form frm_factura
      */
     public frm_listado_factura() {
         initComponents();
+          this.model = (DefaultTableModel) tabla_listado_factura.getModel();
        MostrarFactura("");  // esto es para que la tabla aparesca desde que ejecutemos la pantalla
+      
     }
      public void RefrescarTabla(){ // este metodo es para refrecar la tabla
         try{
@@ -242,13 +244,13 @@ DefaultTableModel model = new DefaultTableModel();
 
         tabla_listado_factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", " ", "", ""
+
             }
         ));
         tabla_listado_factura.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frm_admin extends javax.swing.JFrame {
 
-    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model;
 
     // procedemos a crear una tabla mediante el defaulttablemodel
     /**
@@ -33,7 +33,7 @@ public class frm_admin extends javax.swing.JFrame {
     public frm_admin() {
         initComponents();
         tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
-
+  this.model = (DefaultTableModel) tabla_admin.getModel();
     }
     
      public void RefrescarTabla(){ // este metodo funciona para refrescar la tabla
