@@ -5,6 +5,9 @@
  */
 package DF_presentacion;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
@@ -14,6 +17,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -21,13 +25,100 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * @author deleo
  */
 public class frm_listado_productos extends javax.swing.JFrame {
+DefaultTableModel model = new DefaultTableModel();
+
 
     /**
      * Creates new form frm_inventario
      */
     public frm_listado_productos() {
         initComponents();
+        MostrarProducto("");
     }
+    
+    public void RefrescarTabla(){ 
+        try{
+            model.setColumnCount(0); 
+            model.setRowCount(0); 
+            tabla_produc.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    
+    }
+    
+    public void MostrarProducto (String producto){
+          
+        String sql = "" +  producto; 
+        Statement st;
+        MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+        RefrescarTabla();
+      model.addColumn("ID");  
+        model.addColumn("Nombre");
+        model.addColumn("Marca");
+
+        
+        tabla_produc.setModel(model); 
+      
+        String [] dato = new String[9];
+          if(producto.equals("")){ 
+            sql = "Select * from `producto`"; 
+        }
+          else {
+          sql = "select * from `producto` where `id_product` = '" + txt_id.getText()+ "'"+ " or nombre = '" + txt_nombre.getText()+ "'" + "or marca = '" + txt_marca.getText() +"'";
+          }
+        try{
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql); 
+            while(rs.next()) 
+            {  
+
+            dato[0] =rs.getString(1);
+            dato[1] =rs.getString(2);
+            dato[2] =rs.getString(3);
+            dato[3] =rs.getString(4);
+            dato[4] =rs.getString(5);
+            dato[5] =rs.getString(6);
+            dato[6] =rs.getString(7);
+            dato[7] =rs.getString(8);
+            dato[8] =rs.getString(9);
+
+                model.addRow(dato);
+            }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,"Error" + e);
+        }
+    }
+    
+     public void Limpiar(){  
+         txt_id.setText("");
+         txt_nombre.setText("");
+         txt_marca.setText("");
+     }
+
+    public void EliminarProducto(String id) {
+        String sql = "delete from producto where id_product = " + id;
+        Statement st;
+         Connection cn = MyConnetion.getConnection();
+        try {
+            st = cn.createStatement();
+            int rs = st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
+        } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null,"Error" + e);
+        }
+    }
+    
+    
+    
+    
+
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +132,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
         panel_listado_producto = new javax.swing.JPanel();
         lbl_title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_produc = new javax.swing.JTable();
         lbl_descripcion = new javax.swing.JLabel();
         btn_salir = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
@@ -65,19 +156,19 @@ public class frm_listado_productos extends javax.swing.JFrame {
         lbl_title.setForeground(new java.awt.Color(94, 141, 147));
         lbl_title.setText("Listados de Productos");
 
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_produc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        tabla_produc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", "", "", ""
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_produc);
 
         lbl_descripcion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_descripcion.setForeground(new java.awt.Color(94, 141, 147));
@@ -93,6 +184,11 @@ public class frm_listado_productos extends javax.swing.JFrame {
 
         btn_buscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-búsqueda-32.png")); // NOI18N
         btn_buscar.setToolTipText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-imprimir-32.png")); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -241,8 +337,17 @@ public class frm_listado_productos extends javax.swing.JFrame {
 
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
           // Este es el boton que permite vaciar todos los text field que esten llenos 
-          
+               
+          Limpiar();
+
     }//GEN-LAST:event_btn_vaciarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        
+        MostrarProducto("Producto");
+        
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +391,6 @@ public class frm_listado_productos extends javax.swing.JFrame {
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_descripcion;
     private javax.swing.JLabel lbl_id;
     private javax.swing.JLabel lbl_logo;
@@ -294,6 +398,7 @@ public class frm_listado_productos extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_title;
     private javax.swing.JPanel panel_listado_producto;
+    private javax.swing.JTable tabla_produc;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_marca;
     private javax.swing.JTextField txt_nombre;
