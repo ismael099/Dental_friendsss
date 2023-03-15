@@ -14,19 +14,57 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.util.JRLoader;
 /**
  *
  * @author Alian Peralta
  */
 public class frm_paciente_listado extends javax.swing.JFrame {
+       DefaultTableModel model = new DefaultTableModel();
 
     /**
      * Creates new form frm_paciente_listado
      */
     public frm_paciente_listado() {
         initComponents();
+//        MostrarPaciente("");
     }
+    
+    public void RefrescarTabla(){ 
+        try{
+            model.setColumnCount(0); 
+            model.setRowCount(0); 
+            tabla_paci.revalidate();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Error" + ex);
+        }
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +87,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         txt_cedula = new javax.swing.JTextField();
         btn_vaciar = new javax.swing.JButton();
         tabla_pacientes = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_paci = new javax.swing.JTable();
         btn_salir = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
         btn_imprimir = new javax.swing.JButton();
@@ -94,20 +132,15 @@ public class frm_paciente_listado extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_paci.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "", "", "", "", "", ""
+
             }
         ));
-        tabla_pacientes.setViewportView(jTable1);
+        tabla_pacientes.setViewportView(tabla_paci);
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
@@ -300,7 +333,6 @@ public class frm_paciente_listado extends javax.swing.JFrame {
     private javax.swing.JButton btn_imprimir;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_cedula;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_nombre_paciente;
@@ -308,6 +340,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel panel_listado_paciente;
+    private javax.swing.JTable tabla_paci;
     private javax.swing.JScrollPane tabla_pacientes;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_id_paciente;
