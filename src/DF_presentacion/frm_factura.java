@@ -451,7 +451,7 @@ DefaultTableModel model;
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void tabla_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_facturaMouseClicked
-        // Este es un evento que al momento de darle click a una factura se reseñen todos los texfields con los datos de esta
+        // Este es un evento que al momento de darle click a una factura se rellenen todos los texfields con los datos de esta
     txt_num_correlativa.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 1).toString());
     txt_fecha_correletiva.setText(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 2).toString());
     cmb_tipo_pago.setSelectedItem(tabla_factura.getValueAt(tabla_factura.getSelectedRow(), 3).toString());

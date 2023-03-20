@@ -148,7 +148,7 @@
         <Component class="javax.swing.JTextField" name="txt_cedula">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="140" width="88" height="-1"/>
+              <AbsoluteConstraints x="420" y="140" width="110" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -243,7 +243,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="564" y="107" width="52" height="-1"/>
+              <AbsoluteConstraints x="564" y="124" width="52" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -265,6 +265,9 @@
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabla_adminMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

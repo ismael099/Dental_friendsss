@@ -72,7 +72,7 @@ DefaultTableModel model;
             sql = "Select * from `factura`";
         }
         else {
-            sql = "select * from `factura` where `numero_correlativa` = '"+ txt_num_corre.getText()+"'" + " or id_empleado = '" + txt_id_emp.getText()+ "'" + "or id_factura = '" + txt_id_factura.getText() +"'";
+            sql = "select * from `factura` where `numero_correlativa` = '"+ txt_num_corre.getText()+"'" + " or `id_empleado` = '" + txt_id_emp.getText()+ "'" + "or `id_factura` = '" + txt_id_factura.getText() +"'";
             
         }
         try{
@@ -128,7 +128,7 @@ DefaultTableModel model;
        txt_id_factura.setText("");
   }
   public void EliminarFactura(String id){ // este metodo sirve para eliminar una factura registrado en la base de datos
-       String sql = "delete from factura where id_factura = " + id;
+       String sql = "delete from `factura` where `id_factura` = " + id;
         Statement st;
          Connection cn = MyConnetion.getConnection();
         try {
@@ -213,7 +213,7 @@ DefaultTableModel model;
                 btn_eliminarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 40, 40));
+        panel_listado_factura.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, 40, 40));
 
         btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir ");
@@ -222,7 +222,7 @@ DefaultTableModel model;
                 btn_salirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 50, 40));
+        panel_listado_factura.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 50, 40));
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
@@ -231,7 +231,7 @@ DefaultTableModel model;
                 btn_buscarActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 40, 40));
+        panel_listado_factura.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 40, 40));
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -240,7 +240,7 @@ DefaultTableModel model;
                 btn_imprimirActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, 40));
+        panel_listado_factura.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, 40));
 
         tabla_listado_factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -277,13 +277,13 @@ DefaultTableModel model;
                 btn_vaciar1ActionPerformed(evt);
             }
         });
-        panel_listado_factura.add(btn_vaciar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 80, 60));
+        panel_listado_factura.add(btn_vaciar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 80, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_listado_factura, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+            .addComponent(panel_listado_factura, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

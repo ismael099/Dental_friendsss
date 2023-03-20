@@ -57,8 +57,11 @@ public class frm_listado_admin extends javax.swing.JFrame {
         RefrescarTabla();
       model.addColumn("ID");  
         model.addColumn("Nombre");
+         model.addColumn("Cedula");
+         model.addColumn("Dirección");
         model.addColumn("Telefono");
-        model.addColumn("direccion");
+        model.addColumn("Preparacion Academica");
+        model.addColumn("Contraseña");
         
         tabla_admin.setModel(model); 
       
@@ -99,7 +102,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
      }
      
     public void EliminarAdmin(String id) {
-        String sql = "delete from admin where id_admin = " + id;
+        String sql = "delete from `admin` where `id_admin` = " + id;
         Statement st;
          Connection cn = MyConnetion.getConnection();
         try {
@@ -176,7 +179,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
         lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
         lbl_cedula.setText("Cedula:");
         panel_listado_admin.add(lbl_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
-        panel_listado_admin.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 88, -1));
+        panel_listado_admin.add(txt_cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 110, -1));
 
         btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
         btn_eliminar.setToolTipText("Eliminar");
@@ -229,7 +232,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
                 btn_vaciarActionPerformed(evt);
             }
         });
-        panel_listado_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 107, 52, -1));
+        panel_listado_admin.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 124, 52, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,6 +245,11 @@ public class frm_listado_admin extends javax.swing.JFrame {
 
             }
         ));
+        tabla_admin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_adminMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla_admin);
 
         panel_listado_admin.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 720, 290));
@@ -285,12 +293,12 @@ public class frm_listado_admin extends javax.swing.JFrame {
     private void btn_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imprimirActionPerformed
         //        Este es el boton que permite imprimir el listado de empleados
         //  Aqui definimos una variable que se llama outfile y esta es igual al lugar donde tenemos el archivo que queremos mostrar
-        String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\empleado.pdf";
+        String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\admins.pdf";
 
         Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn
         try{
 
-            JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_empleado.class.getResource("/Reportes/empleado.jasper"));
+            JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_empleado.class.getResource("/Reportes/admin.jasper"));
             // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
             Map parametros = new HashMap<>();
             parametros.put("Titulo", "Reporte Administradores");
@@ -306,13 +314,22 @@ public class frm_listado_admin extends javax.swing.JFrame {
 
     private void lbl_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoMouseClicked
         // Este evento es para volver a poner todos los registros
-//        MostrarEmpleados("");
+        MostrarAdmin("");
     }//GEN-LAST:event_lbl_logoMouseClicked
 
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
         // Este boton sirve para vaciar todos los textfield
         Limpiar();
     }//GEN-LAST:event_btn_vaciarActionPerformed
+
+    private void tabla_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_adminMouseClicked
+        // TODO add your handling code here:
+         // Este es un evento que al momento de darle click a un admin se rellenen todos los texfields con los datos de esta
+          txt_id_admin.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString());
+            txt_administrador.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 1).toString());
+    txt_telefono.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
+    txt_cedula.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tabla_adminMouseClicked
 
     /**
      * @param args the command line arguments
