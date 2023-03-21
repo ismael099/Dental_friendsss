@@ -42,7 +42,7 @@ DefaultTableModel model;
           PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
-        String query = "SELECT * FROM `empleado` WHERE `id` =?";
+        String query = "SELECT * FROM `empleado` WHERE `id` =?" ;
         try {
             ps = MyConnetion.getConnection().prepareStatement(query);
             ps.setString(1, usuario);

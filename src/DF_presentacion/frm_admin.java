@@ -43,7 +43,7 @@ public class frm_admin extends javax.swing.JFrame {
             tabla_admin.revalidate();
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"Error" + ex);
+            JOptionPane.showMessageDialog(null,"Error" + ex );
         }
     }
     // creamos este metodo llamado tabla para crear rellenar la tabla con el defaultablemodel

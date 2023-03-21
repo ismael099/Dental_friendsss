@@ -128,7 +128,7 @@ DefaultTableModel model;
        txt_id_factura.setText("");
   }
   public void EliminarFactura(String id){ // este metodo sirve para eliminar una factura registrado en la base de datos
-       String sql = "delete from `factura` where `id_factura` = " + id;
+       String sql = "delete from `factura` where `id_factura` =  " + id;
         Statement st;
          Connection cn = MyConnetion.getConnection();
         try {

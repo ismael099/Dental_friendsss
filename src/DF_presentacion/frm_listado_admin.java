@@ -102,7 +102,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
      }
      
     public void EliminarAdmin(String id) {
-        String sql = "delete from `admin` where `id_admin` = " + id;
+        String sql = "delete from `admin` where `id_admin` =  " + id;
         Statement st;
          Connection cn = MyConnetion.getConnection();
         try {

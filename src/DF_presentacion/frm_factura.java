@@ -407,7 +407,7 @@ DefaultTableModel model;
             ps.setString(6, total);
             ps.setString(7, id_serv);
             ps.setString(8, id_emp);
-            ps.setString(9, id_doc);
+            ps.setString(9, id_doc); 
                 
             if(ps.executeUpdate() > 0)
             {
