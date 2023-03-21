@@ -77,7 +77,7 @@ DefaultTableModel model;
 }
       public void MostrarPacientes(String paciente){
            // este metodo funciona para mostrar todos las facturas almacenados en la base de datos con el defaulttablemodel
-       String sql = "Select * from `paciente`" +  paciente; // aqui tenemos que definir un string que este tendra la consulta sql para despues usarla
+       String sql = "Select * from `paciente` " +  paciente; // aqui tenemos que definir un string que este tendra la consulta sql para despues usarla
         Statement st; // aqui creamos nuestro stament
          MyConnetion cc = new MyConnetion(); // llamamos nuestra conexion de mysql
         Connection cn = MyConnetion.getConnection();
