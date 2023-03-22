@@ -32,8 +32,9 @@ public class frm_admin extends javax.swing.JFrame {
      */
     public frm_admin() {
         initComponents();
+        this.model = (DefaultTableModel) tabla_admin.getModel();
         tabla(""); // esto llama al metodo tabla que es el que muestra la tabla
-  this.model = (DefaultTableModel) tabla_admin.getModel();
+  
     }
     
      public void RefrescarTabla(){ // este metodo funciona para refrescar la tabla
@@ -49,13 +50,13 @@ public class frm_admin extends javax.swing.JFrame {
     // creamos este metodo llamado tabla para crear rellenar la tabla con el defaultablemodel
 
     public void tabla(String tabla) {
-       String sql = "" +  tabla;
+        String sql = "" +  tabla;
         Statement st;
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-        DefaultTableModel model = new DefaultTableModel();
-     model.addColumn("ID"); 
+ 
+        model.addColumn("ID"); 
         model.addColumn("Nombre");
         model.addColumn("Cedula");
         model.addColumn("Direccion");
@@ -87,12 +88,6 @@ public class frm_admin extends javax.swing.JFrame {
                 dato[6] =rs.getString(7);
                 model.addRow(dato);
                 
-                 txt_nombre.setText(rs.getString("nombre"));
-            txt_cedula.setText(rs.getString("cedula"));
-            txt_direccion.setText(rs.getString("direccion"));
-            txt_telefono.setText(rs.getString("telefono"));
-            txt_prepa.setText(rs.getString("preparacion_academica"));
-           txt_contra.setText(rs.getString("contraseña"));
            
             }
         }catch(SQLException e)
@@ -136,30 +131,40 @@ public class frm_admin extends javax.swing.JFrame {
 
     public void ActualizarAdmin(String id) { // este metodo es para actualizar los administradores resgistrados mediante una tabla directacmente
 Connection con;
-
-    try {
+ String nom = txt_nombre.getText();
+ String prepa = txt_prepa.getText();
+ String ced = txt_cedula.getText();
+       
+    if (nom.equals("") & prepa.equals("") & ced.equals("")){
+        JOptionPane.showMessageDialog(null, "Se necesitan los campos llenos para actualizar");
+    }    
+    
+    else {
+     try {
         PreparedStatement ps;
         con = getConnection();
         ps = con.prepareStatement("UPDATE `admin` SET nombre=?, cedula=?, direccion=?, telefono=?, preparacion_academica=?, contraseña=? WHERE id_admin=?");
         ps.setString(1, txt_nombre.getText());
-         ps.setString(2, txt_cedula.getText());
-            ps.setString(3, txt_direccion.getText());
-             ps.setString(4, txt_telefono.getText());
-         ps.setString(5, txt_prepa.getText());
-          ps.setString(6, String.valueOf(txt_contra.getPassword()));
+        ps.setString(2, txt_cedula.getText());
+        ps.setString(3, txt_direccion.getText());
+        ps.setString(4, txt_telefono.getText());
+        ps.setString(5, txt_prepa.getText());
+        ps.setString(6, String.valueOf(txt_contra.getPassword()));
         ps.setString(7, id);
 
         int res = ps.executeUpdate();
 
-        if (res > 0) {
+    if (res > 0) {
             JOptionPane.showMessageDialog(null, "Persona Modificada");
-        } else {
+         } 
+    else {
             JOptionPane.showMessageDialog(null, "Error al Modificar persona");
         }
         con.close();
 
     } catch (SQLException e) {
         System.err.println(e);
+    }
     }
     }
     public void EliminaRegistro(String id) { // este metodo sirve para eliminar un admin registrado en la base de datos
@@ -200,10 +205,9 @@ Connection con;
         btn_registrapaci = new javax.swing.JButton();
         btn_actualizar = new javax.swing.JButton();
         txt_contra = new javax.swing.JPasswordField();
-        btn_eliminar = new javax.swing.JButton();
+        btn_listado = new javax.swing.JButton();
         btn_vaciar = new javax.swing.JButton();
         lbl_contra = new javax.swing.JLabel();
-        btn_buscar = new javax.swing.JButton();
         scrpanel_tabla = new javax.swing.JScrollPane();
         tabla_admin = new javax.swing.JTable();
 
@@ -298,17 +302,17 @@ Connection con;
         txt_contra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147)));
         panel_admin.add(txt_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 159, 20));
 
-        btn_eliminar.setBackground(new java.awt.Color(255, 255, 255));
-        btn_eliminar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(94, 141, 147));
-        btn_eliminar.setText("Eliminar");
-        btn_eliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+        btn_listado.setBackground(new java.awt.Color(255, 255, 255));
+        btn_listado.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btn_listado.setForeground(new java.awt.Color(94, 141, 147));
+        btn_listado.setText("Listado");
+        btn_listado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
+        btn_listado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarActionPerformed(evt);
+                btn_listadoActionPerformed(evt);
             }
         });
-        panel_admin.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 100, 40));
+        panel_admin.add(btn_listado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 100, 40));
 
         btn_vaciar.setBackground(new java.awt.Color(255, 255, 255));
         btn_vaciar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -326,18 +330,6 @@ Connection con;
         lbl_contra.setForeground(new java.awt.Color(81, 124, 164));
         lbl_contra.setText("Contraseña:");
         panel_admin.add(lbl_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
-
-        btn_buscar.setBackground(new java.awt.Color(255, 255, 255));
-        btn_buscar.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btn_buscar.setForeground(new java.awt.Color(94, 141, 147));
-        btn_buscar.setText("Buscar");
-        btn_buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(94, 141, 147), 2));
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
-        panel_admin.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 100, 40));
 
         tabla_admin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -435,13 +427,13 @@ Connection con;
         tabla("");
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
-    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        // este boton permite eliminar un administrador
-        String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
-        Connection cn = MyConnetion.getConnection();
-        EliminaRegistro(id);
-        tabla("");
-    }//GEN-LAST:event_btn_eliminarActionPerformed
+    private void btn_listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listadoActionPerformed
+          // Este boton es para ir al listado de los admins
+           frm_listado_admin mf = new frm_listado_admin(); // aqui estamos creando un mf nuevo
+        mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
+        mf.pack();
+        this.dispose();
+    }//GEN-LAST:event_btn_listadoActionPerformed
 
     private void tabla_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_adminMouseClicked
        // este evento es para que al momento de darle click a cualquier administrador aparesca en todos los textfield
@@ -459,12 +451,6 @@ Connection con;
         Limpiar();
     
     }//GEN-LAST:event_btn_vaciarActionPerformed
-
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // Este boton sirve para buscar administradores
-        tabla("admin");
-        
-    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,8 +489,7 @@ Connection con;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
-    private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_listado;
     private javax.swing.JButton btn_registrapaci;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;

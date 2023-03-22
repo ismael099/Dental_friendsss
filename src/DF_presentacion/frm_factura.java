@@ -69,7 +69,7 @@ DefaultTableModel model;
          MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-     model.addColumn("ID"); 
+        model.addColumn("ID"); 
         model.addColumn("Numero Correlativa");
         model.addColumn("Fecha Correlativa");
         model.addColumn("Tipo de pago");
@@ -114,11 +114,11 @@ DefaultTableModel model;
        txt_num_correlativa.setText(""); // con esto se vacia un textfield en especifico
        txt_fecha_correletiva.setText("");
        txt_subtotal.setText("");
-      txt_itbis.setText("");
-        txt_total.setText("");
+       txt_itbis.setText("");
+       txt_total.setText("");
        cmb_tipo_pago.setSelectedIndex(-1);
-     txt_id_serv.setText("");
-     txt_id_empleado.setText("");
+       txt_id_serv.setText("");
+       txt_id_empleado.setText("");
        txt_id_doctor.setText("");
     }
     catch(Exception ex){
@@ -127,22 +127,30 @@ DefaultTableModel model;
 }
    public void ActualizarFactura(String id){
        // este metodo sirve para actualizar una factura registrada en la base de datos
-       Connection con;
-
+        Connection con;
+        String id_serv = txt_id_serv.getText();
+        String subtotal = txt_subtotal.getText();
+        String id_emp = txt_id_empleado.getText();
+      
+  if(id_serv.equals("") & id_emp.equals("") & subtotal.equals("") )
+        {
+            JOptionPane.showMessageDialog(null, "Se necesitan los campos llenos para actualizar");
+        }
+      else {
     try {
-        PreparedStatement ps;
-        con = getConnection();
-        ps = con.prepareStatement("UPDATE `factura` SET numero_correlativa=?, fecha_correlativa=?, tipo_pago=?, subtotal=?, itbs=?, total=?, id_empleado=?, id_doctor=?, id_servicios=? WHERE id_factura=?");
-        ps.setString(1, txt_num_correlativa.getText());
+         PreparedStatement ps;
+         con = getConnection();
+         ps = con.prepareStatement("UPDATE `factura` SET numero_correlativa=?, fecha_correlativa=?, tipo_pago=?, subtotal=?, itbs=?, total=?, id_empleado=?, id_doctor=?, id_servicios=? WHERE id_factura=?");
+         ps.setString(1, txt_num_correlativa.getText());
          ps.setString(2, txt_fecha_correletiva.getText());
          ps.setString(3, (String) cmb_tipo_pago.getSelectedItem());
          ps.setString(4, txt_subtotal.getText());
          ps.setString(5, txt_itbis.getText());
          ps.setString(6, txt_total.getText());
-          ps.setString(7, txt_id_empleado.getText());
-           ps.setString(8, txt_id_doctor.getText());
-            ps.setString(9, txt_id_serv.getText());
-        ps.setString(10, id);
+         ps.setString(7, txt_id_empleado.getText());
+         ps.setString(8, txt_id_doctor.getText());
+         ps.setString(9, txt_id_serv.getText());
+         ps.setString(10, id);
 
         int res = ps.executeUpdate();
 
@@ -156,6 +164,8 @@ DefaultTableModel model;
     } catch (SQLException e) {
        JOptionPane.showMessageDialog(null,"Error" + e);
     }
+                    }
+   
    }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -432,7 +442,7 @@ DefaultTableModel model;
 
     private void btn_listadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listadoActionPerformed
         // Este boton funciona para ir donde estan todos los registros de las facturas
-          frm_listado_factura mf = new frm_listado_factura(); // aqui estamos creando un mf nuevo
+        frm_listado_factura mf = new frm_listado_factura(); // aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
         this.dispose();

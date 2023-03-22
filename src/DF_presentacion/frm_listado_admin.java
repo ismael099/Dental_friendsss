@@ -25,13 +25,14 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author deleo
  */
 public class frm_listado_admin extends javax.swing.JFrame {
-    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model;
 
     /**
      * Creates new form frm_listado_admin
      */
     public frm_listado_admin() {
         initComponents();
+        this.model = (DefaultTableModel) tabla_admin.getModel();
         MostrarAdmin("");
     }
     
@@ -55,10 +56,10 @@ public class frm_listado_admin extends javax.swing.JFrame {
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-      model.addColumn("ID");  
+        model.addColumn("ID");  
         model.addColumn("Nombre");
-         model.addColumn("Cedula");
-         model.addColumn("Dirección");
+        model.addColumn("Cedula");
+        model.addColumn("Dirección");
         model.addColumn("Telefono");
         model.addColumn("Preparacion Academica");
         model.addColumn("Contraseña");
@@ -67,7 +68,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
       
         String [] dato = new String[7];
           if(admin.equals("")){ 
-            sql = "Select * from `admin`"; 
+          sql = "Select * from `admin`"; 
         }
           else {
           sql = "select * from `admin` where `id_admin` = '" + txt_id_admin.getText()+ "'"+ " or nombre = '" + txt_administrador.getText()+ "'" + "or telefono = '" + txt_telefono.getText() +"'" + "or cedula = '" + txt_cedula.getText() +"'";
@@ -325,10 +326,10 @@ public class frm_listado_admin extends javax.swing.JFrame {
     private void tabla_adminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_adminMouseClicked
         // TODO add your handling code here:
          // Este es un evento que al momento de darle click a un admin se rellenen todos los texfields con los datos de esta
-          txt_id_admin.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString());
+            txt_id_admin.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString());
             txt_administrador.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 1).toString());
-    txt_telefono.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
-    txt_cedula.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 2).toString());
+            txt_telefono.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 4).toString());
+            txt_cedula.setText(tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tabla_adminMouseClicked
 
     /**

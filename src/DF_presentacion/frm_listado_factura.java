@@ -34,13 +34,13 @@ DefaultTableModel model;
      */
     public frm_listado_factura() {
         initComponents();
-          this.model = (DefaultTableModel) tabla_listado_factura.getModel();
-       MostrarFactura("");  // esto es para que la tabla aparesca desde que ejecutemos la pantalla
+        this.model = (DefaultTableModel) tabla_listado_factura.getModel();
+        MostrarFactura("");  // esto es para que la tabla aparesca desde que ejecutemos la pantalla
       
     }
      public void RefrescarTabla(){ // este metodo es para refrecar la tabla
         try{
-              model.setColumnCount(0); // con esto refrescamos todas las columnas 
+            model.setColumnCount(0); // con esto refrescamos todas las columnas 
             model.setRowCount(0); // este refresca todas las filas
             tabla_factura.revalidate();
         }
@@ -50,12 +50,12 @@ DefaultTableModel model;
     }
  public void MostrarFactura(String tabla) {
    // este metodo funciona para mostrar todas las facturas almacenadas en la base de datos con el defaulttablemodel
-       String sql = "" +  tabla;
+        String sql = "" +  tabla;
         Statement st;
-       MyConnetion cc = new MyConnetion();
+        MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
-          RefrescarTabla();
-    model.addColumn("ID"); 
+        RefrescarTabla();
+        model.addColumn("ID"); 
         model.addColumn("Numero Correlativa");
         model.addColumn("Fecha Correlativa");
         model.addColumn("Tipo de pago");
@@ -81,7 +81,7 @@ DefaultTableModel model;
             while(rs.next())
             {  
                   
-              dato[0] =rs.getString(1);
+                dato[0] =rs.getString(1);
                 dato[1] =rs.getString(2);
                 dato[2] =rs.getString(3);
                 dato[3] =rs.getString(4);
@@ -94,8 +94,8 @@ DefaultTableModel model;
                 model.addRow(dato);
                 
                  txt_num_corre.setText(rs.getString("numero_correlativa"));
-           txt_id_factura.setText(rs.getString("id_factura"));
-            txt_id_emp.setText(rs.getString("id_empleado"));
+                 txt_id_factura.setText(rs.getString("id_factura"));
+                 txt_id_emp.setText(rs.getString("id_empleado"));
            
             }
         }catch(SQLException e)
@@ -124,13 +124,13 @@ DefaultTableModel model;
     }
   public void Limpiar(){  // con este metodo vaciamos todos el textfields que tengamos
        txt_num_corre.setText("");
-     txt_id_emp.setText("");
+       txt_id_emp.setText("");
        txt_id_factura.setText("");
   }
   public void EliminarFactura(String id){ // este metodo sirve para eliminar una factura registrado en la base de datos
        String sql = "delete from `factura` where `id_factura` =  " + id;
-        Statement st;
-         Connection cn = MyConnetion.getConnection();
+       Statement st;
+       Connection cn = MyConnetion.getConnection();
         try {
             st = cn.createStatement();
             int rs = st.executeUpdate(sql);
@@ -296,7 +296,7 @@ DefaultTableModel model;
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // Este es el boton que permite eliminar una factura ya registrada en la base de datos.
-         String id = tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 0).toString();
+        String id = tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 0).toString();
 //         Connection cn = MyConnetion.getConnection(); // con esto llamamos a nuestra conexion
         EliminarFactura(id); // llamamos nuestro metodo para eliminar
         MostrarFactura("");
@@ -306,7 +306,7 @@ DefaultTableModel model;
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         // Este es el boton que permite salir a menu de los listado
-         frm_listas mf = new frm_listas();// aqui estamos creando un mf nuevo
+        frm_listas mf = new frm_listas();// aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
         this.dispose();
@@ -319,14 +319,14 @@ DefaultTableModel model;
         
         Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
         try{
-          JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_factura.class.getResource("/Reportes/factura.jasper"));
+        JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_factura.class.getResource("/Reportes/factura.jasper"));
            // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
-          Map parametros = new HashMap<>();
-          parametros.put("Titulo", "Reporte Factura");
+        Map parametros = new HashMap<>();
+        parametros.put("Titulo", "Reporte Factura");
             
-          JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
-          JasperViewer jv = new JasperViewer(jp, false);
-          jv.setVisible(true);          
+        JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
+        JasperViewer jv = new JasperViewer(jp, false);
+        jv.setVisible(true);          
         }
         catch (JRException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
@@ -342,7 +342,7 @@ DefaultTableModel model;
 
     private void tabla_listado_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_listado_facturaMouseClicked
         // Este evento sirve para rellenar todos los text field
-         txt_num_corre.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 1).toString()); // esto siver para decirle a java que cuando clikcles un campo en especifico de la tabla rellene un texfield en especifico
+    txt_num_corre.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 1).toString()); // esto siver para decirle a java que cuando clikcles un campo en especifico de la tabla rellene un texfield en especifico
     txt_id_factura.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 0).toString());
     txt_id_emp.setText(tabla_listado_factura.getValueAt(tabla_listado_factura.getSelectedRow(), 7).toString());
     }//GEN-LAST:event_tabla_listado_facturaMouseClicked

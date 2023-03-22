@@ -55,16 +55,21 @@ DefaultTableModel model = new DefaultTableModel();
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-      model.addColumn("ID");  
+        model.addColumn("ID");  
         model.addColumn("Nombre");
+        model.addColumn("Categoria");
         model.addColumn("Marca");
-
+        model.addColumn("Descripcion");
+        model.addColumn("Precio");
+        model.addColumn("Fecha vencimiento");
+        model.addColumn("ID del producto");
+        model.addColumn("ID del admin");
         
         tabla_produc.setModel(model); 
       
         String [] dato = new String[9];
           if(producto.equals("")){ 
-            sql = "Select * from `producto`"; 
+          sql = "Select * from `producto`"; 
         }
           else {
           sql = "select * from `producto` where `id_product` = '" + txt_id.getText()+ "'"+ " or nombre = '" + txt_nombre.getText()+ "'" + "or marca = '" + txt_marca.getText() +"'";
@@ -85,7 +90,10 @@ DefaultTableModel model = new DefaultTableModel();
             dato[7] =rs.getString(8);
             dato[8] =rs.getString(9);
 
-                model.addRow(dato);
+            model.addRow(dato);
+            txt_id.setText(rs.getString("id_product"));
+            txt_nombre.setText(rs.getString("nombre"));
+            txt_marca.setText(rs.getString("marca"));
             }
         }catch(SQLException e)
         {
@@ -102,13 +110,13 @@ DefaultTableModel model = new DefaultTableModel();
     public void EliminarProducto(String id) {
         String sql = "delete from producto where id_product = " + id;
         Statement st;
-         Connection cn = MyConnetion.getConnection();
+        Connection cn = MyConnetion.getConnection();
         try {
             st = cn.createStatement();
             int rs = st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
         } catch (SQLException e) {
-             JOptionPane.showMessageDialog(null,"Error" + e);
+            JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
     
@@ -145,16 +153,19 @@ DefaultTableModel model = new DefaultTableModel();
         lbl_marca = new javax.swing.JLabel();
         btn_vaciar = new javax.swing.JButton();
         lbl_logo = new javax.swing.JLabel();
+        btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado de productos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_listado_producto.setBackground(new java.awt.Color(255, 255, 255));
+        panel_listado_producto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_title.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_title.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_title.setForeground(new java.awt.Color(94, 141, 147));
         lbl_title.setText("Listados de Productos");
+        panel_listado_producto.add(lbl_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, -1));
 
         tabla_produc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         tabla_produc.setModel(new javax.swing.table.DefaultTableModel(
@@ -168,134 +179,87 @@ DefaultTableModel model = new DefaultTableModel();
 
             }
         ));
+        tabla_produc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_producMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla_produc);
+
+        panel_listado_producto.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 703, 170));
 
         lbl_descripcion.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         lbl_descripcion.setForeground(new java.awt.Color(94, 141, 147));
         lbl_descripcion.setText("Descripción:");
+        panel_listado_producto.add(lbl_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        btn_salir.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-salida-32.png")); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-salida-32.png"))); // NOI18N
         btn_salir.setToolTipText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_salirActionPerformed(evt);
             }
         });
+        panel_listado_producto.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 350, 41, 41));
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-búsqueda-32.png")); // NOI18N
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
             }
         });
+        panel_listado_producto.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, 50, -1));
 
-        btn_imprimir.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\icons8-imprimir-32.png")); // NOI18N
+        btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
         btn_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_imprimirActionPerformed(evt);
             }
         });
-
-        txt_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nombreActionPerformed(evt);
-            }
-        });
+        panel_listado_producto.add(btn_imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 45, -1));
+        panel_listado_producto.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 132, -1));
+        panel_listado_producto.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 129, -1));
 
         lbl_id.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_id.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_id.setText("Id");
+        lbl_id.setText("Id:");
+        panel_listado_producto.add(lbl_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         lbl_nombre.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_nombre.setForeground(new java.awt.Color(81, 124, 164));
-        lbl_nombre.setText("Nombre");
+        lbl_nombre.setText("Nombre:");
+        panel_listado_producto.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, -1));
+        panel_listado_producto.add(txt_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 126, -1));
 
         lbl_marca.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_marca.setForeground(new java.awt.Color(81, 124, 164));
         lbl_marca.setText("Marca:");
+        panel_listado_producto.add(lbl_marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-empty-48.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_vaciarActionPerformed(evt);
             }
         });
+        panel_listado_producto.add(btn_vaciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 60, -1));
 
-        lbl_logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\lo.png")); // NOI18N
+        lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lo.png"))); // NOI18N
+        panel_listado_producto.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        javax.swing.GroupLayout panel_listado_productoLayout = new javax.swing.GroupLayout(panel_listado_producto);
-        panel_listado_producto.setLayout(panel_listado_productoLayout);
-        panel_listado_productoLayout.setHorizontalGroup(
-            panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                .addGap(586, 586, 586)
-                                .addComponent(btn_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_buscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_logo)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_descripcion)
-                            .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                .addComponent(lbl_id)
-                                .addGap(12, 12, 12)
-                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_nombre)
-                                .addGap(17, 17, 17)
-                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(lbl_marca)
-                                .addGap(17, 17, 17)
-                                .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(lbl_title)))
-                .addGap(0, 7, Short.MAX_VALUE))
-        );
-        panel_listado_productoLayout.setVerticalGroup(
-            panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_logo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_descripcion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_id)
-                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_nombre)
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_marca)
-                            .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 26, Short.MAX_VALUE))
-        );
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
+        btn_eliminar.setToolTipText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        panel_listado_producto.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, -1, -1));
 
-        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 390));
+        getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 410));
 
         pack();
         setLocationRelativeTo(null);
@@ -314,26 +278,22 @@ DefaultTableModel model = new DefaultTableModel();
 //  Aqui definimos una variable que se llama outfile y esta es igual al lugar donde tenemos el archivo que queremos mostrar
        String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\producto.pdf";
         
-        Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
-        try{
-          JasperReport jr = (JasperReport) JRLoader.loadObject(frm_paciente_listado.class.getResource("/Reportes/producto.jasper"));
+       Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
+       try{
+       JasperReport jr = (JasperReport) JRLoader.loadObject(frm_paciente_listado.class.getResource("/Reportes/producto.jasper"));
            // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
-          Map parametros = new HashMap<>();
-          parametros.put("Titulo", "Reporte producto");
+       Map parametros = new HashMap<>();
+       parametros.put("Titulo", "Reporte producto");
             
-          JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
-          JasperViewer jv = new JasperViewer(jp, false);
-          jv.setVisible(true);          
+       JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
+       JasperViewer jv = new JasperViewer(jp, false);
+       jv.setVisible(true);          
         }
         catch (JRException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);  // usamos este catch para que muestre cualquier error que tenga la impresion del codigo
 }
 
     }//GEN-LAST:event_btn_imprimirActionPerformed
-
-    private void txt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombreActionPerformed
-       // Este es el texfield de la nombre  del producto desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_nombreActionPerformed
 
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
           // Este es el boton que permite vaciar todos los text field que esten llenos 
@@ -343,11 +303,25 @@ DefaultTableModel model = new DefaultTableModel();
     }//GEN-LAST:event_btn_vaciarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
+        // Este es un boton que funcina para buscar un producto en especifico
         
         MostrarProducto("Producto");
         
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // este boton funciona para eliminar un producto
+        String id = tabla_produc.getValueAt(tabla_produc.getSelectedRow(), 0).toString();     
+        EliminarProducto(id); // llamamos nuestro metodo para eliminar
+        MostrarProducto("");
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void tabla_producMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_producMouseClicked
+       // Este es un evento que al momento de darle click a una producto se rellenen todos los texfields con los datos de esta
+    txt_id.setText(tabla_produc.getValueAt(tabla_produc.getSelectedRow(), 0).toString());
+    txt_marca.setText(tabla_produc.getValueAt(tabla_produc.getSelectedRow(), 3).toString());
+    txt_nombre.setText(tabla_produc.getValueAt(tabla_produc.getSelectedRow(), 1).toString());
+    }//GEN-LAST:event_tabla_producMouseClicked
 
     /**
      * @param args the command line arguments
@@ -387,6 +361,7 @@ DefaultTableModel model = new DefaultTableModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_imprimir;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;

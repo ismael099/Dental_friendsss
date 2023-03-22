@@ -32,14 +32,14 @@ DefaultTableModel model;
      */
     public frm_listado_empleado() {
         initComponents();
-           this.model = (DefaultTableModel) tabla_empleado.getModel();
+        this.model = (DefaultTableModel) tabla_empleado.getModel();
         MostrarEmpleados(""); // esto es para que la tabla aparesca desde que ejecutemos la pantalla
       
     }
     
  public boolean RevisarEmpleado(String usuario){
         // Este metodo sirve para revisar al momento de insertar un nuevo empleado no se repita el id
-          PreparedStatement ps;
+        PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
         String query = "SELECT * FROM `empleado` WHERE `id` =?" ;
@@ -75,7 +75,7 @@ DefaultTableModel model;
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-      model.addColumn("ID");  // de esta manera se llena el defaulttablemodel
+        model.addColumn("ID");  // de esta manera se llena el defaulttablemodel
         model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("Sexo");
@@ -89,7 +89,7 @@ DefaultTableModel model;
       
         String [] dato = new String[8]; // aqui creamos un array para decirle a java lo que va a ejecutar
           if(empleados.equals("")){ // este es el if que dije que iba a usar
-            sql = "Select * from `empleado`"; // esta sql es el que aparece desde que entramos a la pantalla y es porque no estamos buscando nada
+          sql = "Select * from `empleado`"; // esta sql es el que aparece desde que entramos a la pantalla y es porque no estamos buscando nada
         }
           else {
           sql = "select * from `empleado` where `id_empleado` = '" + txt_id_empleado.getText()+ "'";// + " or nombre = '" + txt_empleado.getText()+ "'" + " or telefono = '" + txt_telefono.getText()+ "'" +  "or cedula = '" + txt_cedula.getText() + "'";
@@ -110,7 +110,7 @@ DefaultTableModel model;
             dato[6] =rs.getString(7);
             dato[7] =rs.getString(8);
                 
-                model.addRow(dato); // con esto le decimos a java que agregue todas esas filas que estan en el bucle se las agregue a la tabla
+            model.addRow(dato); // con esto le decimos a java que agregue todas esas filas que estan en el bucle se las agregue a la tabla
             }
         }catch(SQLException e)
         {
@@ -126,13 +126,13 @@ DefaultTableModel model;
       public void EliminarEmpleado(String id) { // este metodo sirve para eliminar un empleado registrado en la base de datos
         String sql = "delete from empleado where id_empleado = " + id;
         Statement st;
-         Connection cn = MyConnetion.getConnection();
+        Connection cn = MyConnetion.getConnection();
         try {
             st = cn.createStatement();
             int rs = st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
         } catch (SQLException e) {
-             JOptionPane.showMessageDialog(null,"Error" + e);
+            JOptionPane.showMessageDialog(null,"Error" + e);
         }
     }
     /**
@@ -299,19 +299,19 @@ DefaultTableModel model;
     private void btn_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imprimirActionPerformed
 //        Este es el boton que permite imprimir el listado de empleados 
 //  Aqui definimos una variable que se llama outfile y esta es igual al lugar donde tenemos el archivo que queremos mostrar
-          String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\empleado.pdf";
+        String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\empleado.pdf";
         
         Connection cn=MyConnetion.getConnection(); // definimos una nueva conexion y le ponemos el nombre de cn 
         try{
           
-            JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_empleado.class.getResource("/Reportes/empleado.jasper"));
+        JasperReport jr = (JasperReport) JRLoader.loadObject(frm_listado_empleado.class.getResource("/Reportes/empleado.jasper"));
             // creamos un nuevo jasper report y ejecutamos una libreria que nos perimite cargar un reporte de jasper ya guardado en una carpeta
-          Map parametros = new HashMap<>(); 
-          parametros.put("Titulo", "Reporte Empleados");
+        Map parametros = new HashMap<>(); 
+        parametros.put("Titulo", "Reporte Empleados");
             
-          JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
-          JasperViewer jv = new JasperViewer(jp, false);
-          jv.setVisible(true);          
+        JasperPrint jp = JasperFillManager.fillReport(jr, parametros, cn);
+        JasperViewer jv = new JasperViewer(jp, false);
+        jv.setVisible(true);          
         }
         catch (JRException ex) {
             JOptionPane.showMessageDialog(rootPane, ex); // usamos este catch para que muestre cualquier error que tenga la impresion del codigo
@@ -326,7 +326,7 @@ DefaultTableModel model;
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
 //         este boton permite eliminar un empleado registrado en la base de datos 
-          String id = tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString();
+        String id = tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString();
         Connection cn = MyConnetion.getConnection();
         EliminarEmpleado(id);
         MostrarEmpleados("");
@@ -341,7 +341,7 @@ DefaultTableModel model;
     txt_id_empleado.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString());
     txt_empleado.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 1).toString());
     txt_telefono.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 5).toString());
-      txt_cedula.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 7).toString());
+    txt_cedula.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 7).toString());
 
     }//GEN-LAST:event_tabla_empleadoMouseClicked
 

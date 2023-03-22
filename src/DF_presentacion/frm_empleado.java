@@ -28,7 +28,7 @@ DefaultTableModel model;
      */
     public frm_empleado() {
         initComponents();
-             this.model = (DefaultTableModel) tabla_empleado.getModel();
+        this.model = (DefaultTableModel) tabla_empleado.getModel();
         MostrarEmpleados("");
    
     }
@@ -36,7 +36,7 @@ DefaultTableModel model;
    
     public boolean RevisarEmpleado(String usuario){
         // Este metodo sirve para revisar al momento de insertar un nuevo empleado no se repita el id
-          PreparedStatement ps;
+        PreparedStatement ps;
         ResultSet rs;
         boolean checkUser = false;
         String query = "SELECT * FROM `empleado` WHERE `id` =? ";
@@ -47,7 +47,7 @@ DefaultTableModel model;
             rs = ps.executeQuery();
             
             if(rs.next()){
-                checkUser = true;
+            checkUser = true;
             }
         }   catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Error" + ex);
@@ -74,7 +74,7 @@ DefaultTableModel model;
         MyConnetion cc = new MyConnetion();
         Connection cn = MyConnetion.getConnection();
         RefrescarTabla();
-      model.addColumn("ID"); 
+        model.addColumn("ID"); 
         model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("Sexo");
@@ -101,7 +101,7 @@ DefaultTableModel model;
             dato[6] =rs.getString(7);
             dato[7] =rs.getString(8);
                 
-                model.addRow(dato);
+            model.addRow(dato);
             }
         }catch(SQLException e)
         {
@@ -111,19 +111,26 @@ DefaultTableModel model;
     public void ActualizarEmpleados (String id){
         // Este metodo funciona para actualizar un empleado ya registrado en la base de datos
   Connection con;
-
+  String cedu = txt_cedu.getText();
+   
+   if (cedu.equals("")){
+     JOptionPane.showMessageDialog(null, "Se necesitan los campos llenos para actualizar");
+   }
+   else {
+   
+   
     try {
         PreparedStatement ps;
         con = getConnection();
         ps = con.prepareStatement("UPDATE `empleado` SET nombre=?, apellido=?, sexo=?, direccion=?, telefono=?, salario=?,cedula=? WHERE id_empleado=?");
         ps.setString(8, id);
         ps.setString(1, txt_nombre.getText());
-         ps.setString(2, txt_apellido.getText());
-          ps.setString(3, (String) cmb_sex.getSelectedItem());
-            ps.setString(4, txt_direccion.getText());
-             ps.setString(5, txt_telefono.getText());
-               ps.setString(6, txt_salario.getText());
-         ps.setString(7, txt_cedu.getText());
+        ps.setString(2, txt_apellido.getText());
+        ps.setString(3, (String) cmb_sex.getSelectedItem());
+        ps.setString(4, txt_direccion.getText());
+        ps.setString(5, txt_telefono.getText());
+        ps.setString(6, txt_salario.getText());
+        ps.setString(7, txt_cedu.getText());
        
 
         int res = ps.executeUpdate();
@@ -141,14 +148,16 @@ DefaultTableModel model;
         JOptionPane.showMessageDialog(null, "error "+e);
     }
     }
+}
 public void Limpiar(){  // con este metodo vaciamos todos el textfields que tengamos
     try{
-       String nom = txt_nombre.getText();
-        String ape = txt_apellido.getText();
-        String sex =  String.valueOf(cmb_sex.getSelectedIndex());
-        String dir = txt_direccion.getText();
-        String tel = txt_telefono.getText();
-        String sal = txt_salario.getText();
+      txt_nombre.setText("");
+      txt_apellido.setText("");
+      cmb_sex.setSelectedIndex(-1);
+      txt_direccion.setText("");
+      txt_telefono.setText("");
+      txt_salario.setText("");
+      txt_cedu.setText("");
         
 
     
@@ -209,7 +218,7 @@ public void Limpiar(){  // con este metodo vaciamos todos el textfields que teng
         lbl_ape.setText("Apellido:");
         panel_empleado.add(lbl_ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
         panel_empleado.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 130, -1));
-        panel_empleado.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 114, -1));
+        panel_empleado.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 210, 120, -1));
 
         lbl_tel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_tel.setForeground(new java.awt.Color(81, 124, 164));
@@ -378,7 +387,7 @@ public void Limpiar(){  // con este metodo vaciamos todos el textfields que teng
     
         else{
         PreparedStatement ps;
-        String query = "INSERT INTO `empleado`(`id_empleado`, `nombre`, `apellido`, `sexo`, `direccion`, `telefono`,`salario`,`cedula`) VALUES (0,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO `empleado`(`nombre`, `apellido`, `sexo`, `direccion`, `telefono`,`salario`,`cedula`) VALUES (?,?,?,?,?,?,?)";
         try {
             ps = MyConnetion.getConnection().prepareStatement(query);
             
@@ -418,13 +427,13 @@ public void Limpiar(){  // con este metodo vaciamos todos el textfields que teng
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // Este boton funciona para actualizar un empleado ya registrado en la base de datos
            String id = tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 0).toString();
-        ActualizarEmpleados(id);
+           ActualizarEmpleados(id);
 //        MostrarEmpleados("");
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_listado_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listado_empleadoActionPerformed
         // Este boton es para ir al listado de los empleados
-           frm_listado_empleado mf = new frm_listado_empleado(); // aqui estamos creando un mf nuevo
+        frm_listado_empleado mf = new frm_listado_empleado(); // aqui estamos creando un mf nuevo
         mf.setVisible(true); // esto es para que la pantalla del main pueda ser visible y la otra desaparesca
         mf.pack();
         this.dispose();
@@ -432,7 +441,7 @@ public void Limpiar(){  // con este metodo vaciamos todos el textfields que teng
 
     private void tabla_empleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_empleadoMouseClicked
      // Este es un evento que al momento de darle click a un empleado se reseñen todos los texfields con los datos de este
-     txt_nombre.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 1).toString());
+    txt_nombre.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 1).toString());
     txt_apellido.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 2).toString());
     cmb_sex.setSelectedItem(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 3).toString());
     txt_direccion.setText(tabla_empleado.getValueAt(tabla_empleado.getSelectedRow(), 4).toString());

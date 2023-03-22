@@ -117,22 +117,15 @@ DefaultTableModel model;
    public void ActualizarPaciente(String id){
        // este metodo sirve para actualizar una factura registrada en la base de datos
        Connection con;
-// String nom = txt_nombre.getText();
-// String ced = txt_cedula.getText();
-// String core = txt_core.getText();
-//         if(nom.equals("")){
-//           JOptionPane.showMessageDialog(null, "Error al actualizar un paciente no puedes dejar el nombre vacio"); 
-//        }
-//         
-//         else if(ced.equals("")){
-//              JOptionPane.showMessageDialog(null, "Error al actualizar un paciente no puedes dejar la cedula vacia"); 
-//         }
-//         
-//         else if(core.equals("")){
-//              JOptionPane.showMessageDialog(null, "Error al actualizar un paciente no puedes dejar el correo vacio"); 
-//         }
-//        else {
-//            JOptionPane.showMessageDialog(null, "Error al actualizar un paciente");
+ String nom = txt_nombre.getText();
+ String ced = txt_cedula.getText();
+ String core = txt_core.getText();
+         if(nom.equals("") & ced.equals("") & core.equals("")){
+           JOptionPane.showMessageDialog(null, "Se necesitan los campos llenos para actualizar"); 
+        }
+
+        else {
+
     try {
         PreparedStatement ps;
         con = getConnection();
@@ -160,7 +153,7 @@ DefaultTableModel model;
     }
    }
    
-         
+   } 
          
     /**
      * This method is called from within the constructor to initialize the form.
