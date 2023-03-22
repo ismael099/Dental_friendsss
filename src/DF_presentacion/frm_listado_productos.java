@@ -145,6 +145,7 @@ DefaultTableModel model = new DefaultTableModel();
         lbl_marca = new javax.swing.JLabel();
         btn_vaciar = new javax.swing.JButton();
         lbl_logo = new javax.swing.JLabel();
+        btn_eliminar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado de productos");
@@ -216,7 +217,7 @@ DefaultTableModel model = new DefaultTableModel();
         lbl_marca.setForeground(new java.awt.Color(81, 124, 164));
         lbl_marca.setText("Marca:");
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-empty-48.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +226,14 @@ DefaultTableModel model = new DefaultTableModel();
         });
 
         lbl_logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_friends\\src\\Imagenes\\lo.png")); // NOI18N
+
+        btn_eliminar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\deleo\\OneDrive\\Documents\\NetBeansProjects\\Dental_Friends\\src\\Imagenes\\icons8-eliminar-32.png")); // NOI18N
+        btn_eliminar1.setToolTipText("Eliminar");
+        btn_eliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_listado_productoLayout = new javax.swing.GroupLayout(panel_listado_producto);
         panel_listado_producto.setLayout(panel_listado_productoLayout);
@@ -235,34 +244,39 @@ DefaultTableModel model = new DefaultTableModel();
                     .addGroup(panel_listado_productoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                .addGap(586, 586, 586)
-                                .addComponent(btn_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_buscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl_logo)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_descripcion)
                             .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                                .addComponent(lbl_id)
-                                .addGap(12, 12, 12)
-                                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_nombre)
-                                .addGap(17, 17, 17)
-                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_descripcion)
+                                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
+                                        .addComponent(lbl_id)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbl_nombre)
+                                        .addGap(17, 17, 17)
+                                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(lbl_marca)
+                                        .addGap(17, 17, 17)
+                                        .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(11, 11, 11)
-                                .addComponent(lbl_marca)
-                                .addGap(17, 17, 17)
-                                .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel_listado_productoLayout.createSequentialGroup()
                         .addGap(291, 291, 291)
                         .addComponent(lbl_title)))
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(0, 57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_productoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_eliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         panel_listado_productoLayout.setVerticalGroup(
             panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,27 +286,36 @@ DefaultTableModel model = new DefaultTableModel();
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_logo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_descripcion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel_listado_productoLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addComponent(lbl_descripcion)
+                        .addGap(20, 20, 20)
                         .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_id)
                             .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_nombre)
                             .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_marca)
-                            .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listado_productoLayout.createSequentialGroup()
+                        .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
+                        .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_eliminar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panel_listado_productoLayout.createSequentialGroup()
+                                .addGroup(panel_listado_productoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_imprimir)
+                                    .addComponent(btn_buscar))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(94, 94, 94))
+                    .addGroup(panel_listado_productoLayout.createSequentialGroup()
+                        .addComponent(btn_salir)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         getContentPane().add(panel_listado_producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 390));
@@ -343,11 +366,21 @@ DefaultTableModel model = new DefaultTableModel();
     }//GEN-LAST:event_btn_vaciarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
+        // Este boton permite buscar los productos:
         
         MostrarProducto("Producto");
         
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_eliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar1ActionPerformed
+       //         este boton permite eliminar un producto registrado en la base de datos
+        String id = tabla_produc.getValueAt(tabla_produc.getSelectedRow(), 0).toString();
+        Connection cn = MyConnetion.getConnection();
+        EliminarProducto(id);
+        MostrarProducto("");
+        
+        
+    }//GEN-LAST:event_btn_eliminar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,6 +420,7 @@ DefaultTableModel model = new DefaultTableModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
+    private javax.swing.JButton btn_eliminar1;
     private javax.swing.JButton btn_imprimir;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_vaciar;

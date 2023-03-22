@@ -19,7 +19,7 @@ public class MyConnetion {
     try{
        Class.forName("com.mysql.cj.jdbc.Driver");
        // llamamos a la libreria que nos permite conectar la base de datos
-       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dental_friend", "root", "greciamora");
+       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dental_friend", "root", "fake");
 
        // definimos a que va hacer igual la conexion
     } catch(ClassNotFoundException | SQLException ex){

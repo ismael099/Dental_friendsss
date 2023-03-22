@@ -261,7 +261,7 @@ public class frm_listado_admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        //         este boton permite eliminar un empleado registrado en la base de datos
+        //         este boton permite eliminar un administrador registrado en la base de datos
         String id = tabla_admin.getValueAt(tabla_admin.getSelectedRow(), 0).toString();
         Connection cn = MyConnetion.getConnection();
         EliminarAdmin(id);
@@ -278,12 +278,12 @@ public class frm_listado_admin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // Este boton permite buscar un empleado registrado en la base de datos
+        // Este boton permite buscar un administrador registrado en la base de datos
         MostrarAdmin("Administrador");
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_imprimirActionPerformed
-        //        Este es el boton que permite imprimir el listado de empleados
+        //        Este es el boton que permite imprimir el listado de administrador
         //  Aqui definimos una variable que se llama outfile y esta es igual al lugar donde tenemos el archivo que queremos mostrar
         String outFile = "C:\\Users\\jim3j\\OneDrive\\Documentos\\NetBeansProjects\\Dental_Friends\\src\\Reportes\\empleado.pdf";
 
