@@ -5,8 +5,13 @@
  */
 package DF_presentacion;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,9 +33,15 @@ public class frm_paciente_listado extends javax.swing.JFrame {
      */
     public frm_paciente_listado() {
         initComponents();
-//        MostrarPaciente("");
+        MostrarPaciente("");
     }
     
+    public void Limpiar (){
+    txt_id_paciente.setText("");
+    txt_cedula.setText("");
+    txt_paciente.setText("");
+    txt_telefono.setText("");
+    }
     public void RefrescarTabla(){ 
         try{
             model.setColumnCount(0); 
@@ -43,24 +54,59 @@ public class frm_paciente_listado extends javax.swing.JFrame {
     
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     public void MostrarPaciente (String paciente){
+          
+        String sql = "" +  paciente; 
+        Statement st;
+        MyConnetion cc = new MyConnetion();
+        Connection cn = MyConnetion.getConnection();
+        RefrescarTabla();
+        model.addColumn("ID");  
+        model.addColumn("Nombre");  
+        model.addColumn("Apellido");
+        model.addColumn("Direccion");
+        model.addColumn("Telefono");
+        model.addColumn("Cedula");
+        
+        
+        tabla_paci.setModel(model); 
+      
+        String [] dato = new String[6];
+          if(paciente.equals("")){ 
+            sql = "Select * from `paciente`"; 
+        }
+           else {
+          sql = "select * from `paciente` where `id_paciente` = '" + txt_id_paciente.getText()+ "'"+ " or nombre = '" + txt_paciente.getText()+ "'" + "or telefono = '" + txt_telefono.getText() +"' or cedula = '"+ txt_cedula.getText() +"'";
+          }
+        try{
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql); 
+            while(rs.next()) 
+            {  
+
+            dato[0] =rs.getString(1);
+            dato[1] =rs.getString(2);
+            dato[2] =rs.getString(3);
+            dato[3] =rs.getString(4);
+            dato[4] =rs.getString(5);
+            dato[5] =rs.getString(6);
+
+                model.addRow(dato);
+            }
+          
+          
+          
+          
+          
+          
+          
+          
+              } catch (SQLException ex) {
+               Logger.getLogger(frm_paciente_listado.class.getName()).log(Level.SEVERE, null, ex);
+           }
+     }
+
+
     
     
     
@@ -110,12 +156,6 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         lbl_nombre_paciente.setForeground(new java.awt.Color(81, 124, 164));
         lbl_nombre_paciente.setText("Nombre paciente");
 
-        txt_paciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_pacienteActionPerformed(evt);
-            }
-        });
-
         lbl_telefono.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         lbl_telefono.setForeground(new java.awt.Color(81, 124, 164));
         lbl_telefono.setText("Telefono");
@@ -124,7 +164,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         lbl_cedula.setForeground(new java.awt.Color(81, 124, 164));
         lbl_cedula.setText("Cedula");
 
-        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-eliminar-32.png"))); // NOI18N
+        btn_vaciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-empty-48.png"))); // NOI18N
         btn_vaciar.setToolTipText("Vaciar");
         btn_vaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +192,11 @@ public class frm_paciente_listado extends javax.swing.JFrame {
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-búsqueda-32.png"))); // NOI18N
         btn_buscar.setToolTipText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-imprimir-32.png"))); // NOI18N
         btn_imprimir.setToolTipText("Imprimir");
@@ -201,8 +246,8 @@ public class frm_paciente_listado extends javax.swing.JFrame {
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_cedula))
-                        .addGap(27, 27, 27)
-                        .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         panel_listado_pacienteLayout.setVerticalGroup(
@@ -215,8 +260,8 @@ public class frm_paciente_listado extends javax.swing.JFrame {
                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lbl_logo)))
-                .addGap(12, 12, 12)
-                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel_listado_pacienteLayout.createSequentialGroup()
                         .addGroup(panel_listado_pacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_paciente)
@@ -229,7 +274,7 @@ public class frm_paciente_listado extends javax.swing.JFrame {
                             .addComponent(txt_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btn_vaciar))
+                    .addComponent(btn_vaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(tabla_pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -255,12 +300,11 @@ public class frm_paciente_listado extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pacienteActionPerformed
-          // Este es el texfield del nombre del paciente desde aqui lo podemos modificar
-    }//GEN-LAST:event_txt_pacienteActionPerformed
-
     private void btn_vaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vaciarActionPerformed
        // Este es el boton que permite vaciar todos los text field que esten llenos 
+       
+       Limpiar();
+       
     }//GEN-LAST:event_btn_vaciarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
@@ -292,6 +336,15 @@ public class frm_paciente_listado extends javax.swing.JFrame {
 }
 
     }//GEN-LAST:event_btn_imprimirActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // Este boton permite buscar a los pacientes que esten registrados:
+        
+        MostrarPaciente("Paciente");
+        
+        
+        
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
